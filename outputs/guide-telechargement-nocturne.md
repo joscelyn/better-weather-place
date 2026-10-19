@@ -4,16 +4,20 @@ Date : 19 octobre 2026
 
 ## Ce que le script récupère
 
-`work/download_overnight.py` télécharge les fenêtres utiles des fichiers CHELSA mensuels 1991–2020 pour :
+`work/run_overnight.py` enchaîne deux phases reprenables :
+
+1. les fenêtres utiles des fichiers CHELSA mensuels 1991–2020 pour :
 
 - température moyenne (`tas`) ;
 - maximales moyennes (`tasmax`) ;
 - minimales moyennes (`tasmin`) ;
-- précipitations mensuelles (`pr`).
+- précipitations mensuelles (`pr`) ;
+
+2. les précipitations **quotidiennes** CERRA-Land 1991–2020, nécessaires au calcul des jours avec au moins 1 mm de pluie.
 
 Cela représente 1 440 sources. Le script ne copie pas les GeoTIFF mondiaux complets : les quatre fichiers d’un seul mois de 1991 pèsent déjà environ 613 Mo, soit un ordre de grandeur proche de **220 Go** pour les 1 440 fichiers mondiaux. Il lit uniquement la fenêtre Europe–Méditerranée grâce aux requêtes partielles des COG.
 
-Emprise par défaut : **25° O–45° E, 25–72° N**. Elle couvre l’Europe, l’Islande, l’Afrique du Nord et le bassin méditerranéen oriental. Les Canaries sont volontairement exclues de cette passe prioritaire.
+Emprise rectangulaire CHELSA par défaut : **25° O–45° E, 25–72° N**. Elle couvre l’Europe, l’Islande, l’Afrique du Nord et le bassin méditerranéen oriental. Le clip brut contient géographiquement les Canaries, mais elles restent exclues du masque et de la production prioritaire. Les tuiles CERRA-Land des Canaries ne sont pas téléchargées.
 
 Les clips conservent les valeurs brutes, le facteur d’échelle, l’offset et la valeur sans donnée de CHELSA. Ils pourront donc servir aux normales, aux COG finaux et aux contrôles sans nouveau téléchargement.
 
@@ -23,7 +27,7 @@ Depuis le dossier du projet :
 
 ```bash
 mkdir -p work/downloads
-caffeinate -i work/.venv/bin/python work/download_overnight.py --hours 10 2>&1 | tee work/downloads/nuit-chelsa.log
+caffeinate -i work/.venv/bin/python work/run_overnight.py --hours 10 2>&1 | tee work/downloads/nuit-complete.log
 ```
 
 Le Mac restera éveillé pendant l’exécution. La durée de dix heures est une limite souple : le fichier en cours est terminé avant l’arrêt.
@@ -32,6 +36,7 @@ Avant de lancer, vérifier le plan et l’espace disque sans télécharger :
 
 ```bash
 work/.venv/bin/python work/download_overnight.py --dry-run
+work/.venv/bin/python work/download_cerra_rain.py --dry-run
 ```
 
 ## Reprise et contrôles
@@ -48,19 +53,23 @@ Pour vérifier ensuite ce qui manque :
 
 ```bash
 work/.venv/bin/python work/download_overnight.py --verify-only
+work/.venv/bin/python work/download_cerra_rain.py --verify-only
 ```
 
-Un code de sortie 0 signifie que les 1 440 clips sont présents ; 2 signifie que le téléchargement doit être relancé.
+Un code de sortie 0 signifie que la phase contrôlée est complète ; 2 signifie que le téléchargement doit être relancé.
 
 ## Volume et durée
 
-La taille exacte dépend de la compression spatiale de chaque fichier. Le test réel du premier mois de 1991 donne **32,2 Mio pour quatre clips** (6,6 à 8,7 Mio chacun), téléchargés en **37 secondes** au total. Si cet ordre de grandeur reste stable, les 1 440 clips occuperont environ **11 à 13 Gio** et demanderont autour de **quatre heures** à 1 Mo/s, hors ralentissements et nouvelles tentatives. La limite de dix heures laisse donc une marge confortable, tout en permettant une reprise automatique la nuit suivante si nécessaire.
+La taille exacte dépend de la compression spatiale de chaque fichier. Le test réel du premier mois de 1991 donne **32,2 Mio pour quatre clips CHELSA** (6,6 à 8,7 Mio chacun), téléchargés en **37 secondes** au total. Si cet ordre de grandeur reste stable, les 1 440 clips occuperont environ **11 à 13 Gio** et demanderont autour de **quatre heures** à 1 Mo/s.
 
-## CERRA-Land et SARAH-3
+Copernicus limite chaque extraction CERRA-Land à 0,5° × 0,5°. Le script ne demande que les tuiles rencontrant les terres Natural Earth, traite le sud en premier et lance huit requêtes parallèles. Un test alpin complet sur trente ans pèse **4,28 Mio**. L’ordre de grandeur de la pluie quotidienne complète est d’environ **33 Gio supplémentaires**. Elle pourra donc demander plus d’une nuit et sera reprise automatiquement.
 
-Ces deux sources ne doivent pas être mélangées à la passe CHELSA :
+Le disque contient actuellement environ **31 Gio libres**, moins que les 44–46 Gio estimés pour les deux phases complètes. Le lanceur conserve par défaut **15 Gio libres** : il privilégiera CHELSA, téléchargera ensuite autant de pluie quotidienne que possible, puis s’arrêtera proprement. Il faudra libérer environ 30 Gio supplémentaires ou déplacer `work/downloads/` vers un disque plus grand pour terminer l’ensemble.
 
-- les jours de pluie exigent les précipitations **quotidiennes** CERRA-Land, soit un volume nettement supérieur ; le nouveau service Copernicus propose un accès Zarr ou des extractions par zone, qui seront traités par blocs après CHELSA ;
+## SARAH-3
+
+La grille d’ensoleillement reste séparée :
+
 - les fichiers numériques SARAH-3 sont gratuits, mais leur téléchargement en masse passe par le CM SAF ou l’EUMETSAT Data Store et nécessite un compte/jeton EUMETSAT distinct. Le WMS public utilisé pendant la validation fournit les normales et des valeurs ponctuelles, mais pas un raster numérique de production.
 
-Le téléchargement nocturne actuel couvre donc quatre des six couches climatiques. Il évite de lancer silencieusement une opération de plusieurs centaines de gigaoctets ou une source pour laquelle les identifiants nécessaires ne sont pas encore disponibles.
+Le téléchargement nocturne actuel couvre donc les quatre couches CHELSA et la matière première de la cinquième couche, les jours de pluie. SARAH-3 demeure la seule source non ajoutée au lanceur faute d’identifiants EUMETSAT.

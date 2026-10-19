@@ -41,6 +41,8 @@ Période de référence : **1991–2020**. Une vue récente **1996–2025** sera
 
 Les identifiants Copernicus restent dans le fichier privé `~/.cdsapirc` et ne sont jamais stockés dans ce dépôt.
 
+Le téléchargement reprenable se lance avec `work/run_overnight.py`. Il récupère d’abord les quatre variables CHELSA, puis les précipitations quotidiennes CERRA-Land par tuiles terrestres de 0,5°, Canaries exclues. Une réserve d’espace disque empêche le remplissage du volume local.
+
 La validation actuelle comprend les douze mois 1991–2020, un contrôle indépendant par stations GHCN-Daily, une comparaison annuelle CHELSA/CERRA-Land sur 14 points terrestres hors Canaries, cinq fenêtres température/relief couvrant Alpes, Pyrénées, Atlas, Tenerife et Tromsø, ainsi qu’un contrôle CERRA/WMO sur dix stations d’ensoleillement au nord de 65° N. Au Maroc, les normales WMO de 25 stations confirment CHELSA pour les températures et précipitations et CERRA-Land pour les jours de pluie ; Ifrane reste une exception liée au relief et Essaouira un cas côtier mixte. Le masque terre/mer retenu est le WBM du Copernicus DEM GLO-30. L’emprise native CERRA, exportée dans `outputs/emprise-cerra-officielle.geojson`, fixe la limite commune des couches hybrides. CERRA peut servir de complément nordique indicatif, mais la correction multiplicative unique a été rejetée ; la correction estivale des Canaries est documentée mais non prioritaire.
 
 Attribution requise pour le relief adapté : « produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved ».
