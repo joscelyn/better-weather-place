@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import getpass
 import hashlib
 import json
 import random
@@ -24,6 +25,13 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "work/downloads/sarah3-monthly"
 RETRY_DELAYS_SECONDS = (5, 15, 30, 60, 120, 300)
 CHUNK_SIZE = 1024 * 1024
+EXPECTED_FILES = {
+    "ORD70729.tar": {
+        "bytes": 2_971_361_280,
+        "md5": "b253bef2a734e52a4417c1b16a32d5ae",
+        "products": 360,
+    }
+}
 
 
 @dataclass(frozen=True)
@@ -86,12 +94,14 @@ def parse_manifest(path: Path) -> list[Download]:
     return downloads
 
 
-def sha256(path: Path) -> str:
-    digest = hashlib.sha256()
+def file_digests(path: Path) -> tuple[str, str]:
+    sha256_digest = hashlib.sha256()
+    md5_digest = hashlib.md5(usedforsecurity=False)
     with path.open("rb") as stream:
         for chunk in iter(lambda: stream.read(4 * 1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
+            sha256_digest.update(chunk)
+            md5_digest.update(chunk)
+    return sha256_digest.hexdigest(), md5_digest.hexdigest()
 
 
 def sidecar_for(path: Path) -> Path:
@@ -151,11 +161,15 @@ def is_completed(output: Path, job: Download) -> bool:
         return False
     try:
         metadata = json.loads(sidecar.read_text())
-        return (
+        valid = (
             metadata.get("source") == safe_url(job.url)
             and metadata.get("bytes") == final.stat().st_size
-            and metadata.get("sha256") == sha256(final)
         )
+        expected = EXPECTED_FILES.get(job.filename)
+        if expected:
+            valid = valid and metadata.get("bytes") == expected["bytes"]
+            valid = valid and metadata.get("md5") == expected["md5"]
+        return valid and bool(metadata.get("sha256"))
     except (OSError, ValueError, json.JSONDecodeError):
         return False
 
@@ -184,9 +198,8 @@ def download_one(session: requests.Session, output: Path, job: Download) -> dict
             content_range = response.headers.get("Content-Range", "")
             remote_size = content_range.rsplit("/", 1)[-1]
             if remote_size.isdigit() and int(remote_size) == existing:
-                temporary.replace(final)
-                validation = validate_payload(final, job.filename)
-                return finish(final, job, validation, started, resumed=True)
+                validation = validate_payload(temporary, job.filename)
+                return finish(temporary, final, job, validation, started, resumed=True)
         response.raise_for_status()
         resumed = existing > 0 and response.status_code == 206
         if existing and not resumed:
@@ -203,17 +216,32 @@ def download_one(session: requests.Session, output: Path, job: Download) -> dict
             f"{temporary.stat().st_size} au lieu de {expected} octets"
         )
     validation = validate_payload(temporary, job.filename)
-    temporary.replace(final)
-    return finish(final, job, validation, started, resumed)
+    return finish(temporary, final, job, validation, started, resumed)
 
 
 def finish(
-    final: Path, job: Download, validation: dict, started: float, resumed: bool
+    temporary: Path, final: Path, job: Download, validation: dict,
+    started: float, resumed: bool,
 ) -> dict:
+    size = temporary.stat().st_size
+    expected = EXPECTED_FILES.get(job.filename)
+    if expected and size != expected["bytes"]:
+        raise RuntimeError(
+            f"Taille CM SAF incorrecte pour {job.filename} : {size} au lieu de "
+            f"{expected['bytes']} octets"
+        )
+    sha256_value, md5_value = file_digests(temporary)
+    if expected and md5_value != expected["md5"]:
+        raise RuntimeError(
+            f"MD5 CM SAF incorrect pour {job.filename} : {md5_value}"
+        )
+    temporary.replace(final)
     metadata = {
         "order_id": "ORD70729", "filename": job.filename,
-        "source": safe_url(job.url), "bytes": final.stat().st_size,
-        "sha256": sha256(final), "resumed": resumed, **validation,
+        "source": safe_url(job.url), "bytes": size,
+        "sha256": sha256_value, "md5": md5_value,
+        "expected_products": expected["products"] if expected else None,
+        "resumed": resumed, **validation,
         "elapsed_seconds": round(time.monotonic() - started, 3),
         "completed_at": datetime.now(timezone.utc).isoformat(),
     }
@@ -240,6 +268,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Télécharge la commande CM SAF ORD70729.")
     parser.add_argument("--url-file", type=Path, required=True)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument("--username", default="routcm")
     parser.add_argument("--hours", type=float, default=10.0)
     parser.add_argument("--minimum-free-gb", type=float, default=10.0)
     parser.add_argument("--dry-run", action="store_true")
@@ -260,6 +289,9 @@ def main() -> int:
     failures = 0
     with requests.Session() as session:
         session.headers["User-Agent"] = "better-weather-place/1.0 (CM SAF order ORD70729)"
+        if args.username:
+            password = getpass.getpass(f"Mot de passe HTTPS CM SAF pour {args.username} : ")
+            session.auth = (args.username, password)
         for position, job in enumerate(pending, start=1):
             if time.monotonic() >= deadline:
                 print("Durée maximale atteinte; arrêt propre entre deux fichiers.")

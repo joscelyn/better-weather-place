@@ -26,15 +26,22 @@ la première version.
 
 ## Préparer les fichiers reçus
 
-À la livraison, enregistrer les liens HTTPS dans un fichier local ignoré par Git,
-un lien par ligne :
+La livraison de `ORD70729` contient une archive unique :
+
+- fichier : `ORD70729.tar` ;
+- taille : `2 971 361 280` octets, soit 2,8 Gio ;
+- contenu annoncé : 360 produits ;
+- MD5 : `b253bef2a734e52a4417c1b16a32d5ae`.
+
+Son lien HTTPS est enregistré dans un fichier local ignoré par Git :
 
 ```text
 work/downloads/sarah3-ORD70729-urls.txt
 ```
 
-Ne pas publier ce fichier : les liens peuvent contenir des paramètres privés ou
-temporaires. Vérifier le manifeste, puis lancer le téléchargement reprenable :
+Le mot de passe n’est enregistré nulle part. Le téléchargeur le demande sans
+l’afficher au lancement, puis vérifie la taille exacte et le MD5 officiel avant
+de valider l’archive. Vérifier le manifeste, puis lancer :
 
 ```bash
 work/.venv/bin/python work/download_sarah_order.py \
@@ -51,8 +58,17 @@ contrôle l’espace disque et vérifie le contenu NetCDF, ZIP ou TAR avant de m
 un fichier comme terminé. Les paramètres des URL ne sont jamais copiés dans les
 journaux ni dans les fichiers de métadonnées.
 
-Si le serveur livre une archive, la décompresser ensuite. Tous les NetCDF doivent
-se trouver, directement ou dans des sous-dossiers, sous :
+Après le téléchargement, contrôler puis extraire l’archive de manière reprenable :
+
+```bash
+work/.venv/bin/python work/extract_sarah_order.py --dry-run
+work/.venv/bin/python work/extract_sarah_order.py
+```
+
+Le script refuse les liens et chemins TAR dangereux, exige exactement 360 NetCDF,
+contrôle leur taille extraite et vérifie la présence d’une variable de durée
+d’ensoleillement dans chaque fichier. Tous les NetCDF se trouvent ensuite,
+directement ou dans des sous-dossiers, sous :
 
 ```text
 work/downloads/sarah3-monthly/
