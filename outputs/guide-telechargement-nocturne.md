@@ -73,7 +73,7 @@ la commande manuelle peut être préparée :
 
 - produit mensuel `SDU — Sunshine Duration`, statistique `Sum`, maille `0,05°` ;
 - période 1991-01-01 à 2020-12-01, NetCDF4 ;
-- environ 2,7 Go avant éventuelle découpe du domaine ;
+- 2,8 Go confirmés pour la commande complète sans découpe de domaine ;
 - procédure et traitement local : `outputs/guide-production-normales-sarah3.md`.
 
 Le lanceur nocturne couvre les quatre couches CHELSA et la matière première des

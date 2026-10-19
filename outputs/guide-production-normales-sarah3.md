@@ -17,12 +17,12 @@ Dans le WUI CM SAF, choisir exactement :
 - format : **NetCDF4** ;
 - type : commande unique, et non « standing order ».
 
-La fiche officielle annonce 4,0 Go pour 1983–2026. Par prorata, les 360 mois de
-1991–2020 représentent environ **2,7 Go** sur le disque Meteosat complet. Si le WUI
-propose l’adaptation de domaine, demander `N 65`, `S 25`, `W -25`, `E 45` en
-conservant la maille native de `0,05°`. Ce rectangle contient aussi les Canaries,
-mais aucun traitement spécifique ne leur est appliqué et elles resteront hors du
-masque prioritaire de la première version.
+La commande `ORD70729`, soumise le 19 octobre 2026 sans découpe de domaine,
+confirme un volume de **2,8 Go** pour les 360 mois. Le pipeline effectuera la
+découpe `N 65`, `S 25`, `W -25`, `E 45` localement en conservant la maille native
+de `0,05°`. Ce rectangle contient aussi les Canaries, mais aucun traitement
+spécifique ne leur est appliqué et elles resteront hors du masque prioritaire de
+la première version.
 
 ## Préparer les fichiers reçus
 
