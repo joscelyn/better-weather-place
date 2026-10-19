@@ -68,8 +68,15 @@ Le disque contient actuellement environ **31 Gio libres**, moins que les 44–46
 
 ## SARAH-3
 
-La grille d’ensoleillement reste séparée :
+La grille d’ensoleillement reste séparée. Le compte CM SAF est désormais créé et
+la commande manuelle peut être préparée :
 
-- les fichiers numériques SARAH-3 sont gratuits, mais leur téléchargement en masse passe par le CM SAF ou l’EUMETSAT Data Store et nécessite un compte/jeton EUMETSAT distinct. Le WMS public utilisé pendant la validation fournit les normales et des valeurs ponctuelles, mais pas un raster numérique de production.
+- produit mensuel `SDU — Sunshine Duration`, statistique `Sum`, maille `0,05°` ;
+- période 1991-01-01 à 2020-12-01, NetCDF4 ;
+- environ 2,7 Go avant éventuelle découpe du domaine ;
+- procédure et traitement local : `outputs/guide-production-normales-sarah3.md`.
 
-Le téléchargement nocturne actuel couvre donc les quatre couches CHELSA et la matière première de la cinquième couche, les jours de pluie. SARAH-3 demeure la seule source non ajoutée au lanceur faute d’identifiants EUMETSAT.
+Le lanceur nocturne couvre les quatre couches CHELSA et la matière première des
+jours de pluie. SARAH-3 n’y est pas ajouté : le WUI prépare d’abord la commande
+et fournit ensuite ses propres liens de téléchargement. Les fichiers récupérés
+sont transformés par `work/build_sarah_normals.py`.

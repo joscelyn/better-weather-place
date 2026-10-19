@@ -33,6 +33,11 @@ Période de référence : **1991–2020**. Une vue récente **1996–2025** sera
 - NOAA GHCN-Daily comme contrôle indépendant par stations.
 - normales WMO/NCEI 1991–2020 comme contrôle indépendant de l’ensoleillement nordique ainsi que des températures, précipitations et jours de pluie au Maroc.
 
+Le traitement de production SARAH-3 est prêt : après la commande CM SAF des 360
+sommes mensuelles 1991–2020, `work/build_sarah_normals.py` contrôle l’inventaire
+et produit les douze COG d’ensoleillement. Voir
+`outputs/guide-production-normales-sarah3.md`.
+
 ## Organisation
 
 - `outputs/` : rapport et résultats lisibles de l’étape 1 ;
