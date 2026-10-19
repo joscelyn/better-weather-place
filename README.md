@@ -16,6 +16,8 @@ Le pilote complémentaire de relief détaillé est également terminé sur les A
 
 Les douze normales mensuelles 1991–2020 des températures moyenne, maximale et minimale sont maintenant calculées sur le domaine témoin. La moyenne tient dans la plage −30 à 40 °C, mais cette borne saturerait près de 20 % des maximales de juillet. La palette thermique commune est donc étendue à −40–50 °C en conservant toutes les couleurs intermédiaires. Les détails se trouvent dans `outputs/rapport-palette-temperature-moyenne.md` et `outputs/rapport-palettes-temperatures-extremes.md`.
 
+Les douze normales de précipitations sont également calculées. La plage 0–400 mm/mois ne sature aucun pixel du témoin et les seuils rapprochés sous 20 mm distinguent correctement les zones sèches recherchées. Le contrôle détaillé est documenté dans `outputs/rapport-palette-precipitations.md`.
+
 Période de référence : **1991–2020**. Une vue récente **1996–2025** sera étudiée séparément.
 
 ## Sources candidates

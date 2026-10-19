@@ -76,6 +76,8 @@ L’audit séparé des maximales et minimales montre toutefois que 19,91 % des m
 
 La palette thermique étendue ne sature aucun pixel du domaine témoin. Elle reste à contrôler sur la Scandinavie et l’Europe orientale avant la production complète.
 
+L’audit des précipitations est également terminé sur les douze normales du témoin. La plage observée va de 0 à 348,1 mm/mois et aucun pixel ne dépasse la borne de 400 mm. Les seuils rapprochés de 5, 10 et 20 mm sont conservés : en janvier, 23,97 % des pixels sont sous 10 mm, et cette proportion atteint 64,37 % en juillet. La borne humide reste à vérifier sur l’Europe atlantique et la Norvège.
+
 ## Contrôles exigés pour chaque fichier final
 
 1. douze mois présents pour chaque variable ;

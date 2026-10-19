@@ -143,7 +143,9 @@ Recommandations :
 
 Les seuils définitifs doivent être calculés sur les distributions complètes 1991–2020, pas choisis sur quelques points tests.
 
-Un audit exact des douze normales 1991–2020 est terminé pour les trois variables thermiques sur le domaine témoin Maroc–Méditerranée occidentale–Alpes. La plage initiale −30 à 40 °C convient à la moyenne, mais saturerait 19,91 % des maximales de juillet. Deux couleurs terminales à −40 et 50 °C ont donc été ajoutées sans modifier les correspondances existantes. Le contrôle du domaine européen complet, puis les audits des précipitations, jours de pluie et de l’ensoleillement, restent nécessaires avant de figer toutes les palettes de production.
+Un audit exact des douze normales 1991–2020 est terminé pour les trois variables thermiques sur le domaine témoin Maroc–Méditerranée occidentale–Alpes. La plage initiale −30 à 40 °C convient à la moyenne, mais saturerait 19,91 % des maximales de juillet. Deux couleurs terminales à −40 et 50 °C ont donc été ajoutées sans modifier les correspondances existantes.
+
+L’audit des précipitations confirme ensuite la plage 0–400 mm/mois sur le témoin, avec un maximum observé de 348,1 mm et aucun pixel saturé. Les seuils fins sous 20 mm sont conservés pour différencier les secteurs secs. Le contrôle du domaine européen complet, puis les audits des jours de pluie et de l’ensoleillement, restent nécessaires avant de figer toutes les palettes de production.
 
 ## 7. Découpage de l’étape 2
 

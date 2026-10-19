@@ -170,8 +170,16 @@
       "native_max_zoom": 7,
       "storage": { "dtype": "uint16", "scale_factor": 0.1, "nodata": 65535 },
       "palette": {
-        "status": "provisional-until-full-domain-distribution",
+        "status": "validated-on-western-mediterranean-pilot-pending-full-domain",
         "type": "sequential",
+        "pilot_audit": {
+          "bounds": [-10.0, 29.0, 8.0, 47.0],
+          "land_pixels_per_month": 3098918,
+          "minimum_mm_per_month": 0.0,
+          "maximum_mm_per_month": 348.1,
+          "above_400mm_percent": 0.0,
+          "january_below_10mm_percent": 23.97
+        },
         "stops": [
           [0, "#f7fbff"], [5, "#e3eef9"], [10, "#cfe1f2"],
           [20, "#9ecae1"], [40, "#6baed6"], [60, "#4292c6"],
