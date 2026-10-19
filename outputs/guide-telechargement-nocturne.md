@@ -47,7 +47,7 @@ work/.venv/bin/python work/download_cerra_rain.py --dry-run
 - un échec définitif est journalisé puis les autres fichiers continuent ;
 - `Ctrl-C` arrête proprement entre les opérations ;
 - les fichiers partiels ne sont jamais considérés comme terminés ;
-- le script s’arrête si l’espace libre descend sous 20 Gio.
+- le lanceur complet s’arrête si l’espace libre descend sous la réserve de 15 Gio.
 
 Pour vérifier ensuite ce qui manque :
 
