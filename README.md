@@ -18,6 +18,8 @@ Les douze normales mensuelles 1991–2020 des températures moyenne, maximale et
 
 Les douze normales de précipitations sont également calculées. La plage 0–400 mm/mois ne sature aucun pixel du témoin et les seuils rapprochés sous 20 mm distinguent correctement les zones sèches recherchées. Le contrôle détaillé est documenté dans `outputs/rapport-palette-precipitations.md`.
 
+La palette des jours de pluie a été contrôlée sur 906 normales mensuelles CERRA-Land, GHCN et WMO. Le maximum observé est 21,67 jours/mois ; une borne terminale à 31 jours a été ajoutée pour respecter le maximum physique sans toucher aux couleurs 0–25. Voir `outputs/rapport-palette-jours-pluie.md`.
+
 Période de référence : **1991–2020**. Une vue récente **1996–2025** sera étudiée séparément.
 
 ## Sources candidates

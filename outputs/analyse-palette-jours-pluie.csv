@@ -1,0 +1,907 @@
+source,point,month,rainy_days_ge_1mm
+Stations GHCN,alpes / Annecy,1,9.433333333333334
+Stations GHCN,alpes / Annecy,2,7.866666666666666
+Stations GHCN,alpes / Annecy,3,8.133333333333333
+Stations GHCN,alpes / Annecy,4,8.633333333333333
+Stations GHCN,alpes / Annecy,5,10.166666666666666
+Stations GHCN,alpes / Annecy,6,9.033333333333331
+Stations GHCN,alpes / Annecy,7,8.033333333333333
+Stations GHCN,alpes / Annecy,8,7.833333333333333
+Stations GHCN,alpes / Annecy,9,8.266666666666667
+Stations GHCN,alpes / Annecy,10,9.666666666666666
+Stations GHCN,alpes / Annecy,11,9.866666666666667
+Stations GHCN,alpes / Annecy,12,10.3
+Stations GHCN,alpes / Chamonix,1,12.74074074074074
+Stations GHCN,alpes / Chamonix,2,11.89655172413793
+Stations GHCN,alpes / Chamonix,3,13.266666666666667
+Stations GHCN,alpes / Chamonix,4,13.7
+Stations GHCN,alpes / Chamonix,5,15.433333333333334
+Stations GHCN,alpes / Chamonix,6,13.2
+Stations GHCN,alpes / Chamonix,7,12.7
+Stations GHCN,alpes / Chamonix,8,12.5
+Stations GHCN,alpes / Chamonix,9,10.79310344827586
+Stations GHCN,alpes / Chamonix,10,12.2
+Stations GHCN,alpes / Chamonix,11,13.466666666666669
+Stations GHCN,alpes / Chamonix,12,14.10344827586207
+Stations GHCN,alpes / Mont-Blanc,1,12.74074074074074
+Stations GHCN,alpes / Mont-Blanc,2,11.89655172413793
+Stations GHCN,alpes / Mont-Blanc,3,13.266666666666667
+Stations GHCN,alpes / Mont-Blanc,4,13.7
+Stations GHCN,alpes / Mont-Blanc,5,15.433333333333334
+Stations GHCN,alpes / Mont-Blanc,6,13.2
+Stations GHCN,alpes / Mont-Blanc,7,12.7
+Stations GHCN,alpes / Mont-Blanc,8,12.5
+Stations GHCN,alpes / Mont-Blanc,9,10.79310344827586
+Stations GHCN,alpes / Mont-Blanc,10,12.2
+Stations GHCN,alpes / Mont-Blanc,11,13.466666666666669
+Stations GHCN,alpes / Mont-Blanc,12,14.10344827586207
+Stations GHCN,pyrenees / Perpignan,1,5.033333333333333
+Stations GHCN,pyrenees / Perpignan,2,3.8
+Stations GHCN,pyrenees / Perpignan,3,4.866666666666666
+Stations GHCN,pyrenees / Perpignan,4,6.233333333333333
+Stations GHCN,pyrenees / Perpignan,5,5.733333333333333
+Stations GHCN,pyrenees / Perpignan,6,3.7666666666666666
+Stations GHCN,pyrenees / Perpignan,7,2.6333333333333333
+Stations GHCN,pyrenees / Perpignan,8,3.1333333333333333
+Stations GHCN,pyrenees / Perpignan,9,4.366666666666666
+Stations GHCN,pyrenees / Perpignan,10,5.033333333333333
+Stations GHCN,pyrenees / Perpignan,11,4.933333333333334
+Stations GHCN,pyrenees / Perpignan,12,4.7
+Stations GHCN,pyrenees / Font-Romeu,1,5.033333333333333
+Stations GHCN,pyrenees / Font-Romeu,2,3.8
+Stations GHCN,pyrenees / Font-Romeu,3,4.866666666666666
+Stations GHCN,pyrenees / Font-Romeu,4,6.233333333333333
+Stations GHCN,pyrenees / Font-Romeu,5,5.733333333333333
+Stations GHCN,pyrenees / Font-Romeu,6,3.7666666666666666
+Stations GHCN,pyrenees / Font-Romeu,7,2.6333333333333333
+Stations GHCN,pyrenees / Font-Romeu,8,3.1333333333333333
+Stations GHCN,pyrenees / Font-Romeu,9,4.366666666666666
+Stations GHCN,pyrenees / Font-Romeu,10,5.033333333333333
+Stations GHCN,pyrenees / Font-Romeu,11,4.933333333333334
+Stations GHCN,pyrenees / Font-Romeu,12,4.7
+Stations GHCN,portugal-galice / Porto,1,14.884615384615383
+Stations GHCN,portugal-galice / Porto,2,11.0
+Stations GHCN,portugal-galice / Porto,3,12.214285714285714
+Stations GHCN,portugal-galice / Porto,4,12.655172413793103
+Stations GHCN,portugal-galice / Porto,5,10.827586206896552
+Stations GHCN,portugal-galice / Porto,6,6.814814814814815
+Stations GHCN,portugal-galice / Porto,7,5.074074074074074
+Stations GHCN,portugal-galice / Porto,8,5.269230769230769
+Stations GHCN,portugal-galice / Porto,12,14.8
+Stations GHCN,portugal-galice / Santiago,1,16.125
+Stations GHCN,portugal-galice / Santiago,3,12.857142857142858
+Stations GHCN,portugal-galice / Santiago,4,13.714285714285714
+Stations GHCN,portugal-galice / Santiago,5,10.933333333333334
+Stations GHCN,portugal-galice / Santiago,7,5.44
+Stations GHCN,portugal-galice / Santiago,9,8.75
+Stations GHCN,portugal-galice / Santiago,10,14.04
+Stations GHCN,portugal-galice / Santiago,11,15.884615384615383
+Stations GHCN,portugal-galice / Santiago,12,16.125
+Stations GHCN,portugal-galice / Faro,1,6.185185185185185
+Stations GHCN,portugal-galice / Faro,2,4.64
+Stations GHCN,portugal-galice / Faro,3,5.296296296296297
+Stations GHCN,portugal-galice / Faro,4,5.76
+Stations GHCN,portugal-galice / Faro,5,4.103448275862069
+Stations GHCN,portugal-galice / Faro,6,0.9
+Stations GHCN,portugal-galice / Faro,7,0.2
+Stations GHCN,portugal-galice / Faro,8,0.4482758620689655
+Stations GHCN,portugal-galice / Faro,9,2.466666666666667
+Stations GHCN,portugal-galice / Faro,10,6.269230769230769
+Stations GHCN,portugal-galice / Faro,11,5.964285714285714
+Stations GHCN,portugal-galice / Faro,12,6.75
+Stations GHCN,andalousie / Malaga,1,5.366666666666666
+Stations GHCN,andalousie / Malaga,2,4.555555555555555
+Stations GHCN,andalousie / Malaga,3,5.068965517241379
+Stations GHCN,andalousie / Malaga,4,4.433333333333334
+Stations GHCN,andalousie / Malaga,5,3.3076923076923075
+Stations GHCN,andalousie / Malaga,6,0.6333333333333333
+Stations GHCN,andalousie / Malaga,7,0.0333333333333333
+Stations GHCN,andalousie / Malaga,8,0.4333333333333333
+Stations GHCN,andalousie / Malaga,9,2.142857142857143
+Stations GHCN,andalousie / Malaga,10,4.466666666666667
+Stations GHCN,andalousie / Malaga,11,5.433333333333334
+Stations GHCN,andalousie / Malaga,12,5.714285714285714
+Stations GHCN,andalousie / Grenade,1,5.866666666666666
+Stations GHCN,andalousie / Grenade,2,5.571428571428571
+Stations GHCN,andalousie / Grenade,3,5.8
+Stations GHCN,andalousie / Grenade,4,5.8
+Stations GHCN,andalousie / Grenade,5,4.166666666666667
+Stations GHCN,andalousie / Grenade,6,1.4666666666666666
+Stations GHCN,andalousie / Grenade,7,0.0666666666666666
+Stations GHCN,andalousie / Grenade,8,0.4333333333333333
+Stations GHCN,andalousie / Grenade,9,3.2666666666666666
+Stations GHCN,andalousie / Grenade,10,5.133333333333334
+Stations GHCN,andalousie / Grenade,11,6.266666666666667
+Stations GHCN,andalousie / Grenade,12,6.533333333333333
+Stations GHCN,nord / Tromso,1,15.066666666666666
+Stations GHCN,nord / Tromso,2,12.633333333333333
+Stations GHCN,nord / Tromso,3,14.366666666666667
+Stations GHCN,nord / Tromso,4,12.5
+Stations GHCN,nord / Tromso,5,11.333333333333334
+Stations GHCN,nord / Tromso,6,10.666666666666666
+Stations GHCN,nord / Tromso,7,11.4
+Stations GHCN,nord / Tromso,8,12.933333333333334
+Stations GHCN,nord / Tromso,9,15.2
+Stations GHCN,nord / Tromso,10,16.266666666666666
+Stations GHCN,nord / Tromso,11,13.233333333333333
+Stations GHCN,nord / Tromso,12,15.366666666666667
+CERRA-Land — points européens,alpes / Annecy,1,10.366666666666667
+CERRA-Land — points européens,alpes / Annecy,2,8.066666666666666
+CERRA-Land — points européens,alpes / Annecy,3,9.766666666666667
+CERRA-Land — points européens,alpes / Annecy,4,8.833333333333334
+CERRA-Land — points européens,alpes / Annecy,5,10.8
+CERRA-Land — points européens,alpes / Annecy,6,10.266666666666667
+CERRA-Land — points européens,alpes / Annecy,7,9.333333333333334
+CERRA-Land — points européens,alpes / Annecy,8,9.333333333333334
+CERRA-Land — points européens,alpes / Annecy,9,8.266666666666667
+CERRA-Land — points européens,alpes / Annecy,10,10.7
+CERRA-Land — points européens,alpes / Annecy,11,9.866666666666667
+CERRA-Land — points européens,alpes / Annecy,12,10.666666666666666
+CERRA-Land — points européens,alpes / Chamonix,1,11.533333333333331
+CERRA-Land — points européens,alpes / Chamonix,2,10.1
+CERRA-Land — points européens,alpes / Chamonix,3,12.0
+CERRA-Land — points européens,alpes / Chamonix,4,13.133333333333333
+CERRA-Land — points européens,alpes / Chamonix,5,16.5
+CERRA-Land — points européens,alpes / Chamonix,6,16.466666666666665
+CERRA-Land — points européens,alpes / Chamonix,7,15.366666666666667
+CERRA-Land — points européens,alpes / Chamonix,8,15.5
+CERRA-Land — points européens,alpes / Chamonix,9,13.233333333333333
+CERRA-Land — points européens,alpes / Chamonix,10,12.133333333333333
+CERRA-Land — points européens,alpes / Chamonix,11,11.7
+CERRA-Land — points européens,alpes / Chamonix,12,12.4
+CERRA-Land — points européens,alpes / Mont-Blanc,1,15.1
+CERRA-Land — points européens,alpes / Mont-Blanc,2,14.066666666666666
+CERRA-Land — points européens,alpes / Mont-Blanc,3,17.366666666666667
+CERRA-Land — points européens,alpes / Mont-Blanc,4,19.733333333333334
+CERRA-Land — points européens,alpes / Mont-Blanc,5,21.666666666666668
+CERRA-Land — points européens,alpes / Mont-Blanc,6,20.9
+CERRA-Land — points européens,alpes / Mont-Blanc,7,21.166666666666668
+CERRA-Land — points européens,alpes / Mont-Blanc,8,20.266666666666666
+CERRA-Land — points européens,alpes / Mont-Blanc,9,18.366666666666667
+CERRA-Land — points européens,alpes / Mont-Blanc,10,16.4
+CERRA-Land — points européens,alpes / Mont-Blanc,11,16.5
+CERRA-Land — points européens,alpes / Mont-Blanc,12,16.066666666666666
+CERRA-Land — points européens,andalousie / Grenade,1,6.866666666666666
+CERRA-Land — points européens,andalousie / Grenade,2,6.3
+CERRA-Land — points européens,andalousie / Grenade,3,6.5
+CERRA-Land — points européens,andalousie / Grenade,4,7.0
+CERRA-Land — points européens,andalousie / Grenade,5,5.166666666666667
+CERRA-Land — points européens,andalousie / Grenade,6,1.9666666666666663
+CERRA-Land — points européens,andalousie / Grenade,7,0.4666666666666667
+CERRA-Land — points européens,andalousie / Grenade,8,1.0333333333333334
+CERRA-Land — points européens,andalousie / Grenade,9,3.8
+CERRA-Land — points européens,andalousie / Grenade,10,5.533333333333333
+CERRA-Land — points européens,andalousie / Grenade,11,6.7
+CERRA-Land — points européens,andalousie / Grenade,12,6.633333333333334
+CERRA-Land — points européens,andalousie / Malaga,1,4.533333333333333
+CERRA-Land — points européens,andalousie / Malaga,2,3.8
+CERRA-Land — points européens,andalousie / Malaga,3,4.333333333333333
+CERRA-Land — points européens,andalousie / Malaga,4,3.7333333333333334
+CERRA-Land — points européens,andalousie / Malaga,5,2.8
+CERRA-Land — points européens,andalousie / Malaga,6,0.6666666666666666
+CERRA-Land — points européens,andalousie / Malaga,7,0.0333333333333333
+CERRA-Land — points européens,andalousie / Malaga,8,0.5
+CERRA-Land — points européens,andalousie / Malaga,9,2.1
+CERRA-Land — points européens,andalousie / Malaga,10,3.8666666666666663
+CERRA-Land — points européens,andalousie / Malaga,11,4.866666666666666
+CERRA-Land — points européens,andalousie / Malaga,12,4.8
+CERRA-Land — points européens,maroc / Essaouira,1,4.3
+CERRA-Land — points européens,maroc / Essaouira,2,3.8666666666666663
+CERRA-Land — points européens,maroc / Essaouira,3,4.1
+CERRA-Land — points européens,maroc / Essaouira,4,3.2666666666666666
+CERRA-Land — points européens,maroc / Essaouira,5,1.7666666666666666
+CERRA-Land — points européens,maroc / Essaouira,6,0.2333333333333333
+CERRA-Land — points européens,maroc / Essaouira,7,0.0666666666666666
+CERRA-Land — points européens,maroc / Essaouira,8,0.2333333333333333
+CERRA-Land — points européens,maroc / Essaouira,9,1.1
+CERRA-Land — points européens,maroc / Essaouira,10,2.6
+CERRA-Land — points européens,maroc / Essaouira,11,4.533333333333333
+CERRA-Land — points européens,maroc / Essaouira,12,4.633333333333334
+CERRA-Land — points européens,maroc / Ifrane,1,7.433333333333334
+CERRA-Land — points européens,maroc / Ifrane,2,8.233333333333333
+CERRA-Land — points européens,maroc / Ifrane,3,10.3
+CERRA-Land — points européens,maroc / Ifrane,4,9.8
+CERRA-Land — points européens,maroc / Ifrane,5,10.5
+CERRA-Land — points européens,maroc / Ifrane,6,8.633333333333333
+CERRA-Land — points européens,maroc / Ifrane,7,6.433333333333334
+CERRA-Land — points européens,maroc / Ifrane,8,8.2
+CERRA-Land — points européens,maroc / Ifrane,9,8.166666666666666
+CERRA-Land — points européens,maroc / Ifrane,10,7.666666666666667
+CERRA-Land — points européens,maroc / Ifrane,11,7.833333333333333
+CERRA-Land — points européens,maroc / Ifrane,12,7.633333333333334
+CERRA-Land — points européens,maroc / Marrakech,1,3.2
+CERRA-Land — points européens,maroc / Marrakech,2,3.4
+CERRA-Land — points européens,maroc / Marrakech,3,4.4
+CERRA-Land — points européens,maroc / Marrakech,4,3.1333333333333333
+CERRA-Land — points européens,maroc / Marrakech,5,1.7
+CERRA-Land — points européens,maroc / Marrakech,6,0.8
+CERRA-Land — points européens,maroc / Marrakech,7,0.2333333333333333
+CERRA-Land — points européens,maroc / Marrakech,8,0.8333333333333334
+CERRA-Land — points européens,maroc / Marrakech,9,1.5666666666666669
+CERRA-Land — points européens,maroc / Marrakech,10,2.3666666666666667
+CERRA-Land — points européens,maroc / Marrakech,11,3.3666666666666667
+CERRA-Land — points européens,maroc / Marrakech,12,3.8333333333333335
+CERRA-Land — points européens,nord / Reykjavik,1,15.633333333333333
+CERRA-Land — points européens,nord / Reykjavik,2,15.066666666666666
+CERRA-Land — points européens,nord / Reykjavik,3,14.333333333333334
+CERRA-Land — points européens,nord / Reykjavik,4,11.5
+CERRA-Land — points européens,nord / Reykjavik,5,10.233333333333333
+CERRA-Land — points européens,nord / Reykjavik,6,8.966666666666667
+CERRA-Land — points européens,nord / Reykjavik,7,10.1
+CERRA-Land — points européens,nord / Reykjavik,8,11.833333333333334
+CERRA-Land — points européens,nord / Reykjavik,9,14.9
+CERRA-Land — points européens,nord / Reykjavik,10,13.1
+CERRA-Land — points européens,nord / Reykjavik,11,13.433333333333334
+CERRA-Land — points européens,nord / Reykjavik,12,14.2
+CERRA-Land — points européens,nord / Tromso,1,14.6
+CERRA-Land — points européens,nord / Tromso,2,12.7
+CERRA-Land — points européens,nord / Tromso,3,14.466666666666669
+CERRA-Land — points européens,nord / Tromso,4,12.833333333333334
+CERRA-Land — points européens,nord / Tromso,5,12.2
+CERRA-Land — points européens,nord / Tromso,6,11.966666666666669
+CERRA-Land — points européens,nord / Tromso,7,11.966666666666669
+CERRA-Land — points européens,nord / Tromso,8,13.366666666666667
+CERRA-Land — points européens,nord / Tromso,9,15.7
+CERRA-Land — points européens,nord / Tromso,10,16.033333333333335
+CERRA-Land — points européens,nord / Tromso,11,12.933333333333334
+CERRA-Land — points européens,nord / Tromso,12,14.733333333333333
+CERRA-Land — points européens,portugal-galice / Faro,1,5.966666666666667
+CERRA-Land — points européens,portugal-galice / Faro,2,5.0
+CERRA-Land — points européens,portugal-galice / Faro,3,5.666666666666667
+CERRA-Land — points européens,portugal-galice / Faro,4,4.9
+CERRA-Land — points européens,portugal-galice / Faro,5,3.7666666666666666
+CERRA-Land — points européens,portugal-galice / Faro,6,0.9
+CERRA-Land — points européens,portugal-galice / Faro,7,0.1666666666666666
+CERRA-Land — points européens,portugal-galice / Faro,8,0.4
+CERRA-Land — points européens,portugal-galice / Faro,9,1.8666666666666667
+CERRA-Land — points européens,portugal-galice / Faro,10,5.866666666666666
+CERRA-Land — points européens,portugal-galice / Faro,11,6.533333333333333
+CERRA-Land — points européens,portugal-galice / Faro,12,7.066666666666666
+CERRA-Land — points européens,portugal-galice / Porto,1,12.733333333333333
+CERRA-Land — points européens,portugal-galice / Porto,2,9.8
+CERRA-Land — points européens,portugal-galice / Porto,3,9.4
+CERRA-Land — points européens,portugal-galice / Porto,4,10.8
+CERRA-Land — points européens,portugal-galice / Porto,5,9.366666666666667
+CERRA-Land — points européens,portugal-galice / Porto,6,5.466666666666667
+CERRA-Land — points européens,portugal-galice / Porto,7,3.2333333333333334
+CERRA-Land — points européens,portugal-galice / Porto,8,3.033333333333333
+CERRA-Land — points européens,portugal-galice / Porto,9,5.866666666666666
+CERRA-Land — points européens,portugal-galice / Porto,10,11.566666666666666
+CERRA-Land — points européens,portugal-galice / Porto,11,12.433333333333334
+CERRA-Land — points européens,portugal-galice / Porto,12,12.233333333333333
+CERRA-Land — points européens,portugal-galice / Santiago,1,15.433333333333334
+CERRA-Land — points européens,portugal-galice / Santiago,2,12.066666666666666
+CERRA-Land — points européens,portugal-galice / Santiago,3,12.7
+CERRA-Land — points européens,portugal-galice / Santiago,4,13.666666666666666
+CERRA-Land — points européens,portugal-galice / Santiago,5,11.733333333333333
+CERRA-Land — points européens,portugal-galice / Santiago,6,6.866666666666666
+CERRA-Land — points européens,portugal-galice / Santiago,7,5.533333333333333
+CERRA-Land — points européens,portugal-galice / Santiago,8,6.033333333333333
+CERRA-Land — points européens,portugal-galice / Santiago,9,7.966666666666667
+CERRA-Land — points européens,portugal-galice / Santiago,10,13.1
+CERRA-Land — points européens,portugal-galice / Santiago,11,15.566666666666666
+CERRA-Land — points européens,portugal-galice / Santiago,12,15.4
+CERRA-Land — points européens,pyrenees / Font-Romeu,1,6.766666666666667
+CERRA-Land — points européens,pyrenees / Font-Romeu,2,6.033333333333333
+CERRA-Land — points européens,pyrenees / Font-Romeu,3,7.133333333333334
+CERRA-Land — points européens,pyrenees / Font-Romeu,4,9.966666666666669
+CERRA-Land — points européens,pyrenees / Font-Romeu,5,11.033333333333331
+CERRA-Land — points européens,pyrenees / Font-Romeu,6,10.566666666666666
+CERRA-Land — points européens,pyrenees / Font-Romeu,7,9.7
+CERRA-Land — points européens,pyrenees / Font-Romeu,8,9.9
+CERRA-Land — points européens,pyrenees / Font-Romeu,9,7.8
+CERRA-Land — points européens,pyrenees / Font-Romeu,10,7.533333333333333
+CERRA-Land — points européens,pyrenees / Font-Romeu,11,7.4
+CERRA-Land — points européens,pyrenees / Font-Romeu,12,5.733333333333333
+CERRA-Land — points européens,pyrenees / Perpignan,1,4.9
+CERRA-Land — points européens,pyrenees / Perpignan,2,3.6666666666666665
+CERRA-Land — points européens,pyrenees / Perpignan,3,4.533333333333333
+CERRA-Land — points européens,pyrenees / Perpignan,4,6.2
+CERRA-Land — points européens,pyrenees / Perpignan,5,6.033333333333333
+CERRA-Land — points européens,pyrenees / Perpignan,6,4.2
+CERRA-Land — points européens,pyrenees / Perpignan,7,2.7666666666666666
+CERRA-Land — points européens,pyrenees / Perpignan,8,3.6333333333333337
+CERRA-Land — points européens,pyrenees / Perpignan,9,4.733333333333333
+CERRA-Land — points européens,pyrenees / Perpignan,10,5.266666666666667
+CERRA-Land — points européens,pyrenees / Perpignan,11,4.933333333333334
+CERRA-Land — points européens,pyrenees / Perpignan,12,4.5
+CERRA-Land — stations marocaines,Maroc / LAAYOUNE,1,1.5
+CERRA-Land — stations marocaines,Maroc / LAAYOUNE,2,2.0
+CERRA-Land — stations marocaines,Maroc / LAAYOUNE,3,1.5666666666666669
+CERRA-Land — stations marocaines,Maroc / LAAYOUNE,4,0.5666666666666667
+CERRA-Land — stations marocaines,Maroc / LAAYOUNE,5,0.4333333333333333
+CERRA-Land — stations marocaines,Maroc / LAAYOUNE,6,0.2
+CERRA-Land — stations marocaines,Maroc / LAAYOUNE,7,0.0
+CERRA-Land — stations marocaines,Maroc / LAAYOUNE,8,0.2666666666666666
+CERRA-Land — stations marocaines,Maroc / LAAYOUNE,9,0.8333333333333334
+CERRA-Land — stations marocaines,Maroc / LAAYOUNE,10,1.5
+CERRA-Land — stations marocaines,Maroc / LAAYOUNE,11,1.4666666666666666
+CERRA-Land — stations marocaines,Maroc / LAAYOUNE,12,2.1666666666666665
+CERRA-Land — stations marocaines,Maroc / DAKHLA,1,0.6666666666666666
+CERRA-Land — stations marocaines,Maroc / DAKHLA,2,0.3666666666666666
+CERRA-Land — stations marocaines,Maroc / DAKHLA,3,0.4
+CERRA-Land — stations marocaines,Maroc / DAKHLA,4,0.1333333333333333
+CERRA-Land — stations marocaines,Maroc / DAKHLA,5,0.1333333333333333
+CERRA-Land — stations marocaines,Maroc / DAKHLA,6,0.1
+CERRA-Land — stations marocaines,Maroc / DAKHLA,7,0.0
+CERRA-Land — stations marocaines,Maroc / DAKHLA,8,0.5
+CERRA-Land — stations marocaines,Maroc / DAKHLA,9,0.9
+CERRA-Land — stations marocaines,Maroc / DAKHLA,10,0.6333333333333333
+CERRA-Land — stations marocaines,Maroc / DAKHLA,11,0.2
+CERRA-Land — stations marocaines,Maroc / DAKHLA,12,0.6333333333333333
+CERRA-Land — stations marocaines,Maroc / LARACHE,1,8.066666666666666
+CERRA-Land — stations marocaines,Maroc / LARACHE,2,7.1
+CERRA-Land — stations marocaines,Maroc / LARACHE,3,7.866666666666666
+CERRA-Land — stations marocaines,Maroc / LARACHE,4,7.166666666666667
+CERRA-Land — stations marocaines,Maroc / LARACHE,5,4.9
+CERRA-Land — stations marocaines,Maroc / LARACHE,6,1.5
+CERRA-Land — stations marocaines,Maroc / LARACHE,7,0.2333333333333333
+CERRA-Land — stations marocaines,Maroc / LARACHE,8,0.7666666666666667
+CERRA-Land — stations marocaines,Maroc / LARACHE,9,3.2333333333333334
+CERRA-Land — stations marocaines,Maroc / LARACHE,10,6.8
+CERRA-Land — stations marocaines,Maroc / LARACHE,11,7.8
+CERRA-Land — stations marocaines,Maroc / LARACHE,12,8.733333333333333
+CERRA-Land — stations marocaines,Maroc / ALHOUCEIMA,1,5.133333333333334
+CERRA-Land — stations marocaines,Maroc / ALHOUCEIMA,2,4.833333333333333
+CERRA-Land — stations marocaines,Maroc / ALHOUCEIMA,3,4.933333333333334
+CERRA-Land — stations marocaines,Maroc / ALHOUCEIMA,4,4.533333333333333
+CERRA-Land — stations marocaines,Maroc / ALHOUCEIMA,5,3.033333333333333
+CERRA-Land — stations marocaines,Maroc / ALHOUCEIMA,6,1.0333333333333334
+CERRA-Land — stations marocaines,Maroc / ALHOUCEIMA,7,0.4666666666666667
+CERRA-Land — stations marocaines,Maroc / ALHOUCEIMA,8,0.9666666666666668
+CERRA-Land — stations marocaines,Maroc / ALHOUCEIMA,9,2.6
+CERRA-Land — stations marocaines,Maroc / ALHOUCEIMA,10,4.233333333333333
+CERRA-Land — stations marocaines,Maroc / ALHOUCEIMA,11,4.766666666666667
+CERRA-Land — stations marocaines,Maroc / ALHOUCEIMA,12,4.6
+CERRA-Land — stations marocaines,Maroc / OUJDA,1,5.133333333333334
+CERRA-Land — stations marocaines,Maroc / OUJDA,2,4.533333333333333
+CERRA-Land — stations marocaines,Maroc / OUJDA,3,5.433333333333334
+CERRA-Land — stations marocaines,Maroc / OUJDA,4,5.2
+CERRA-Land — stations marocaines,Maroc / OUJDA,5,3.533333333333333
+CERRA-Land — stations marocaines,Maroc / OUJDA,6,1.3333333333333333
+CERRA-Land — stations marocaines,Maroc / OUJDA,7,0.3
+CERRA-Land — stations marocaines,Maroc / OUJDA,8,1.3333333333333333
+CERRA-Land — stations marocaines,Maroc / OUJDA,9,2.8666666666666667
+CERRA-Land — stations marocaines,Maroc / OUJDA,10,4.1
+CERRA-Land — stations marocaines,Maroc / OUJDA,11,4.566666666666666
+CERRA-Land — stations marocaines,Maroc / OUJDA,12,4.7
+CERRA-Land — stations marocaines,Maroc / KENITRA,1,8.0
+CERRA-Land — stations marocaines,Maroc / KENITRA,2,6.533333333333333
+CERRA-Land — stations marocaines,Maroc / KENITRA,3,7.166666666666667
+CERRA-Land — stations marocaines,Maroc / KENITRA,4,5.966666666666667
+CERRA-Land — stations marocaines,Maroc / KENITRA,5,3.966666666666667
+CERRA-Land — stations marocaines,Maroc / KENITRA,6,1.1333333333333333
+CERRA-Land — stations marocaines,Maroc / KENITRA,7,0.3333333333333333
+CERRA-Land — stations marocaines,Maroc / KENITRA,8,0.6333333333333333
+CERRA-Land — stations marocaines,Maroc / KENITRA,9,2.7666666666666666
+CERRA-Land — stations marocaines,Maroc / KENITRA,10,5.9
+CERRA-Land — stations marocaines,Maroc / KENITRA,11,7.4
+CERRA-Land — stations marocaines,Maroc / KENITRA,12,7.7
+CERRA-Land — stations marocaines,Maroc / TAZA,1,6.866666666666666
+CERRA-Land — stations marocaines,Maroc / TAZA,2,6.333333333333333
+CERRA-Land — stations marocaines,Maroc / TAZA,3,7.066666666666666
+CERRA-Land — stations marocaines,Maroc / TAZA,4,7.533333333333333
+CERRA-Land — stations marocaines,Maroc / TAZA,5,5.666666666666667
+CERRA-Land — stations marocaines,Maroc / TAZA,6,1.9666666666666663
+CERRA-Land — stations marocaines,Maroc / TAZA,7,0.8
+CERRA-Land — stations marocaines,Maroc / TAZA,8,1.4666666666666666
+CERRA-Land — stations marocaines,Maroc / TAZA,9,4.1
+CERRA-Land — stations marocaines,Maroc / TAZA,10,6.2
+CERRA-Land — stations marocaines,Maroc / TAZA,11,6.866666666666666
+CERRA-Land — stations marocaines,Maroc / TAZA,12,7.333333333333333
+CERRA-Land — stations marocaines,Maroc / RABATSALE,1,7.366666666666666
+CERRA-Land — stations marocaines,Maroc / RABATSALE,2,6.0
+CERRA-Land — stations marocaines,Maroc / RABATSALE,3,6.5
+CERRA-Land — stations marocaines,Maroc / RABATSALE,4,5.066666666666666
+CERRA-Land — stations marocaines,Maroc / RABATSALE,5,3.033333333333333
+CERRA-Land — stations marocaines,Maroc / RABATSALE,6,0.9
+CERRA-Land — stations marocaines,Maroc / RABATSALE,7,0.1333333333333333
+CERRA-Land — stations marocaines,Maroc / RABATSALE,8,0.2666666666666666
+CERRA-Land — stations marocaines,Maroc / RABATSALE,9,1.8333333333333333
+CERRA-Land — stations marocaines,Maroc / RABATSALE,10,4.9
+CERRA-Land — stations marocaines,Maroc / RABATSALE,11,7.1
+CERRA-Land — stations marocaines,Maroc / RABATSALE,12,7.266666666666667
+CERRA-Land — stations marocaines,Maroc / FESSAIS,1,6.3
+CERRA-Land — stations marocaines,Maroc / FESSAIS,2,6.366666666666666
+CERRA-Land — stations marocaines,Maroc / FESSAIS,3,7.266666666666667
+CERRA-Land — stations marocaines,Maroc / FESSAIS,4,6.633333333333334
+CERRA-Land — stations marocaines,Maroc / FESSAIS,5,4.7
+CERRA-Land — stations marocaines,Maroc / FESSAIS,6,1.8
+CERRA-Land — stations marocaines,Maroc / FESSAIS,7,0.5
+CERRA-Land — stations marocaines,Maroc / FESSAIS,8,1.1333333333333333
+CERRA-Land — stations marocaines,Maroc / FESSAIS,9,2.533333333333333
+CERRA-Land — stations marocaines,Maroc / FESSAIS,10,5.033333333333333
+CERRA-Land — stations marocaines,Maroc / FESSAIS,11,6.333333333333333
+CERRA-Land — stations marocaines,Maroc / FESSAIS,12,6.566666666666666
+CERRA-Land — stations marocaines,Maroc / MEKNES,1,6.8
+CERRA-Land — stations marocaines,Maroc / MEKNES,2,6.366666666666666
+CERRA-Land — stations marocaines,Maroc / MEKNES,3,7.0
+CERRA-Land — stations marocaines,Maroc / MEKNES,4,6.2
+CERRA-Land — stations marocaines,Maroc / MEKNES,5,4.2
+CERRA-Land — stations marocaines,Maroc / MEKNES,6,1.2666666666666666
+CERRA-Land — stations marocaines,Maroc / MEKNES,7,0.2666666666666666
+CERRA-Land — stations marocaines,Maroc / MEKNES,8,0.7
+CERRA-Land — stations marocaines,Maroc / MEKNES,9,2.566666666666667
+CERRA-Land — stations marocaines,Maroc / MEKNES,10,4.933333333333334
+CERRA-Land — stations marocaines,Maroc / MEKNES,11,6.4
+CERRA-Land — stations marocaines,Maroc / MEKNES,12,6.966666666666667
+CERRA-Land — stations marocaines,Maroc / CASABLANCAANFA,1,6.433333333333334
+CERRA-Land — stations marocaines,Maroc / CASABLANCAANFA,2,5.966666666666667
+CERRA-Land — stations marocaines,Maroc / CASABLANCAANFA,3,6.0
+CERRA-Land — stations marocaines,Maroc / CASABLANCAANFA,4,5.033333333333333
+CERRA-Land — stations marocaines,Maroc / CASABLANCAANFA,5,2.533333333333333
+CERRA-Land — stations marocaines,Maroc / CASABLANCAANFA,6,0.8333333333333334
+CERRA-Land — stations marocaines,Maroc / CASABLANCAANFA,7,0.2
+CERRA-Land — stations marocaines,Maroc / CASABLANCAANFA,8,0.2333333333333333
+CERRA-Land — stations marocaines,Maroc / CASABLANCAANFA,9,1.9333333333333331
+CERRA-Land — stations marocaines,Maroc / CASABLANCAANFA,10,4.5
+CERRA-Land — stations marocaines,Maroc / CASABLANCAANFA,11,6.633333333333334
+CERRA-Land — stations marocaines,Maroc / CASABLANCAANFA,12,6.433333333333334
+CERRA-Land — stations marocaines,Maroc / IFRANE,1,7.7
+CERRA-Land — stations marocaines,Maroc / IFRANE,2,8.266666666666667
+CERRA-Land — stations marocaines,Maroc / IFRANE,3,10.333333333333334
+CERRA-Land — stations marocaines,Maroc / IFRANE,4,9.966666666666669
+CERRA-Land — stations marocaines,Maroc / IFRANE,5,9.833333333333334
+CERRA-Land — stations marocaines,Maroc / IFRANE,6,7.466666666666667
+CERRA-Land — stations marocaines,Maroc / IFRANE,7,4.833333333333333
+CERRA-Land — stations marocaines,Maroc / IFRANE,8,6.533333333333333
+CERRA-Land — stations marocaines,Maroc / IFRANE,9,7.633333333333334
+CERRA-Land — stations marocaines,Maroc / IFRANE,10,7.5
+CERRA-Land — stations marocaines,Maroc / IFRANE,11,8.0
+CERRA-Land — stations marocaines,Maroc / IFRANE,12,8.0
+CERRA-Land — stations marocaines,Maroc / SAFI,1,5.433333333333334
+CERRA-Land — stations marocaines,Maroc / SAFI,2,4.933333333333334
+CERRA-Land — stations marocaines,Maroc / SAFI,3,5.3
+CERRA-Land — stations marocaines,Maroc / SAFI,4,3.8333333333333335
+CERRA-Land — stations marocaines,Maroc / SAFI,5,2.1
+CERRA-Land — stations marocaines,Maroc / SAFI,6,0.5666666666666667
+CERRA-Land — stations marocaines,Maroc / SAFI,7,0.0333333333333333
+CERRA-Land — stations marocaines,Maroc / SAFI,8,0.1666666666666666
+CERRA-Land — stations marocaines,Maroc / SAFI,9,1.0
+CERRA-Land — stations marocaines,Maroc / SAFI,10,3.566666666666667
+CERRA-Land — stations marocaines,Maroc / SAFI,11,5.666666666666667
+CERRA-Land — stations marocaines,Maroc / SAFI,12,5.466666666666667
+CERRA-Land — stations marocaines,Maroc / BENIMELLAL,1,5.433333333333334
+CERRA-Land — stations marocaines,Maroc / BENIMELLAL,2,5.566666666666666
+CERRA-Land — stations marocaines,Maroc / BENIMELLAL,3,6.866666666666666
+CERRA-Land — stations marocaines,Maroc / BENIMELLAL,4,5.6
+CERRA-Land — stations marocaines,Maroc / BENIMELLAL,5,4.366666666666666
+CERRA-Land — stations marocaines,Maroc / BENIMELLAL,6,1.9
+CERRA-Land — stations marocaines,Maroc / BENIMELLAL,7,0.4333333333333333
+CERRA-Land — stations marocaines,Maroc / BENIMELLAL,8,1.1333333333333333
+CERRA-Land — stations marocaines,Maroc / BENIMELLAL,9,2.1666666666666665
+CERRA-Land — stations marocaines,Maroc / BENIMELLAL,10,4.133333333333334
+CERRA-Land — stations marocaines,Maroc / BENIMELLAL,11,5.066666666666666
+CERRA-Land — stations marocaines,Maroc / BENIMELLAL,12,5.633333333333334
+CERRA-Land — stations marocaines,Maroc / MIDELT,1,2.7666666666666666
+CERRA-Land — stations marocaines,Maroc / MIDELT,2,2.8333333333333335
+CERRA-Land — stations marocaines,Maroc / MIDELT,3,4.033333333333333
+CERRA-Land — stations marocaines,Maroc / MIDELT,4,3.6666666666666665
+CERRA-Land — stations marocaines,Maroc / MIDELT,5,3.8333333333333335
+CERRA-Land — stations marocaines,Maroc / MIDELT,6,2.9
+CERRA-Land — stations marocaines,Maroc / MIDELT,7,1.9333333333333331
+CERRA-Land — stations marocaines,Maroc / MIDELT,8,3.533333333333333
+CERRA-Land — stations marocaines,Maroc / MIDELT,9,4.3
+CERRA-Land — stations marocaines,Maroc / MIDELT,10,3.6666666666666665
+CERRA-Land — stations marocaines,Maroc / MIDELT,11,3.5
+CERRA-Land — stations marocaines,Maroc / MIDELT,12,2.2666666666666666
+CERRA-Land — stations marocaines,Maroc / BOUARFA,1,3.1666666666666665
+CERRA-Land — stations marocaines,Maroc / BOUARFA,2,2.2
+CERRA-Land — stations marocaines,Maroc / BOUARFA,3,3.566666666666667
+CERRA-Land — stations marocaines,Maroc / BOUARFA,4,3.7
+CERRA-Land — stations marocaines,Maroc / BOUARFA,5,2.7333333333333334
+CERRA-Land — stations marocaines,Maroc / BOUARFA,6,1.9
+CERRA-Land — stations marocaines,Maroc / BOUARFA,7,1.1666666666666667
+CERRA-Land — stations marocaines,Maroc / BOUARFA,8,2.533333333333333
+CERRA-Land — stations marocaines,Maroc / BOUARFA,9,3.8
+CERRA-Land — stations marocaines,Maroc / BOUARFA,10,3.7333333333333334
+CERRA-Land — stations marocaines,Maroc / BOUARFA,11,3.3666666666666667
+CERRA-Land — stations marocaines,Maroc / BOUARFA,12,2.3666666666666667
+CERRA-Land — stations marocaines,Maroc / ERRACHIDIA,1,1.3666666666666667
+CERRA-Land — stations marocaines,Maroc / ERRACHIDIA,2,1.5333333333333334
+CERRA-Land — stations marocaines,Maroc / ERRACHIDIA,3,1.9
+CERRA-Land — stations marocaines,Maroc / ERRACHIDIA,4,1.6333333333333333
+CERRA-Land — stations marocaines,Maroc / ERRACHIDIA,5,1.3333333333333333
+CERRA-Land — stations marocaines,Maroc / ERRACHIDIA,6,1.2333333333333334
+CERRA-Land — stations marocaines,Maroc / ERRACHIDIA,7,0.7666666666666667
+CERRA-Land — stations marocaines,Maroc / ERRACHIDIA,8,1.5
+CERRA-Land — stations marocaines,Maroc / ERRACHIDIA,9,2.6
+CERRA-Land — stations marocaines,Maroc / ERRACHIDIA,10,2.7666666666666666
+CERRA-Land — stations marocaines,Maroc / ERRACHIDIA,11,2.2666666666666666
+CERRA-Land — stations marocaines,Maroc / ERRACHIDIA,12,1.5
+CERRA-Land — stations marocaines,Maroc / ESSAOUIRA,1,4.3
+CERRA-Land — stations marocaines,Maroc / ESSAOUIRA,2,3.8666666666666663
+CERRA-Land — stations marocaines,Maroc / ESSAOUIRA,3,4.1
+CERRA-Land — stations marocaines,Maroc / ESSAOUIRA,4,3.2666666666666666
+CERRA-Land — stations marocaines,Maroc / ESSAOUIRA,5,1.7666666666666666
+CERRA-Land — stations marocaines,Maroc / ESSAOUIRA,6,0.2333333333333333
+CERRA-Land — stations marocaines,Maroc / ESSAOUIRA,7,0.0666666666666666
+CERRA-Land — stations marocaines,Maroc / ESSAOUIRA,8,0.2333333333333333
+CERRA-Land — stations marocaines,Maroc / ESSAOUIRA,9,1.1
+CERRA-Land — stations marocaines,Maroc / ESSAOUIRA,10,2.6
+CERRA-Land — stations marocaines,Maroc / ESSAOUIRA,11,4.533333333333333
+CERRA-Land — stations marocaines,Maroc / ESSAOUIRA,12,4.633333333333334
+CERRA-Land — stations marocaines,Maroc / MARRAKECH,1,3.0
+CERRA-Land — stations marocaines,Maroc / MARRAKECH,2,3.3666666666666667
+CERRA-Land — stations marocaines,Maroc / MARRAKECH,3,4.2
+CERRA-Land — stations marocaines,Maroc / MARRAKECH,4,3.1666666666666665
+CERRA-Land — stations marocaines,Maroc / MARRAKECH,5,1.7333333333333334
+CERRA-Land — stations marocaines,Maroc / MARRAKECH,6,0.7
+CERRA-Land — stations marocaines,Maroc / MARRAKECH,7,0.2
+CERRA-Land — stations marocaines,Maroc / MARRAKECH,8,0.6666666666666666
+CERRA-Land — stations marocaines,Maroc / MARRAKECH,9,1.3333333333333333
+CERRA-Land — stations marocaines,Maroc / MARRAKECH,10,2.1666666666666665
+CERRA-Land — stations marocaines,Maroc / MARRAKECH,11,3.6333333333333337
+CERRA-Land — stations marocaines,Maroc / MARRAKECH,12,3.9
+CERRA-Land — stations marocaines,Maroc / AGADIRINEZGANNE,1,2.7
+CERRA-Land — stations marocaines,Maroc / AGADIRINEZGANNE,2,2.8
+CERRA-Land — stations marocaines,Maroc / AGADIRINEZGANNE,3,3.433333333333333
+CERRA-Land — stations marocaines,Maroc / AGADIRINEZGANNE,4,1.7666666666666666
+CERRA-Land — stations marocaines,Maroc / AGADIRINEZGANNE,5,0.9666666666666668
+CERRA-Land — stations marocaines,Maroc / AGADIRINEZGANNE,6,0.2333333333333333
+CERRA-Land — stations marocaines,Maroc / AGADIRINEZGANNE,7,0.0
+CERRA-Land — stations marocaines,Maroc / AGADIRINEZGANNE,8,0.2666666666666666
+CERRA-Land — stations marocaines,Maroc / AGADIRINEZGANNE,9,0.5
+CERRA-Land — stations marocaines,Maroc / AGADIRINEZGANNE,10,2.3333333333333335
+CERRA-Land — stations marocaines,Maroc / AGADIRINEZGANNE,11,3.1
+CERRA-Land — stations marocaines,Maroc / AGADIRINEZGANNE,12,3.7333333333333334
+CERRA-Land — stations marocaines,Maroc / OUARZAZATE,1,0.9666666666666668
+CERRA-Land — stations marocaines,Maroc / OUARZAZATE,2,1.6
+CERRA-Land — stations marocaines,Maroc / OUARZAZATE,3,1.9333333333333331
+CERRA-Land — stations marocaines,Maroc / OUARZAZATE,4,1.2
+CERRA-Land — stations marocaines,Maroc / OUARZAZATE,5,0.9666666666666668
+CERRA-Land — stations marocaines,Maroc / OUARZAZATE,6,1.1
+CERRA-Land — stations marocaines,Maroc / OUARZAZATE,7,1.0666666666666669
+CERRA-Land — stations marocaines,Maroc / OUARZAZATE,8,2.1
+CERRA-Land — stations marocaines,Maroc / OUARZAZATE,9,1.9
+CERRA-Land — stations marocaines,Maroc / OUARZAZATE,10,1.9333333333333331
+CERRA-Land — stations marocaines,Maroc / OUARZAZATE,11,1.2666666666666666
+CERRA-Land — stations marocaines,Maroc / OUARZAZATE,12,1.5666666666666669
+CERRA-Land — stations marocaines,Maroc / GUELMIM,1,2.2666666666666666
+CERRA-Land — stations marocaines,Maroc / GUELMIM,2,2.9
+CERRA-Land — stations marocaines,Maroc / GUELMIM,3,2.466666666666667
+CERRA-Land — stations marocaines,Maroc / GUELMIM,4,0.9333333333333332
+CERRA-Land — stations marocaines,Maroc / GUELMIM,5,0.6
+CERRA-Land — stations marocaines,Maroc / GUELMIM,6,0.1333333333333333
+CERRA-Land — stations marocaines,Maroc / GUELMIM,7,0.0
+CERRA-Land — stations marocaines,Maroc / GUELMIM,8,0.4666666666666667
+CERRA-Land — stations marocaines,Maroc / GUELMIM,9,0.4666666666666667
+CERRA-Land — stations marocaines,Maroc / GUELMIM,10,1.9666666666666663
+CERRA-Land — stations marocaines,Maroc / GUELMIM,11,2.933333333333333
+CERRA-Land — stations marocaines,Maroc / GUELMIM,12,3.2
+CERRA-Land — stations marocaines,Maroc / TANTAN,1,2.3666666666666667
+CERRA-Land — stations marocaines,Maroc / TANTAN,2,2.3666666666666667
+CERRA-Land — stations marocaines,Maroc / TANTAN,3,2.3333333333333335
+CERRA-Land — stations marocaines,Maroc / TANTAN,4,0.7333333333333333
+CERRA-Land — stations marocaines,Maroc / TANTAN,5,0.4666666666666667
+CERRA-Land — stations marocaines,Maroc / TANTAN,6,0.3333333333333333
+CERRA-Land — stations marocaines,Maroc / TANTAN,7,0.1
+CERRA-Land — stations marocaines,Maroc / TANTAN,8,0.5
+CERRA-Land — stations marocaines,Maroc / TANTAN,9,0.3666666666666666
+CERRA-Land — stations marocaines,Maroc / TANTAN,10,1.3333333333333333
+CERRA-Land — stations marocaines,Maroc / TANTAN,11,2.066666666666667
+CERRA-Land — stations marocaines,Maroc / TANTAN,12,2.7333333333333334
+CERRA-Land — stations marocaines,Maroc / TETOUAN,1,7.166666666666667
+CERRA-Land — stations marocaines,Maroc / TETOUAN,2,7.2
+CERRA-Land — stations marocaines,Maroc / TETOUAN,3,7.266666666666667
+CERRA-Land — stations marocaines,Maroc / TETOUAN,4,6.633333333333334
+CERRA-Land — stations marocaines,Maroc / TETOUAN,5,4.866666666666666
+CERRA-Land — stations marocaines,Maroc / TETOUAN,6,1.2333333333333334
+CERRA-Land — stations marocaines,Maroc / TETOUAN,7,0.4666666666666667
+CERRA-Land — stations marocaines,Maroc / TETOUAN,8,1.5333333333333334
+CERRA-Land — stations marocaines,Maroc / TETOUAN,9,3.8666666666666663
+CERRA-Land — stations marocaines,Maroc / TETOUAN,10,6.3
+CERRA-Land — stations marocaines,Maroc / TETOUAN,11,7.333333333333333
+CERRA-Land — stations marocaines,Maroc / TETOUAN,12,8.233333333333333
+CERRA-Land — stations marocaines,Maroc / SMARA,1,1.2666666666666666
+CERRA-Land — stations marocaines,Maroc / SMARA,2,1.8666666666666667
+CERRA-Land — stations marocaines,Maroc / SMARA,3,1.0333333333333334
+CERRA-Land — stations marocaines,Maroc / SMARA,4,0.3333333333333333
+CERRA-Land — stations marocaines,Maroc / SMARA,5,0.3
+CERRA-Land — stations marocaines,Maroc / SMARA,6,0.4666666666666667
+CERRA-Land — stations marocaines,Maroc / SMARA,7,0.1
+CERRA-Land — stations marocaines,Maroc / SMARA,8,0.6333333333333333
+CERRA-Land — stations marocaines,Maroc / SMARA,9,0.7666666666666667
+CERRA-Land — stations marocaines,Maroc / SMARA,10,1.3333333333333333
+CERRA-Land — stations marocaines,Maroc / SMARA,11,0.7333333333333333
+CERRA-Land — stations marocaines,Maroc / SMARA,12,1.2666666666666666
+Normales WMO — stations marocaines,Maroc / LAAYOUNE,1,1.6
+Normales WMO — stations marocaines,Maroc / LAAYOUNE,2,1.5
+Normales WMO — stations marocaines,Maroc / LAAYOUNE,3,1.2
+Normales WMO — stations marocaines,Maroc / LAAYOUNE,4,0.2
+Normales WMO — stations marocaines,Maroc / LAAYOUNE,5,0.2
+Normales WMO — stations marocaines,Maroc / LAAYOUNE,6,0.1
+Normales WMO — stations marocaines,Maroc / LAAYOUNE,7,0.0
+Normales WMO — stations marocaines,Maroc / LAAYOUNE,8,0.1
+Normales WMO — stations marocaines,Maroc / LAAYOUNE,9,0.4
+Normales WMO — stations marocaines,Maroc / LAAYOUNE,10,0.9
+Normales WMO — stations marocaines,Maroc / LAAYOUNE,11,1.4
+Normales WMO — stations marocaines,Maroc / LAAYOUNE,12,1.5
+Normales WMO — stations marocaines,Maroc / DAKHLA,1,0.7
+Normales WMO — stations marocaines,Maroc / DAKHLA,2,0.5
+Normales WMO — stations marocaines,Maroc / DAKHLA,3,0.4
+Normales WMO — stations marocaines,Maroc / DAKHLA,4,0.2
+Normales WMO — stations marocaines,Maroc / DAKHLA,5,0.2
+Normales WMO — stations marocaines,Maroc / DAKHLA,6,0.2
+Normales WMO — stations marocaines,Maroc / DAKHLA,7,0.0
+Normales WMO — stations marocaines,Maroc / DAKHLA,8,0.5
+Normales WMO — stations marocaines,Maroc / DAKHLA,9,1.0
+Normales WMO — stations marocaines,Maroc / DAKHLA,10,0.6
+Normales WMO — stations marocaines,Maroc / DAKHLA,11,0.2
+Normales WMO — stations marocaines,Maroc / DAKHLA,12,0.8
+Normales WMO — stations marocaines,Maroc / LARACHE,1,7.8
+Normales WMO — stations marocaines,Maroc / LARACHE,2,7.4
+Normales WMO — stations marocaines,Maroc / LARACHE,3,7.2
+Normales WMO — stations marocaines,Maroc / LARACHE,4,6.9
+Normales WMO — stations marocaines,Maroc / LARACHE,5,4.1
+Normales WMO — stations marocaines,Maroc / LARACHE,6,0.8
+Normales WMO — stations marocaines,Maroc / LARACHE,7,0.2
+Normales WMO — stations marocaines,Maroc / LARACHE,8,0.4
+Normales WMO — stations marocaines,Maroc / LARACHE,9,2.3
+Normales WMO — stations marocaines,Maroc / LARACHE,10,6.5
+Normales WMO — stations marocaines,Maroc / LARACHE,11,8.1
+Normales WMO — stations marocaines,Maroc / LARACHE,12,8.9
+Normales WMO — stations marocaines,Maroc / ALHOUCEIMA,1,5.0
+Normales WMO — stations marocaines,Maroc / ALHOUCEIMA,2,4.9
+Normales WMO — stations marocaines,Maroc / ALHOUCEIMA,3,4.8
+Normales WMO — stations marocaines,Maroc / ALHOUCEIMA,4,4.4
+Normales WMO — stations marocaines,Maroc / ALHOUCEIMA,5,3.2
+Normales WMO — stations marocaines,Maroc / ALHOUCEIMA,6,0.9
+Normales WMO — stations marocaines,Maroc / ALHOUCEIMA,7,0.4
+Normales WMO — stations marocaines,Maroc / ALHOUCEIMA,8,0.8
+Normales WMO — stations marocaines,Maroc / ALHOUCEIMA,9,2.3
+Normales WMO — stations marocaines,Maroc / ALHOUCEIMA,10,3.9
+Normales WMO — stations marocaines,Maroc / ALHOUCEIMA,11,4.6
+Normales WMO — stations marocaines,Maroc / ALHOUCEIMA,12,4.7
+Normales WMO — stations marocaines,Maroc / OUJDA,1,4.8
+Normales WMO — stations marocaines,Maroc / OUJDA,2,4.3
+Normales WMO — stations marocaines,Maroc / OUJDA,3,4.5
+Normales WMO — stations marocaines,Maroc / OUJDA,4,4.7
+Normales WMO — stations marocaines,Maroc / OUJDA,5,3.2
+Normales WMO — stations marocaines,Maroc / OUJDA,6,1.0
+Normales WMO — stations marocaines,Maroc / OUJDA,7,0.4
+Normales WMO — stations marocaines,Maroc / OUJDA,8,1.2
+Normales WMO — stations marocaines,Maroc / OUJDA,9,2.4
+Normales WMO — stations marocaines,Maroc / OUJDA,10,3.8
+Normales WMO — stations marocaines,Maroc / OUJDA,11,4.6
+Normales WMO — stations marocaines,Maroc / OUJDA,12,4.3
+Normales WMO — stations marocaines,Maroc / KENITRA,1,7.8
+Normales WMO — stations marocaines,Maroc / KENITRA,2,6.5
+Normales WMO — stations marocaines,Maroc / KENITRA,3,6.7
+Normales WMO — stations marocaines,Maroc / KENITRA,4,5.2
+Normales WMO — stations marocaines,Maroc / KENITRA,5,2.8
+Normales WMO — stations marocaines,Maroc / KENITRA,6,0.9
+Normales WMO — stations marocaines,Maroc / KENITRA,7,0.1
+Normales WMO — stations marocaines,Maroc / KENITRA,8,0.2
+Normales WMO — stations marocaines,Maroc / KENITRA,9,1.9
+Normales WMO — stations marocaines,Maroc / KENITRA,10,5.4
+Normales WMO — stations marocaines,Maroc / KENITRA,11,7.2
+Normales WMO — stations marocaines,Maroc / KENITRA,12,7.9
+Normales WMO — stations marocaines,Maroc / TAZA,1,6.8
+Normales WMO — stations marocaines,Maroc / TAZA,2,6.5
+Normales WMO — stations marocaines,Maroc / TAZA,3,6.4
+Normales WMO — stations marocaines,Maroc / TAZA,4,6.2
+Normales WMO — stations marocaines,Maroc / TAZA,5,4.2
+Normales WMO — stations marocaines,Maroc / TAZA,6,1.3
+Normales WMO — stations marocaines,Maroc / TAZA,7,0.6
+Normales WMO — stations marocaines,Maroc / TAZA,8,1.0
+Normales WMO — stations marocaines,Maroc / TAZA,9,2.6
+Normales WMO — stations marocaines,Maroc / TAZA,10,5.8
+Normales WMO — stations marocaines,Maroc / TAZA,11,6.9
+Normales WMO — stations marocaines,Maroc / TAZA,12,7.2
+Normales WMO — stations marocaines,Maroc / RABATSALE,1,7.6
+Normales WMO — stations marocaines,Maroc / RABATSALE,2,6.4
+Normales WMO — stations marocaines,Maroc / RABATSALE,3,6.4
+Normales WMO — stations marocaines,Maroc / RABATSALE,4,5.3
+Normales WMO — stations marocaines,Maroc / RABATSALE,5,2.7
+Normales WMO — stations marocaines,Maroc / RABATSALE,6,0.8
+Normales WMO — stations marocaines,Maroc / RABATSALE,7,0.2
+Normales WMO — stations marocaines,Maroc / RABATSALE,8,0.3
+Normales WMO — stations marocaines,Maroc / RABATSALE,9,1.9
+Normales WMO — stations marocaines,Maroc / RABATSALE,10,5.2
+Normales WMO — stations marocaines,Maroc / RABATSALE,11,7.4
+Normales WMO — stations marocaines,Maroc / RABATSALE,12,7.6
+Normales WMO — stations marocaines,Maroc / FESSAIS,1,6.7
+Normales WMO — stations marocaines,Maroc / FESSAIS,2,6.5
+Normales WMO — stations marocaines,Maroc / FESSAIS,3,6.9
+Normales WMO — stations marocaines,Maroc / FESSAIS,4,6.3
+Normales WMO — stations marocaines,Maroc / FESSAIS,5,4.7
+Normales WMO — stations marocaines,Maroc / FESSAIS,6,1.7
+Normales WMO — stations marocaines,Maroc / FESSAIS,7,0.4
+Normales WMO — stations marocaines,Maroc / FESSAIS,8,1.0
+Normales WMO — stations marocaines,Maroc / FESSAIS,9,2.4
+Normales WMO — stations marocaines,Maroc / FESSAIS,10,5.1
+Normales WMO — stations marocaines,Maroc / FESSAIS,11,6.5
+Normales WMO — stations marocaines,Maroc / FESSAIS,12,6.5
+Normales WMO — stations marocaines,Maroc / MEKNES,1,6.9
+Normales WMO — stations marocaines,Maroc / MEKNES,2,6.6
+Normales WMO — stations marocaines,Maroc / MEKNES,3,6.9
+Normales WMO — stations marocaines,Maroc / MEKNES,4,6.1
+Normales WMO — stations marocaines,Maroc / MEKNES,5,4.0
+Normales WMO — stations marocaines,Maroc / MEKNES,6,1.0
+Normales WMO — stations marocaines,Maroc / MEKNES,7,0.3
+Normales WMO — stations marocaines,Maroc / MEKNES,8,0.7
+Normales WMO — stations marocaines,Maroc / MEKNES,9,2.4
+Normales WMO — stations marocaines,Maroc / MEKNES,10,5.2
+Normales WMO — stations marocaines,Maroc / MEKNES,11,6.3
+Normales WMO — stations marocaines,Maroc / MEKNES,12,7.0
+Normales WMO — stations marocaines,Maroc / CASABLANCAANFA,1,6.5
+Normales WMO — stations marocaines,Maroc / CASABLANCAANFA,2,6.1
+Normales WMO — stations marocaines,Maroc / CASABLANCAANFA,3,6.0
+Normales WMO — stations marocaines,Maroc / CASABLANCAANFA,4,4.7
+Normales WMO — stations marocaines,Maroc / CASABLANCAANFA,5,2.2
+Normales WMO — stations marocaines,Maroc / CASABLANCAANFA,6,0.7
+Normales WMO — stations marocaines,Maroc / CASABLANCAANFA,7,0.1
+Normales WMO — stations marocaines,Maroc / CASABLANCAANFA,8,0.0
+Normales WMO — stations marocaines,Maroc / CASABLANCAANFA,9,1.8
+Normales WMO — stations marocaines,Maroc / CASABLANCAANFA,10,5.1
+Normales WMO — stations marocaines,Maroc / CASABLANCAANFA,11,6.7
+Normales WMO — stations marocaines,Maroc / CASABLANCAANFA,12,6.5
+Normales WMO — stations marocaines,Maroc / IFRANE,1,7.8
+Normales WMO — stations marocaines,Maroc / IFRANE,2,7.8
+Normales WMO — stations marocaines,Maroc / IFRANE,3,8.5
+Normales WMO — stations marocaines,Maroc / IFRANE,4,7.3
+Normales WMO — stations marocaines,Maroc / IFRANE,5,5.8
+Normales WMO — stations marocaines,Maroc / IFRANE,6,2.9
+Normales WMO — stations marocaines,Maroc / IFRANE,7,2.3
+Normales WMO — stations marocaines,Maroc / IFRANE,8,3.0
+Normales WMO — stations marocaines,Maroc / IFRANE,9,4.7
+Normales WMO — stations marocaines,Maroc / IFRANE,10,5.9
+Normales WMO — stations marocaines,Maroc / IFRANE,11,7.9
+Normales WMO — stations marocaines,Maroc / IFRANE,12,8.1
+Normales WMO — stations marocaines,Maroc / SAFI,1,5.7
+Normales WMO — stations marocaines,Maroc / SAFI,2,5.0
+Normales WMO — stations marocaines,Maroc / SAFI,3,5.2
+Normales WMO — stations marocaines,Maroc / SAFI,4,3.7
+Normales WMO — stations marocaines,Maroc / SAFI,5,2.0
+Normales WMO — stations marocaines,Maroc / SAFI,6,0.6
+Normales WMO — stations marocaines,Maroc / SAFI,7,0.2
+Normales WMO — stations marocaines,Maroc / SAFI,8,0.0
+Normales WMO — stations marocaines,Maroc / SAFI,9,1.0
+Normales WMO — stations marocaines,Maroc / SAFI,10,4.0
+Normales WMO — stations marocaines,Maroc / SAFI,11,5.7
+Normales WMO — stations marocaines,Maroc / SAFI,12,5.4
+Normales WMO — stations marocaines,Maroc / BENIMELLAL,1,5.2
+Normales WMO — stations marocaines,Maroc / BENIMELLAL,2,5.3
+Normales WMO — stations marocaines,Maroc / BENIMELLAL,3,5.5
+Normales WMO — stations marocaines,Maroc / BENIMELLAL,4,4.0
+Normales WMO — stations marocaines,Maroc / BENIMELLAL,5,3.0
+Normales WMO — stations marocaines,Maroc / BENIMELLAL,6,1.3
+Normales WMO — stations marocaines,Maroc / BENIMELLAL,7,0.3
+Normales WMO — stations marocaines,Maroc / BENIMELLAL,8,0.8
+Normales WMO — stations marocaines,Maroc / BENIMELLAL,9,1.5
+Normales WMO — stations marocaines,Maroc / BENIMELLAL,10,3.3
+Normales WMO — stations marocaines,Maroc / BENIMELLAL,11,5.0
+Normales WMO — stations marocaines,Maroc / BENIMELLAL,12,5.8
+Normales WMO — stations marocaines,Maroc / MIDELT,1,2.8
+Normales WMO — stations marocaines,Maroc / MIDELT,2,2.7
+Normales WMO — stations marocaines,Maroc / MIDELT,3,4.1
+Normales WMO — stations marocaines,Maroc / MIDELT,4,3.0
+Normales WMO — stations marocaines,Maroc / MIDELT,5,3.5
+Normales WMO — stations marocaines,Maroc / MIDELT,6,2.3
+Normales WMO — stations marocaines,Maroc / MIDELT,7,1.7
+Normales WMO — stations marocaines,Maroc / MIDELT,8,3.4
+Normales WMO — stations marocaines,Maroc / MIDELT,9,3.6
+Normales WMO — stations marocaines,Maroc / MIDELT,10,3.6
+Normales WMO — stations marocaines,Maroc / MIDELT,11,3.6
+Normales WMO — stations marocaines,Maroc / MIDELT,12,2.7
+Normales WMO — stations marocaines,Maroc / BOUARFA,1,2.4
+Normales WMO — stations marocaines,Maroc / BOUARFA,2,1.8
+Normales WMO — stations marocaines,Maroc / BOUARFA,3,2.8
+Normales WMO — stations marocaines,Maroc / BOUARFA,4,2.3
+Normales WMO — stations marocaines,Maroc / BOUARFA,5,1.7
+Normales WMO — stations marocaines,Maroc / BOUARFA,6,1.2
+Normales WMO — stations marocaines,Maroc / BOUARFA,7,0.8
+Normales WMO — stations marocaines,Maroc / BOUARFA,8,2.6
+Normales WMO — stations marocaines,Maroc / BOUARFA,9,3.4
+Normales WMO — stations marocaines,Maroc / BOUARFA,10,2.6
+Normales WMO — stations marocaines,Maroc / BOUARFA,11,2.7
+Normales WMO — stations marocaines,Maroc / BOUARFA,12,2.0
+Normales WMO — stations marocaines,Maroc / ERRACHIDIA,1,1.4
+Normales WMO — stations marocaines,Maroc / ERRACHIDIA,2,1.7
+Normales WMO — stations marocaines,Maroc / ERRACHIDIA,3,1.9
+Normales WMO — stations marocaines,Maroc / ERRACHIDIA,4,1.4
+Normales WMO — stations marocaines,Maroc / ERRACHIDIA,5,1.5
+Normales WMO — stations marocaines,Maroc / ERRACHIDIA,6,1.3
+Normales WMO — stations marocaines,Maroc / ERRACHIDIA,7,0.9
+Normales WMO — stations marocaines,Maroc / ERRACHIDIA,8,1.7
+Normales WMO — stations marocaines,Maroc / ERRACHIDIA,9,2.8
+Normales WMO — stations marocaines,Maroc / ERRACHIDIA,10,2.8
+Normales WMO — stations marocaines,Maroc / ERRACHIDIA,11,2.4
+Normales WMO — stations marocaines,Maroc / ERRACHIDIA,12,1.5
+Normales WMO — stations marocaines,Maroc / ESSAOUIRA,1,4.6
+Normales WMO — stations marocaines,Maroc / ESSAOUIRA,2,4.2
+Normales WMO — stations marocaines,Maroc / ESSAOUIRA,3,4.2
+Normales WMO — stations marocaines,Maroc / ESSAOUIRA,4,2.6
+Normales WMO — stations marocaines,Maroc / ESSAOUIRA,5,1.3
+Normales WMO — stations marocaines,Maroc / ESSAOUIRA,6,0.1
+Normales WMO — stations marocaines,Maroc / ESSAOUIRA,7,0.0
+Normales WMO — stations marocaines,Maroc / ESSAOUIRA,8,0.2
+Normales WMO — stations marocaines,Maroc / ESSAOUIRA,9,0.9
+Normales WMO — stations marocaines,Maroc / ESSAOUIRA,10,3.3
+Normales WMO — stations marocaines,Maroc / ESSAOUIRA,11,4.7
+Normales WMO — stations marocaines,Maroc / ESSAOUIRA,12,4.8
+Normales WMO — stations marocaines,Maroc / MARRAKECH,1,3.0
+Normales WMO — stations marocaines,Maroc / MARRAKECH,2,3.7
+Normales WMO — stations marocaines,Maroc / MARRAKECH,3,4.7
+Normales WMO — stations marocaines,Maroc / MARRAKECH,4,2.9
+Normales WMO — stations marocaines,Maroc / MARRAKECH,5,1.5
+Normales WMO — stations marocaines,Maroc / MARRAKECH,6,0.6
+Normales WMO — stations marocaines,Maroc / MARRAKECH,7,0.3
+Normales WMO — stations marocaines,Maroc / MARRAKECH,8,0.8
+Normales WMO — stations marocaines,Maroc / MARRAKECH,9,1.3
+Normales WMO — stations marocaines,Maroc / MARRAKECH,10,2.4
+Normales WMO — stations marocaines,Maroc / MARRAKECH,11,3.8
+Normales WMO — stations marocaines,Maroc / MARRAKECH,12,4.1
+Normales WMO — stations marocaines,Maroc / AGADIRINEZGANNE,1,2.8
+Normales WMO — stations marocaines,Maroc / AGADIRINEZGANNE,2,2.7
+Normales WMO — stations marocaines,Maroc / AGADIRINEZGANNE,3,3.2
+Normales WMO — stations marocaines,Maroc / AGADIRINEZGANNE,4,1.7
+Normales WMO — stations marocaines,Maroc / AGADIRINEZGANNE,5,0.8
+Normales WMO — stations marocaines,Maroc / AGADIRINEZGANNE,6,0.2
+Normales WMO — stations marocaines,Maroc / AGADIRINEZGANNE,7,0.1
+Normales WMO — stations marocaines,Maroc / AGADIRINEZGANNE,8,0.3
+Normales WMO — stations marocaines,Maroc / AGADIRINEZGANNE,9,0.5
+Normales WMO — stations marocaines,Maroc / AGADIRINEZGANNE,10,1.9
+Normales WMO — stations marocaines,Maroc / AGADIRINEZGANNE,11,3.0
+Normales WMO — stations marocaines,Maroc / AGADIRINEZGANNE,12,3.6
+Normales WMO — stations marocaines,Maroc / OUARZAZATE,1,1.0
+Normales WMO — stations marocaines,Maroc / OUARZAZATE,2,1.7
+Normales WMO — stations marocaines,Maroc / OUARZAZATE,3,2.2
+Normales WMO — stations marocaines,Maroc / OUARZAZATE,4,1.0
+Normales WMO — stations marocaines,Maroc / OUARZAZATE,5,0.9
+Normales WMO — stations marocaines,Maroc / OUARZAZATE,6,1.1
+Normales WMO — stations marocaines,Maroc / OUARZAZATE,7,1.0
+Normales WMO — stations marocaines,Maroc / OUARZAZATE,8,2.6
+Normales WMO — stations marocaines,Maroc / OUARZAZATE,9,1.7
+Normales WMO — stations marocaines,Maroc / OUARZAZATE,10,2.0
+Normales WMO — stations marocaines,Maroc / OUARZAZATE,11,1.3
+Normales WMO — stations marocaines,Maroc / OUARZAZATE,12,1.6
+Normales WMO — stations marocaines,Maroc / GUELMIM,1,2.5
+Normales WMO — stations marocaines,Maroc / GUELMIM,2,2.8
+Normales WMO — stations marocaines,Maroc / GUELMIM,3,2.6
+Normales WMO — stations marocaines,Maroc / GUELMIM,4,1.2
+Normales WMO — stations marocaines,Maroc / GUELMIM,5,0.4
+Normales WMO — stations marocaines,Maroc / GUELMIM,6,0.2
+Normales WMO — stations marocaines,Maroc / GUELMIM,7,0.0
+Normales WMO — stations marocaines,Maroc / GUELMIM,8,0.6
+Normales WMO — stations marocaines,Maroc / GUELMIM,9,0.5
+Normales WMO — stations marocaines,Maroc / GUELMIM,10,1.6
+Normales WMO — stations marocaines,Maroc / GUELMIM,11,2.5
+Normales WMO — stations marocaines,Maroc / GUELMIM,12,3.1
+Normales WMO — stations marocaines,Maroc / TANTAN,1,2.9
+Normales WMO — stations marocaines,Maroc / TANTAN,2,2.5
+Normales WMO — stations marocaines,Maroc / TANTAN,3,2.4
+Normales WMO — stations marocaines,Maroc / TANTAN,4,1.0
+Normales WMO — stations marocaines,Maroc / TANTAN,5,0.6
+Normales WMO — stations marocaines,Maroc / TANTAN,6,0.4
+Normales WMO — stations marocaines,Maroc / TANTAN,7,0.1
+Normales WMO — stations marocaines,Maroc / TANTAN,8,0.5
+Normales WMO — stations marocaines,Maroc / TANTAN,9,0.4
+Normales WMO — stations marocaines,Maroc / TANTAN,10,1.7
+Normales WMO — stations marocaines,Maroc / TANTAN,11,2.4
+Normales WMO — stations marocaines,Maroc / TANTAN,12,2.9
+Normales WMO — stations marocaines,Maroc / TETOUAN,1,7.6
+Normales WMO — stations marocaines,Maroc / TETOUAN,2,7.4
+Normales WMO — stations marocaines,Maroc / TETOUAN,3,7.4
+Normales WMO — stations marocaines,Maroc / TETOUAN,4,6.8
+Normales WMO — stations marocaines,Maroc / TETOUAN,5,4.4
+Normales WMO — stations marocaines,Maroc / TETOUAN,6,1.0
+Normales WMO — stations marocaines,Maroc / TETOUAN,7,0.2
+Normales WMO — stations marocaines,Maroc / TETOUAN,8,0.6
+Normales WMO — stations marocaines,Maroc / TETOUAN,9,3.1
+Normales WMO — stations marocaines,Maroc / TETOUAN,10,6.8
+Normales WMO — stations marocaines,Maroc / TETOUAN,11,7.7
+Normales WMO — stations marocaines,Maroc / TETOUAN,12,8.7
+Normales WMO — stations marocaines,Maroc / SMARA,1,0.8
+Normales WMO — stations marocaines,Maroc / SMARA,2,0.7
+Normales WMO — stations marocaines,Maroc / SMARA,3,0.6
+Normales WMO — stations marocaines,Maroc / SMARA,4,0.2
+Normales WMO — stations marocaines,Maroc / SMARA,5,0.1
+Normales WMO — stations marocaines,Maroc / SMARA,6,0.2
+Normales WMO — stations marocaines,Maroc / SMARA,7,0.2
+Normales WMO — stations marocaines,Maroc / SMARA,8,0.6
+Normales WMO — stations marocaines,Maroc / SMARA,9,0.8
+Normales WMO — stations marocaines,Maroc / SMARA,10,0.8
+Normales WMO — stations marocaines,Maroc / SMARA,11,0.5
+Normales WMO — stations marocaines,Maroc / SMARA,12,0.7

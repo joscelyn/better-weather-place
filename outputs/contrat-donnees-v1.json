@@ -202,13 +202,21 @@
       "native_max_zoom": 5,
       "storage": { "dtype": "uint16", "scale_factor": 0.1, "nodata": 65535 },
       "palette": {
-        "status": "provisional-until-full-domain-distribution",
+        "status": "validated-on-reference-series-pending-full-grid",
         "type": "sequential",
+        "reference_audit": {
+          "monthly_values": 906,
+          "point_source_series": 76,
+          "minimum_days_per_month": 0.0,
+          "maximum_days_per_month": 21.67,
+          "above_25_days_count": 0,
+          "note": "Reference series are not an area-weighted spatial sample."
+        },
         "stops": [
           [0, "#fff7fb"], [1, "#ece7f2"], [2, "#d0d1e6"],
           [4, "#a6bddb"], [6, "#74a9cf"], [8, "#3690c0"],
           [10, "#0570b0"], [15, "#045a8d"], [20, "#023858"],
-          [25, "#081d58"]
+          [25, "#081d58"], [31, "#020617"]
         ]
       },
       "base_confidence": "validated",

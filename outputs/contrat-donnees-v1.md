@@ -78,6 +78,8 @@ La palette thermique étendue ne sature aucun pixel du domaine témoin. Elle res
 
 L’audit des précipitations est également terminé sur les douze normales du témoin. La plage observée va de 0 à 348,1 mm/mois et aucun pixel ne dépasse la borne de 400 mm. Les seuils rapprochés de 5, 10 et 20 mm sont conservés : en janvier, 23,97 % des pixels sont sous 10 mm, et cette proportion atteint 64,37 % en juillet. La borne humide reste à vérifier sur l’Europe atlantique et la Norvège.
 
+Pour les jours de pluie, 906 normales mensuelles issues des points CERRA-Land, des stations GHCN et des normales WMO ont été réunies. Elles vont de 0 à 21,67 jours/mois et aucune ne dépasse l’ancien maximum de palette à 25 jours. Une couleur terminale à 31 jours est tout de même ajoutée, car 31 est la limite physique d’un mois et garantit l’absence de saturation lors de la future production de la grille complète. Les couleurs entre 0 et 25 restent inchangées.
+
 ## Contrôles exigés pour chaque fichier final
 
 1. douze mois présents pour chaque variable ;

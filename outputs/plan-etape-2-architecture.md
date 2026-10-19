@@ -145,7 +145,9 @@ Les seuils définitifs doivent être calculés sur les distributions complètes 
 
 Un audit exact des douze normales 1991–2020 est terminé pour les trois variables thermiques sur le domaine témoin Maroc–Méditerranée occidentale–Alpes. La plage initiale −30 à 40 °C convient à la moyenne, mais saturerait 19,91 % des maximales de juillet. Deux couleurs terminales à −40 et 50 °C ont donc été ajoutées sans modifier les correspondances existantes.
 
-L’audit des précipitations confirme ensuite la plage 0–400 mm/mois sur le témoin, avec un maximum observé de 348,1 mm et aucun pixel saturé. Les seuils fins sous 20 mm sont conservés pour différencier les secteurs secs. Le contrôle du domaine européen complet, puis les audits des jours de pluie et de l’ensoleillement, restent nécessaires avant de figer toutes les palettes de production.
+L’audit des précipitations confirme ensuite la plage 0–400 mm/mois sur le témoin, avec un maximum observé de 348,1 mm et aucun pixel saturé. Les seuils fins sous 20 mm sont conservés pour différencier les secteurs secs. Le contrôle du domaine européen complet reste nécessaire avant de figer cette palette de production.
+
+L’audit des jours de pluie réunit 906 valeurs mensuelles provenant de CERRA-Land, GHCN et WMO. Le maximum observé est 21,67 jours/mois. Les seuils 0–25 sont conservés et un point terminal à 31 jours, maximum physique, évite toute saturation future. Comme les références ne forment pas un échantillon spatial uniforme, la distribution devra être vérifiée sur la grille complète. L’ensoleillement reste la dernière palette à auditer.
 
 ## 7. Découpage de l’étape 2
 
