@@ -4,16 +4,19 @@ Date : 19 octobre 2026
 
 ## Ce que le script récupère
 
-`work/run_overnight.py` enchaîne deux phases reprenables :
+`work/run_overnight.py` enchaîne jusqu’à trois phases reprenables :
 
-1. les fenêtres utiles des fichiers CHELSA mensuels 1991–2020 pour :
+1. la commande SARAH-3, si le manifeste
+   `work/downloads/sarah3-ORD70729-urls.txt` existe ;
+
+2. les fenêtres utiles des fichiers CHELSA mensuels 1991–2020 pour :
 
 - température moyenne (`tas`) ;
 - maximales moyennes (`tasmax`) ;
 - minimales moyennes (`tasmin`) ;
 - précipitations mensuelles (`pr`) ;
 
-2. les précipitations **quotidiennes** CERRA-Land 1991–2020, nécessaires au calcul des jours avec au moins 1 mm de pluie.
+3. les précipitations **quotidiennes** CERRA-Land 1991–2020, nécessaires au calcul des jours avec au moins 1 mm de pluie.
 
 Cela représente 1 440 sources. Le script ne copie pas les GeoTIFF mondiaux complets : les quatre fichiers d’un seul mois de 1991 pèsent déjà environ 613 Mo, soit un ordre de grandeur proche de **220 Go** pour les 1 440 fichiers mondiaux. Il lit uniquement la fenêtre Europe–Méditerranée grâce aux requêtes partielles des COG.
 
@@ -31,6 +34,10 @@ caffeinate -i work/.venv/bin/python work/run_overnight.py --hours 10 2>&1 | tee 
 ```
 
 Le Mac restera éveillé pendant l’exécution. La durée de dix heures est une limite souple : le fichier en cours est terminé avant l’arrêt.
+
+SARAH-3 passe en premier lorsque ses liens sont disponibles, car les liens de
+livraison peuvent être temporaires. En l’absence du manifeste, le lanceur indique
+que la phase est ignorée puis continue normalement avec CHELSA et CERRA-Land.
 
 Avant de lancer, vérifier le plan et l’espace disque sans télécharger :
 
@@ -76,7 +83,7 @@ la commande manuelle peut être préparée :
 - 2,8 Go confirmés pour la commande complète sans découpe de domaine ;
 - procédure et traitement local : `outputs/guide-production-normales-sarah3.md`.
 
-Le lanceur nocturne couvre les quatre couches CHELSA et la matière première des
-jours de pluie. SARAH-3 n’y est pas ajouté : le WUI prépare d’abord la commande
-et fournit ensuite ses propres liens de téléchargement. Les fichiers récupérés
-sont transformés par `work/build_sarah_normals.py`.
+Le lanceur nocturne couvre les quatre couches CHELSA, la matière première des
+jours de pluie et, dès que le manifeste de livraison existe, SARAH-3. Le WUI doit
+tout de même préparer la commande et fournir ses liens HTTPS au préalable. Les
+fichiers récupérés sont transformés par `work/build_sarah_normals.py`.

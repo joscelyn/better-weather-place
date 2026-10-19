@@ -26,7 +26,33 @@ la première version.
 
 ## Préparer les fichiers reçus
 
-Décompresser tous les fichiers NetCDF dans :
+À la livraison, enregistrer les liens HTTPS dans un fichier local ignoré par Git,
+un lien par ligne :
+
+```text
+work/downloads/sarah3-ORD70729-urls.txt
+```
+
+Ne pas publier ce fichier : les liens peuvent contenir des paramètres privés ou
+temporaires. Vérifier le manifeste, puis lancer le téléchargement reprenable :
+
+```bash
+work/.venv/bin/python work/download_sarah_order.py \
+  --url-file work/downloads/sarah3-ORD70729-urls.txt \
+  --dry-run
+
+caffeinate -i work/.venv/bin/python work/download_sarah_order.py \
+  --url-file work/downloads/sarah3-ORD70729-urls.txt \
+  2>&1 | tee work/downloads/sarah3-ORD70729.log
+```
+
+Le téléchargeur reprend les fichiers `.part`, effectue six tentatives espacées,
+contrôle l’espace disque et vérifie le contenu NetCDF, ZIP ou TAR avant de marquer
+un fichier comme terminé. Les paramètres des URL ne sont jamais copiés dans les
+journaux ni dans les fichiers de métadonnées.
+
+Si le serveur livre une archive, la décompresser ensuite. Tous les NetCDF doivent
+se trouver, directement ou dans des sous-dossiers, sous :
 
 ```text
 work/downloads/sarah3-monthly/
