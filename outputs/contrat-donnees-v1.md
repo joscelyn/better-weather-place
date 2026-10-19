@@ -80,6 +80,8 @@ L’audit des précipitations est également terminé sur les douze normales du 
 
 Pour les jours de pluie, 906 normales mensuelles issues des points CERRA-Land, des stations GHCN et des normales WMO ont été réunies. Elles vont de 0 à 21,67 jours/mois et aucune ne dépasse l’ancien maximum de palette à 25 jours. Une couleur terminale à 31 jours est tout de même ajoutée, car 31 est la limite physique d’un mois et garantit l’absence de saturation lors de la future production de la grille complète. Les couleurs entre 0 et 25 restent inchangées.
 
+Pour l’ensoleillement, 408 valeurs mensuelles réunissent SARAH-3 sur le domaine principal, CERRA brut au nord de 65° N et les normales WMO correspondantes. Elles vont de 0 à 389,41 h/mois et aucune ne dépasse la borne de 400 heures. La palette 0–400 h est donc conservée sans modification. La grille complète reste à contrôler et l’avertissement nordique demeure obligatoire, car CERRA surestime plusieurs stations malgré une étendue compatible avec la palette.
+
 ## Contrôles exigés pour chaque fichier final
 
 1. douze mois présents pour chaque variable ;

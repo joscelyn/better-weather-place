@@ -147,7 +147,9 @@ Un audit exact des douze normales 1991–2020 est terminé pour les trois variab
 
 L’audit des précipitations confirme ensuite la plage 0–400 mm/mois sur le témoin, avec un maximum observé de 348,1 mm et aucun pixel saturé. Les seuils fins sous 20 mm sont conservés pour différencier les secteurs secs. Le contrôle du domaine européen complet reste nécessaire avant de figer cette palette de production.
 
-L’audit des jours de pluie réunit 906 valeurs mensuelles provenant de CERRA-Land, GHCN et WMO. Le maximum observé est 21,67 jours/mois. Les seuils 0–25 sont conservés et un point terminal à 31 jours, maximum physique, évite toute saturation future. Comme les références ne forment pas un échantillon spatial uniforme, la distribution devra être vérifiée sur la grille complète. L’ensoleillement reste la dernière palette à auditer.
+L’audit des jours de pluie réunit 906 valeurs mensuelles provenant de CERRA-Land, GHCN et WMO. Le maximum observé est 21,67 jours/mois. Les seuils 0–25 sont conservés et un point terminal à 31 jours, maximum physique, évite toute saturation future. Comme les références ne forment pas un échantillon spatial uniforme, la distribution devra être vérifiée sur la grille complète.
+
+L’audit de l’ensoleillement réunit 408 valeurs mensuelles SARAH-3, CERRA nordique brut et WMO. Le maximum observé est 389,41 h/mois et aucune valeur ne dépasse 400 heures. La palette 0–400 h est conservée ; elle devra être confirmée sur la grille SARAH-3 complète.
 
 ## 7. Découpage de l’étape 2
 

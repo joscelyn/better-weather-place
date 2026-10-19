@@ -1,0 +1,409 @@
+source,role,point,month,sunshine_hours
+SARAH-3 — domaine principal,source affichée,alpes / Annecy,1,125.10081481933594
+SARAH-3 — domaine principal,source affichée,alpes / Annecy,2,139.49533081054688
+SARAH-3 — domaine principal,source affichée,alpes / Annecy,3,184.69464111328125
+SARAH-3 — domaine principal,source affichée,alpes / Annecy,4,197.33377075195312
+SARAH-3 — domaine principal,source affichée,alpes / Annecy,5,212.9088592529297
+SARAH-3 — domaine principal,source affichée,alpes / Annecy,6,248.8921813964844
+SARAH-3 — domaine principal,source affichée,alpes / Annecy,7,282.660888671875
+SARAH-3 — domaine principal,source affichée,alpes / Annecy,8,261.4572448730469
+SARAH-3 — domaine principal,source affichée,alpes / Annecy,9,206.3909912109375
+SARAH-3 — domaine principal,source affichée,alpes / Annecy,10,156.742919921875
+SARAH-3 — domaine principal,source affichée,alpes / Annecy,11,109.28282165527344
+SARAH-3 — domaine principal,source affichée,alpes / Annecy,12,103.4462432861328
+SARAH-3 — domaine principal,source affichée,alpes / Chamonix,1,79.8351058959961
+SARAH-3 — domaine principal,source affichée,alpes / Chamonix,2,98.77536010742188
+SARAH-3 — domaine principal,source affichée,alpes / Chamonix,3,166.3450469970703
+SARAH-3 — domaine principal,source affichée,alpes / Chamonix,4,198.9645843505859
+SARAH-3 — domaine principal,source affichée,alpes / Chamonix,5,220.052490234375
+SARAH-3 — domaine principal,source affichée,alpes / Chamonix,6,228.2012634277344
+SARAH-3 — domaine principal,source affichée,alpes / Chamonix,7,236.80758666992188
+SARAH-3 — domaine principal,source affichée,alpes / Chamonix,8,226.5196075439453
+SARAH-3 — domaine principal,source affichée,alpes / Chamonix,9,180.5290985107422
+SARAH-3 — domaine principal,source affichée,alpes / Chamonix,10,130.44027709960938
+SARAH-3 — domaine principal,source affichée,alpes / Chamonix,11,84.57984924316406
+SARAH-3 — domaine principal,source affichée,alpes / Chamonix,12,66.6429672241211
+SARAH-3 — domaine principal,source affichée,alpes / Mont-Blanc,1,72.61483001708984
+SARAH-3 — domaine principal,source affichée,alpes / Mont-Blanc,2,87.35948944091797
+SARAH-3 — domaine principal,source affichée,alpes / Mont-Blanc,3,158.0214080810547
+SARAH-3 — domaine principal,source affichée,alpes / Mont-Blanc,4,203.16615295410156
+SARAH-3 — domaine principal,source affichée,alpes / Mont-Blanc,5,234.46664428710935
+SARAH-3 — domaine principal,source affichée,alpes / Mont-Blanc,6,248.6288299560547
+SARAH-3 — domaine principal,source affichée,alpes / Mont-Blanc,7,257.65447998046875
+SARAH-3 — domaine principal,source affichée,alpes / Mont-Blanc,8,242.7337951660156
+SARAH-3 — domaine principal,source affichée,alpes / Mont-Blanc,9,191.87396240234375
+SARAH-3 — domaine principal,source affichée,alpes / Mont-Blanc,10,144.69943237304688
+SARAH-3 — domaine principal,source affichée,alpes / Mont-Blanc,11,85.22367858886719
+SARAH-3 — domaine principal,source affichée,alpes / Mont-Blanc,12,64.03465270996094
+SARAH-3 — domaine principal,source affichée,pyrenees / Perpignan,1,163.85281372070312
+SARAH-3 — domaine principal,source affichée,pyrenees / Perpignan,2,178.3707275390625
+SARAH-3 — domaine principal,source affichée,pyrenees / Perpignan,3,220.95184326171875
+SARAH-3 — domaine principal,source affichée,pyrenees / Perpignan,4,229.95181274414065
+SARAH-3 — domaine principal,source affichée,pyrenees / Perpignan,5,249.6179962158203
+SARAH-3 — domaine principal,source affichée,pyrenees / Perpignan,6,278.31256103515625
+SARAH-3 — domaine principal,source affichée,pyrenees / Perpignan,7,314.26593017578125
+SARAH-3 — domaine principal,source affichée,pyrenees / Perpignan,8,282.07183837890625
+SARAH-3 — domaine principal,source affichée,pyrenees / Perpignan,9,236.4359893798828
+SARAH-3 — domaine principal,source affichée,pyrenees / Perpignan,10,192.0807342529297
+SARAH-3 — domaine principal,source affichée,pyrenees / Perpignan,11,163.41529846191406
+SARAH-3 — domaine principal,source affichée,pyrenees / Perpignan,12,156.17819213867188
+SARAH-3 — domaine principal,source affichée,pyrenees / Font-Romeu,1,156.00515747070312
+SARAH-3 — domaine principal,source affichée,pyrenees / Font-Romeu,2,177.93951416015625
+SARAH-3 — domaine principal,source affichée,pyrenees / Font-Romeu,3,210.6854248046875
+SARAH-3 — domaine principal,source affichée,pyrenees / Font-Romeu,4,196.6293029785156
+SARAH-3 — domaine principal,source affichée,pyrenees / Font-Romeu,5,218.90444946289065
+SARAH-3 — domaine principal,source affichée,pyrenees / Font-Romeu,6,253.46922302246097
+SARAH-3 — domaine principal,source affichée,pyrenees / Font-Romeu,7,293.3128356933594
+SARAH-3 — domaine principal,source affichée,pyrenees / Font-Romeu,8,272.141845703125
+SARAH-3 — domaine principal,source affichée,pyrenees / Font-Romeu,9,227.32716369628903
+SARAH-3 — domaine principal,source affichée,pyrenees / Font-Romeu,10,198.66029357910156
+SARAH-3 — domaine principal,source affichée,pyrenees / Font-Romeu,11,156.10955810546875
+SARAH-3 — domaine principal,source affichée,pyrenees / Font-Romeu,12,150.2951202392578
+SARAH-3 — domaine principal,source affichée,portugal-galice / Porto,1,153.36424255371094
+SARAH-3 — domaine principal,source affichée,portugal-galice / Porto,2,170.34503173828125
+SARAH-3 — domaine principal,source affichée,portugal-galice / Porto,3,209.14247131347656
+SARAH-3 — domaine principal,source affichée,portugal-galice / Porto,4,231.16424560546875
+SARAH-3 — domaine principal,source affichée,portugal-galice / Porto,5,269.6028137207031
+SARAH-3 — domaine principal,source affichée,portugal-galice / Porto,6,290.8404235839844
+SARAH-3 — domaine principal,source affichée,portugal-galice / Porto,7,321.2527160644531
+SARAH-3 — domaine principal,source affichée,portugal-galice / Porto,8,307.40985107421875
+SARAH-3 — domaine principal,source affichée,portugal-galice / Porto,9,255.1786193847656
+SARAH-3 — domaine principal,source affichée,portugal-galice / Porto,10,189.99725341796875
+SARAH-3 — domaine principal,source affichée,portugal-galice / Porto,11,148.825439453125
+SARAH-3 — domaine principal,source affichée,portugal-galice / Porto,12,144.17604064941406
+SARAH-3 — domaine principal,source affichée,portugal-galice / Santiago,1,111.87799072265624
+SARAH-3 — domaine principal,source affichée,portugal-galice / Santiago,2,135.8277130126953
+SARAH-3 — domaine principal,source affichée,portugal-galice / Santiago,3,176.41616821289062
+SARAH-3 — domaine principal,source affichée,portugal-galice / Santiago,4,189.10675048828125
+SARAH-3 — domaine principal,source affichée,portugal-galice / Santiago,5,218.5462646484375
+SARAH-3 — domaine principal,source affichée,portugal-galice / Santiago,6,241.6952209472656
+SARAH-3 — domaine principal,source affichée,portugal-galice / Santiago,7,273.2373352050781
+SARAH-3 — domaine principal,source affichée,portugal-galice / Santiago,8,265.8113708496094
+SARAH-3 — domaine principal,source affichée,portugal-galice / Santiago,9,214.7664794921875
+SARAH-3 — domaine principal,source affichée,portugal-galice / Santiago,10,154.04144287109375
+SARAH-3 — domaine principal,source affichée,portugal-galice / Santiago,11,112.12543487548828
+SARAH-3 — domaine principal,source affichée,portugal-galice / Santiago,12,106.09884643554688
+SARAH-3 — domaine principal,source affichée,portugal-galice / Faro,1,201.0251922607422
+SARAH-3 — domaine principal,source affichée,portugal-galice / Faro,2,209.1556854248047
+SARAH-3 — domaine principal,source affichée,portugal-galice / Faro,3,259.156494140625
+SARAH-3 — domaine principal,source affichée,portugal-galice / Faro,4,283.9846496582031
+SARAH-3 — domaine principal,source affichée,portugal-galice / Faro,5,326.7818298339844
+SARAH-3 — domaine principal,source affichée,portugal-galice / Faro,6,367.0772705078125
+SARAH-3 — domaine principal,source affichée,portugal-galice / Faro,7,389.4071960449219
+SARAH-3 — domaine principal,source affichée,portugal-galice / Faro,8,359.4645080566406
+SARAH-3 — domaine principal,source affichée,portugal-galice / Faro,9,299.1130065917969
+SARAH-3 — domaine principal,source affichée,portugal-galice / Faro,10,244.56124877929688
+SARAH-3 — domaine principal,source affichée,portugal-galice / Faro,11,201.9435577392578
+SARAH-3 — domaine principal,source affichée,portugal-galice / Faro,12,185.92681884765625
+SARAH-3 — domaine principal,source affichée,andalousie / Malaga,1,209.11505126953125
+SARAH-3 — domaine principal,source affichée,andalousie / Malaga,2,204.51809692382812
+SARAH-3 — domaine principal,source affichée,andalousie / Malaga,3,248.14425659179688
+SARAH-3 — domaine principal,source affichée,andalousie / Malaga,4,268.68463134765625
+SARAH-3 — domaine principal,source affichée,andalousie / Malaga,5,320.332763671875
+SARAH-3 — domaine principal,source affichée,andalousie / Malaga,6,359.89764404296875
+SARAH-3 — domaine principal,source affichée,andalousie / Malaga,7,377.36370849609375
+SARAH-3 — domaine principal,source affichée,andalousie / Malaga,8,346.1587829589844
+SARAH-3 — domaine principal,source affichée,andalousie / Malaga,9,284.41485595703125
+SARAH-3 — domaine principal,source affichée,andalousie / Malaga,10,237.42230224609375
+SARAH-3 — domaine principal,source affichée,andalousie / Malaga,11,199.54791259765625
+SARAH-3 — domaine principal,source affichée,andalousie / Malaga,12,192.9626007080078
+SARAH-3 — domaine principal,source affichée,andalousie / Grenade,1,200.06478881835935
+SARAH-3 — domaine principal,source affichée,andalousie / Grenade,2,192.25962829589844
+SARAH-3 — domaine principal,source affichée,andalousie / Grenade,3,234.007568359375
+SARAH-3 — domaine principal,source affichée,andalousie / Grenade,4,244.14202880859375
+SARAH-3 — domaine principal,source affichée,andalousie / Grenade,5,293.0193786621094
+SARAH-3 — domaine principal,source affichée,andalousie / Grenade,6,344.1093444824219
+SARAH-3 — domaine principal,source affichée,andalousie / Grenade,7,385.54400634765625
+SARAH-3 — domaine principal,source affichée,andalousie / Grenade,8,352.0164794921875
+SARAH-3 — domaine principal,source affichée,andalousie / Grenade,9,277.8860168457031
+SARAH-3 — domaine principal,source affichée,andalousie / Grenade,10,231.8343963623047
+SARAH-3 — domaine principal,source affichée,andalousie / Grenade,11,192.0526885986328
+SARAH-3 — domaine principal,source affichée,andalousie / Grenade,12,190.2559509277344
+SARAH-3 — domaine principal,source affichée,maroc / Essaouira,1,244.6861114501953
+SARAH-3 — domaine principal,source affichée,maroc / Essaouira,2,242.04281616210935
+SARAH-3 — domaine principal,source affichée,maroc / Essaouira,3,283.3176574707031
+SARAH-3 — domaine principal,source affichée,maroc / Essaouira,4,308.1058349609375
+SARAH-3 — domaine principal,source affichée,maroc / Essaouira,5,335.2322692871094
+SARAH-3 — domaine principal,source affichée,maroc / Essaouira,6,337.61309814453125
+SARAH-3 — domaine principal,source affichée,maroc / Essaouira,7,355.441650390625
+SARAH-3 — domaine principal,source affichée,maroc / Essaouira,8,334.0474853515625
+SARAH-3 — domaine principal,source affichée,maroc / Essaouira,9,298.03436279296875
+SARAH-3 — domaine principal,source affichée,maroc / Essaouira,10,268.8246765136719
+SARAH-3 — domaine principal,source affichée,maroc / Essaouira,11,242.02479553222656
+SARAH-3 — domaine principal,source affichée,maroc / Essaouira,12,238.14122009277344
+SARAH-3 — domaine principal,source affichée,maroc / Marrakech,1,249.17510986328125
+SARAH-3 — domaine principal,source affichée,maroc / Marrakech,2,233.88536071777344
+SARAH-3 — domaine principal,source affichée,maroc / Marrakech,3,266.0768737792969
+SARAH-3 — domaine principal,source affichée,maroc / Marrakech,4,285.7664794921875
+SARAH-3 — domaine principal,source affichée,maroc / Marrakech,5,308.0403137207031
+SARAH-3 — domaine principal,source affichée,maroc / Marrakech,6,335.5654602050781
+SARAH-3 — domaine principal,source affichée,maroc / Marrakech,7,346.4353332519531
+SARAH-3 — domaine principal,source affichée,maroc / Marrakech,8,321.0381774902344
+SARAH-3 — domaine principal,source affichée,maroc / Marrakech,9,286.84454345703125
+SARAH-3 — domaine principal,source affichée,maroc / Marrakech,10,263.9694519042969
+SARAH-3 — domaine principal,source affichée,maroc / Marrakech,11,239.8997039794922
+SARAH-3 — domaine principal,source affichée,maroc / Marrakech,12,245.4088897705078
+SARAH-3 — domaine principal,source affichée,maroc / Ifrane,1,203.91824340820312
+SARAH-3 — domaine principal,source affichée,maroc / Ifrane,2,197.65170288085935
+SARAH-3 — domaine principal,source affichée,maroc / Ifrane,3,230.97752380371097
+SARAH-3 — domaine principal,source affichée,maroc / Ifrane,4,248.8709259033203
+SARAH-3 — domaine principal,source affichée,maroc / Ifrane,5,279.13482666015625
+SARAH-3 — domaine principal,source affichée,maroc / Ifrane,6,325.321044921875
+SARAH-3 — domaine principal,source affichée,maroc / Ifrane,7,335.3199768066406
+SARAH-3 — domaine principal,source affichée,maroc / Ifrane,8,304.1141357421875
+SARAH-3 — domaine principal,source affichée,maroc / Ifrane,9,269.2938537597656
+SARAH-3 — domaine principal,source affichée,maroc / Ifrane,10,241.17469787597656
+SARAH-3 — domaine principal,source affichée,maroc / Ifrane,11,199.95578002929688
+SARAH-3 — domaine principal,source affichée,maroc / Ifrane,12,203.34161376953125
+SARAH-3 — domaine principal,source affichée,nord / Reykjavik,1,0.0
+SARAH-3 — domaine principal,source affichée,nord / Reykjavik,2,27.593107223510746
+SARAH-3 — domaine principal,source affichée,nord / Reykjavik,3,81.33991241455078
+SARAH-3 — domaine principal,source affichée,nord / Reykjavik,4,146.58551025390625
+SARAH-3 — domaine principal,source affichée,nord / Reykjavik,5,198.2305603027344
+SARAH-3 — domaine principal,source affichée,nord / Reykjavik,6,201.15411376953125
+SARAH-3 — domaine principal,source affichée,nord / Reykjavik,7,189.6682586669922
+SARAH-3 — domaine principal,source affichée,nord / Reykjavik,8,160.92445373535156
+SARAH-3 — domaine principal,source affichée,nord / Reykjavik,9,105.60194396972656
+SARAH-3 — domaine principal,source affichée,nord / Reykjavik,10,66.93714141845703
+SARAH-3 — domaine principal,source affichée,nord / Reykjavik,11,14.048955917358398
+SARAH-3 — domaine principal,source affichée,nord / Reykjavik,12,0.0
+CERRA — complément nordique brut,source affichée indicative,Akureyri,1,36.367161296296295
+CERRA — complément nordique brut,source affichée indicative,Akureyri,2,91.81609916666666
+CERRA — complément nordique brut,source affichée indicative,Akureyri,3,174.80209787037035
+CERRA — complément nordique brut,source affichée indicative,Akureyri,4,264.64771398148144
+CERRA — complément nordique brut,source affichée indicative,Akureyri,5,339.6205551851852
+CERRA — complément nordique brut,source affichée indicative,Akureyri,6,385.45569574074074
+CERRA — complément nordique brut,source affichée indicative,Akureyri,7,342.960122962963
+CERRA — complément nordique brut,source affichée indicative,Akureyri,8,288.65960314814816
+CERRA — complément nordique brut,source affichée indicative,Akureyri,9,198.59918416666667
+CERRA — complément nordique brut,source affichée indicative,Akureyri,10,120.48063453703703
+CERRA — complément nordique brut,source affichée indicative,Akureyri,11,52.559889259259265
+CERRA — complément nordique brut,source affichée indicative,Akureyri,12,13.199395185185184
+CERRA — complément nordique brut,source affichée indicative,Katterjakk,1,11.408378981481482
+CERRA — complément nordique brut,source affichée indicative,Katterjakk,2,56.61987472222222
+CERRA — complément nordique brut,source affichée indicative,Katterjakk,3,120.02200444444443
+CERRA — complément nordique brut,source affichée indicative,Katterjakk,4,185.1713767592593
+CERRA — complément nordique brut,source affichée indicative,Katterjakk,5,251.21419675925927
+CERRA — complément nordique brut,source affichée indicative,Katterjakk,6,257.8576190740741
+CERRA — complément nordique brut,source affichée indicative,Katterjakk,7,250.0397512037037
+CERRA — complément nordique brut,source affichée indicative,Katterjakk,8,198.30737037037036
+CERRA — complément nordique brut,source affichée indicative,Katterjakk,9,133.32733861111112
+CERRA — complément nordique brut,source affichée indicative,Katterjakk,10,80.70081074074075
+CERRA — complément nordique brut,source affichée indicative,Katterjakk,11,19.442796203703704
+CERRA — complément nordique brut,source affichée indicative,Katterjakk,12,0.0
+CERRA — complément nordique brut,source affichée indicative,Tarfala_Sol,1,7.225384259259259
+CERRA — complément nordique brut,source affichée indicative,Tarfala_Sol,2,35.582211944444445
+CERRA — complément nordique brut,source affichée indicative,Tarfala_Sol,3,82.89151805555555
+CERRA — complément nordique brut,source affichée indicative,Tarfala_Sol,4,130.13047212962962
+CERRA — complément nordique brut,source affichée indicative,Tarfala_Sol,5,175.3032364814815
+CERRA — complément nordique brut,source affichée indicative,Tarfala_Sol,6,183.51611129629632
+CERRA — complément nordique brut,source affichée indicative,Tarfala_Sol,7,159.38819944444447
+CERRA — complément nordique brut,source affichée indicative,Tarfala_Sol,8,119.23197268518518
+CERRA — complément nordique brut,source affichée indicative,Tarfala_Sol,9,76.31902324074075
+CERRA — complément nordique brut,source affichée indicative,Tarfala_Sol,10,42.57638277777778
+CERRA — complément nordique brut,source affichée indicative,Tarfala_Sol,11,13.37197388888889
+CERRA — complément nordique brut,source affichée indicative,Tarfala_Sol,12,0.0
+CERRA — complément nordique brut,source affichée indicative,Abisko_Aut,1,15.808224907407409
+CERRA — complément nordique brut,source affichée indicative,Abisko_Aut,2,79.63410814814816
+CERRA — complément nordique brut,source affichée indicative,Abisko_Aut,3,174.59264203703702
+CERRA — complément nordique brut,source affichée indicative,Abisko_Aut,4,262.2856387962963
+CERRA — complément nordique brut,source affichée indicative,Abisko_Aut,5,369.28364851851853
+CERRA — complément nordique brut,source affichée indicative,Abisko_Aut,6,386.658775
+CERRA — complément nordique brut,source affichée indicative,Abisko_Aut,7,362.5492578703704
+CERRA — complément nordique brut,source affichée indicative,Abisko_Aut,8,292.04392129629633
+CERRA — complément nordique brut,source affichée indicative,Abisko_Aut,9,195.040065
+CERRA — complément nordique brut,source affichée indicative,Abisko_Aut,10,118.94811083333336
+CERRA — complément nordique brut,source affichée indicative,Abisko_Aut,11,28.506982037037037
+CERRA — complément nordique brut,source affichée indicative,Abisko_Aut,12,0.0
+CERRA — complément nordique brut,source affichée indicative,Kiruna_Sol,1,12.849001851851853
+CERRA — complément nordique brut,source affichée indicative,Kiruna_Sol,2,57.34228388888889
+CERRA — complément nordique brut,source affichée indicative,Kiruna_Sol,3,142.48399648148148
+CERRA — complément nordique brut,source affichée indicative,Kiruna_Sol,4,197.52595185185183
+CERRA — complément nordique brut,source affichée indicative,Kiruna_Sol,5,284.8917294444445
+CERRA — complément nordique brut,source affichée indicative,Kiruna_Sol,6,299.9447852777778
+CERRA — complément nordique brut,source affichée indicative,Kiruna_Sol,7,269.8535573148148
+CERRA — complément nordique brut,source affichée indicative,Kiruna_Sol,8,212.67954296296296
+CERRA — complément nordique brut,source affichée indicative,Kiruna_Sol,9,145.29554592592595
+CERRA — complément nordique brut,source affichée indicative,Kiruna_Sol,10,81.23724666666666
+CERRA — complément nordique brut,source affichée indicative,Kiruna_Sol,11,23.00948175925926
+CERRA — complément nordique brut,source affichée indicative,Kiruna_Sol,12,0.0666666666666666
+CERRA — complément nordique brut,source affichée indicative,Lulea_Sol,1,24.105596296296294
+CERRA — complément nordique brut,source affichée indicative,Lulea_Sol,2,65.37336092592592
+CERRA — complément nordique brut,source affichée indicative,Lulea_Sol,3,146.69693972222225
+CERRA — complément nordique brut,source affichée indicative,Lulea_Sol,4,218.55206703703703
+CERRA — complément nordique brut,source affichée indicative,Lulea_Sol,5,311.71596666666665
+CERRA — complément nordique brut,source affichée indicative,Lulea_Sol,6,325.83007064814814
+CERRA — complément nordique brut,source affichée indicative,Lulea_Sol,7,307.7735216666667
+CERRA — complément nordique brut,source affichée indicative,Lulea_Sol,8,245.76103805555556
+CERRA — complément nordique brut,source affichée indicative,Lulea_Sol,9,168.2707552777778
+CERRA — complément nordique brut,source affichée indicative,Lulea_Sol,10,97.66306490740742
+CERRA — complément nordique brut,source affichée indicative,Lulea_Sol,11,34.43630092592593
+CERRA — complément nordique brut,source affichée indicative,Lulea_Sol,12,10.372451203703704
+CERRA — complément nordique brut,source affichée indicative,Sodankyla_Tahtela,1,10.417013611111113
+CERRA — complément nordique brut,source affichée indicative,Sodankyla_Tahtela,2,43.02297351851852
+CERRA — complément nordique brut,source affichée indicative,Sodankyla_Tahtela,3,114.91610333333333
+CERRA — complément nordique brut,source affichée indicative,Sodankyla_Tahtela,4,178.60329194444446
+CERRA — complément nordique brut,source affichée indicative,Sodankyla_Tahtela,5,251.87147824074071
+CERRA — complément nordique brut,source affichée indicative,Sodankyla_Tahtela,6,292.98041611111114
+CERRA — complément nordique brut,source affichée indicative,Sodankyla_Tahtela,7,286.8619952777778
+CERRA — complément nordique brut,source affichée indicative,Sodankyla_Tahtela,8,214.16113814814813
+CERRA — complément nordique brut,source affichée indicative,Sodankyla_Tahtela,9,126.1536287962963
+CERRA — complément nordique brut,source affichée indicative,Sodankyla_Tahtela,10,54.68734037037037
+CERRA — complément nordique brut,source affichée indicative,Sodankyla_Tahtela,11,15.68426388888889
+CERRA — complément nordique brut,source affichée indicative,Sodankyla_Tahtela,12,0.2855297222222222
+CERRA — complément nordique brut,source affichée indicative,UtsjokiKevo,1,4.399169537037038
+CERRA — complément nordique brut,source affichée indicative,UtsjokiKevo,2,43.305468240740744
+CERRA — complément nordique brut,source affichée indicative,UtsjokiKevo,3,128.01014953703705
+CERRA — complément nordique brut,source affichée indicative,UtsjokiKevo,4,195.9454373148148
+CERRA — complément nordique brut,source affichée indicative,UtsjokiKevo,5,266.98722166666664
+CERRA — complément nordique brut,source affichée indicative,UtsjokiKevo,6,279.8018575
+CERRA — complément nordique brut,source affichée indicative,UtsjokiKevo,7,265.13381805555554
+CERRA — complément nordique brut,source affichée indicative,UtsjokiKevo,8,203.1292359259259
+CERRA — complément nordique brut,source affichée indicative,UtsjokiKevo,9,138.39176194444445
+CERRA — complément nordique brut,source affichée indicative,UtsjokiKevo,10,68.98397027777779
+CERRA — complément nordique brut,source affichée indicative,UtsjokiKevo,11,10.85662
+CERRA — complément nordique brut,source affichée indicative,UtsjokiKevo,12,0.0
+CERRA — complément nordique brut,source affichée indicative,Kandalaksha,1,13.397381481481482
+CERRA — complément nordique brut,source affichée indicative,Kandalaksha,2,50.831985833333334
+CERRA — complément nordique brut,source affichée indicative,Kandalaksha,3,131.31676944444445
+CERRA — complément nordique brut,source affichée indicative,Kandalaksha,4,200.19609148148143
+CERRA — complément nordique brut,source affichée indicative,Kandalaksha,5,277.87377296296296
+CERRA — complément nordique brut,source affichée indicative,Kandalaksha,6,326.3279288888889
+CERRA — complément nordique brut,source affichée indicative,Kandalaksha,7,311.43339990740736
+CERRA — complément nordique brut,source affichée indicative,Kandalaksha,8,240.1600351851852
+CERRA — complément nordique brut,source affichée indicative,Kandalaksha,9,155.9022075925926
+CERRA — complément nordique brut,source affichée indicative,Kandalaksha,10,78.71751805555556
+CERRA — complément nordique brut,source affichée indicative,Kandalaksha,11,22.232373425925925
+CERRA — complément nordique brut,source affichée indicative,Kandalaksha,12,0.5479991666666667
+CERRA — complément nordique brut,source affichée indicative,Murmansk,1,4.077790277777778
+CERRA — complément nordique brut,source affichée indicative,Murmansk,2,36.75917916666666
+CERRA — complément nordique brut,source affichée indicative,Murmansk,3,115.16671944444444
+CERRA — complément nordique brut,source affichée indicative,Murmansk,4,183.23448416666668
+CERRA — complément nordique brut,source affichée indicative,Murmansk,5,247.4606113888889
+CERRA — complément nordique brut,source affichée indicative,Murmansk,6,285.8616030555556
+CERRA — complément nordique brut,source affichée indicative,Murmansk,7,283.43673
+CERRA — complément nordique brut,source affichée indicative,Murmansk,8,201.70093703703705
+CERRA — complément nordique brut,source affichée indicative,Murmansk,9,130.1896489814815
+CERRA — complément nordique brut,source affichée indicative,Murmansk,10,57.04246925925926
+CERRA — complément nordique brut,source affichée indicative,Murmansk,11,10.0741
+CERRA — complément nordique brut,source affichée indicative,Murmansk,12,0.0
+Normales WMO — contrôle nordique,contrôle indépendant,Akureyri,1,6.5
+Normales WMO — contrôle nordique,contrôle indépendant,Akureyri,2,33.9
+Normales WMO — contrôle nordique,contrôle indépendant,Akureyri,3,77.9
+Normales WMO — contrôle nordique,contrôle indépendant,Akureyri,4,127.5
+Normales WMO — contrôle nordique,contrôle indépendant,Akureyri,5,171.0
+Normales WMO — contrôle nordique,contrôle indépendant,Akureyri,6,189.9
+Normales WMO — contrôle nordique,contrôle indépendant,Akureyri,7,152.5
+Normales WMO — contrôle nordique,contrôle indépendant,Akureyri,8,138.0
+Normales WMO — contrôle nordique,contrôle indépendant,Akureyri,9,90.4
+Normales WMO — contrôle nordique,contrôle indépendant,Akureyri,10,47.9
+Normales WMO — contrôle nordique,contrôle indépendant,Akureyri,11,15.2
+Normales WMO — contrôle nordique,contrôle indépendant,Akureyri,12,0.3
+Normales WMO — contrôle nordique,contrôle indépendant,Katterjakk,1,0.0
+Normales WMO — contrôle nordique,contrôle indépendant,Katterjakk,2,20.8
+Normales WMO — contrôle nordique,contrôle indépendant,Katterjakk,3,87.0
+Normales WMO — contrôle nordique,contrôle indépendant,Katterjakk,4,151.9
+Normales WMO — contrôle nordique,contrôle indépendant,Katterjakk,5,195.3
+Normales WMO — contrôle nordique,contrôle indépendant,Katterjakk,6,201.2
+Normales WMO — contrôle nordique,contrôle indépendant,Katterjakk,7,197.0
+Normales WMO — contrôle nordique,contrôle indépendant,Katterjakk,8,140.2
+Normales WMO — contrôle nordique,contrôle indépendant,Katterjakk,9,83.5
+Normales WMO — contrôle nordique,contrôle indépendant,Katterjakk,10,38.3
+Normales WMO — contrôle nordique,contrôle indépendant,Katterjakk,11,1.2
+Normales WMO — contrôle nordique,contrôle indépendant,Katterjakk,12,0.0
+Normales WMO — contrôle nordique,contrôle indépendant,Tarfala_Sol,1,4.3
+Normales WMO — contrôle nordique,contrôle indépendant,Tarfala_Sol,2,37.6
+Normales WMO — contrôle nordique,contrôle indépendant,Tarfala_Sol,3,96.6
+Normales WMO — contrôle nordique,contrôle indépendant,Tarfala_Sol,4,141.8
+Normales WMO — contrôle nordique,contrôle indépendant,Tarfala_Sol,5,175.7
+Normales WMO — contrôle nordique,contrôle indépendant,Tarfala_Sol,6,172.1
+Normales WMO — contrôle nordique,contrôle indépendant,Tarfala_Sol,7,155.7
+Normales WMO — contrôle nordique,contrôle indépendant,Tarfala_Sol,8,113.2
+Normales WMO — contrôle nordique,contrôle indépendant,Tarfala_Sol,9,79.6
+Normales WMO — contrôle nordique,contrôle indépendant,Tarfala_Sol,10,55.7
+Normales WMO — contrôle nordique,contrôle indépendant,Tarfala_Sol,11,10.1
+Normales WMO — contrôle nordique,contrôle indépendant,Tarfala_Sol,12,0.0
+Normales WMO — contrôle nordique,contrôle indépendant,Abisko_Aut,1,0.0
+Normales WMO — contrôle nordique,contrôle indépendant,Abisko_Aut,2,38.1
+Normales WMO — contrôle nordique,contrôle indépendant,Abisko_Aut,3,124.2
+Normales WMO — contrôle nordique,contrôle indépendant,Abisko_Aut,4,172.7
+Normales WMO — contrôle nordique,contrôle indépendant,Abisko_Aut,5,225.8
+Normales WMO — contrôle nordique,contrôle indépendant,Abisko_Aut,6,232.3
+Normales WMO — contrôle nordique,contrôle indépendant,Abisko_Aut,7,216.7
+Normales WMO — contrôle nordique,contrôle indépendant,Abisko_Aut,8,161.2
+Normales WMO — contrôle nordique,contrôle indépendant,Abisko_Aut,9,102.5
+Normales WMO — contrôle nordique,contrôle indépendant,Abisko_Aut,10,63.5
+Normales WMO — contrôle nordique,contrôle indépendant,Abisko_Aut,11,2.8
+Normales WMO — contrôle nordique,contrôle indépendant,Abisko_Aut,12,0.0
+Normales WMO — contrôle nordique,contrôle indépendant,Kiruna_Sol,1,7.4
+Normales WMO — contrôle nordique,contrôle indépendant,Kiruna_Sol,2,68.5
+Normales WMO — contrôle nordique,contrôle indépendant,Kiruna_Sol,3,157.7
+Normales WMO — contrôle nordique,contrôle indépendant,Kiruna_Sol,4,202.0
+Normales WMO — contrôle nordique,contrôle indépendant,Kiruna_Sol,5,237.6
+Normales WMO — contrôle nordique,contrôle indépendant,Kiruna_Sol,6,232.2
+Normales WMO — contrôle nordique,contrôle indépendant,Kiruna_Sol,7,226.0
+Normales WMO — contrôle nordique,contrôle indépendant,Kiruna_Sol,8,171.0
+Normales WMO — contrôle nordique,contrôle indépendant,Kiruna_Sol,9,121.3
+Normales WMO — contrôle nordique,contrôle indépendant,Kiruna_Sol,10,73.5
+Normales WMO — contrôle nordique,contrôle indépendant,Kiruna_Sol,11,19.4
+Normales WMO — contrôle nordique,contrôle indépendant,Kiruna_Sol,12,0.0
+Normales WMO — contrôle nordique,contrôle indépendant,Lulea_Sol,1,23.4
+Normales WMO — contrôle nordique,contrôle indépendant,Lulea_Sol,2,77.2
+Normales WMO — contrôle nordique,contrôle indépendant,Lulea_Sol,3,162.0
+Normales WMO — contrôle nordique,contrôle indépendant,Lulea_Sol,4,216.9
+Normales WMO — contrôle nordique,contrôle indépendant,Lulea_Sol,5,281.2
+Normales WMO — contrôle nordique,contrôle indépendant,Lulea_Sol,6,299.4
+Normales WMO — contrôle nordique,contrôle indépendant,Lulea_Sol,7,295.0
+Normales WMO — contrôle nordique,contrôle indépendant,Lulea_Sol,8,233.8
+Normales WMO — contrôle nordique,contrôle indépendant,Lulea_Sol,9,152.7
+Normales WMO — contrôle nordique,contrôle indépendant,Lulea_Sol,10,91.0
+Normales WMO — contrôle nordique,contrôle indépendant,Lulea_Sol,11,37.0
+Normales WMO — contrôle nordique,contrôle indépendant,Lulea_Sol,12,2.7
+Normales WMO — contrôle nordique,contrôle indépendant,Sodankyla_Tahtela,1,12.0
+Normales WMO — contrôle nordique,contrôle indépendant,Sodankyla_Tahtela,2,58.6
+Normales WMO — contrôle nordique,contrôle indépendant,Sodankyla_Tahtela,3,140.8
+Normales WMO — contrôle nordique,contrôle indépendant,Sodankyla_Tahtela,4,187.3
+Normales WMO — contrôle nordique,contrôle indépendant,Sodankyla_Tahtela,5,223.6
+Normales WMO — contrôle nordique,contrôle indépendant,Sodankyla_Tahtela,6,244.6
+Normales WMO — contrôle nordique,contrôle indépendant,Sodankyla_Tahtela,7,250.6
+Normales WMO — contrôle nordique,contrôle indépendant,Sodankyla_Tahtela,8,173.8
+Normales WMO — contrôle nordique,contrôle indépendant,Sodankyla_Tahtela,9,106.9
+Normales WMO — contrôle nordique,contrôle indépendant,Sodankyla_Tahtela,10,57.0
+Normales WMO — contrôle nordique,contrôle indépendant,Sodankyla_Tahtela,11,17.8
+Normales WMO — contrôle nordique,contrôle indépendant,Sodankyla_Tahtela,12,0.6
+Normales WMO — contrôle nordique,contrôle indépendant,UtsjokiKevo,1,3.5
+Normales WMO — contrôle nordique,contrôle indépendant,UtsjokiKevo,2,46.9
+Normales WMO — contrôle nordique,contrôle indépendant,UtsjokiKevo,3,130.2
+Normales WMO — contrôle nordique,contrôle indépendant,UtsjokiKevo,4,180.5
+Normales WMO — contrôle nordique,contrôle indépendant,UtsjokiKevo,5,192.8
+Normales WMO — contrôle nordique,contrôle indépendant,UtsjokiKevo,6,215.5
+Normales WMO — contrôle nordique,contrôle indépendant,UtsjokiKevo,7,208.5
+Normales WMO — contrôle nordique,contrôle indépendant,UtsjokiKevo,8,127.4
+Normales WMO — contrôle nordique,contrôle indépendant,UtsjokiKevo,9,88.3
+Normales WMO — contrôle nordique,contrôle indépendant,UtsjokiKevo,10,50.9
+Normales WMO — contrôle nordique,contrôle indépendant,UtsjokiKevo,11,8.9
+Normales WMO — contrôle nordique,contrôle indépendant,UtsjokiKevo,12,0.0
+Normales WMO — contrôle nordique,contrôle indépendant,Kandalaksha,1,3.2
+Normales WMO — contrôle nordique,contrôle indépendant,Kandalaksha,2,45.0
+Normales WMO — contrôle nordique,contrôle indépendant,Kandalaksha,3,129.2
+Normales WMO — contrôle nordique,contrôle indépendant,Kandalaksha,4,184.6
+Normales WMO — contrôle nordique,contrôle indépendant,Kandalaksha,5,231.1
+Normales WMO — contrôle nordique,contrôle indépendant,Kandalaksha,6,271.5
+Normales WMO — contrôle nordique,contrôle indépendant,Kandalaksha,7,267.6
+Normales WMO — contrôle nordique,contrôle indépendant,Kandalaksha,8,186.6
+Normales WMO — contrôle nordique,contrôle indépendant,Kandalaksha,9,110.6
+Normales WMO — contrôle nordique,contrôle indépendant,Kandalaksha,10,55.8
+Normales WMO — contrôle nordique,contrôle indépendant,Kandalaksha,11,9.6
+Normales WMO — contrôle nordique,contrôle indépendant,Kandalaksha,12,0.0
+Normales WMO — contrôle nordique,contrôle indépendant,Murmansk,1,1.9
+Normales WMO — contrôle nordique,contrôle indépendant,Murmansk,2,44.5
+Normales WMO — contrôle nordique,contrôle indépendant,Murmansk,3,133.4
+Normales WMO — contrôle nordique,contrôle indépendant,Murmansk,4,188.6
+Normales WMO — contrôle nordique,contrôle indépendant,Murmansk,5,205.2
+Normales WMO — contrôle nordique,contrôle indépendant,Murmansk,6,234.8
+Normales WMO — contrôle nordique,contrôle indépendant,Murmansk,7,249.4
+Normales WMO — contrôle nordique,contrôle indépendant,Murmansk,8,165.4
+Normales WMO — contrôle nordique,contrôle indépendant,Murmansk,9,108.3
+Normales WMO — contrôle nordique,contrôle indépendant,Murmansk,10,51.7
+Normales WMO — contrôle nordique,contrôle indépendant,Murmansk,11,5.8
+Normales WMO — contrôle nordique,contrôle indépendant,Murmansk,12,0.0

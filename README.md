@@ -20,6 +20,8 @@ Les douze normales de précipitations sont également calculées. La plage 0–4
 
 La palette des jours de pluie a été contrôlée sur 906 normales mensuelles CERRA-Land, GHCN et WMO. Le maximum observé est 21,67 jours/mois ; une borne terminale à 31 jours a été ajoutée pour respecter le maximum physique sans toucher aux couleurs 0–25. Voir `outputs/rapport-palette-jours-pluie.md`.
 
+La palette d’ensoleillement a été contrôlée sur 408 valeurs mensuelles SARAH-3, CERRA et WMO, hors Canaries. Le maximum observé est 389,41 h/mois : l’échelle 0–400 h est conservée sans modification, avec un contrôle spatial complet encore nécessaire. Voir `outputs/rapport-palette-ensoleillement.md`.
+
 Période de référence : **1991–2020**. Une vue récente **1996–2025** sera étudiée séparément.
 
 ## Sources candidates

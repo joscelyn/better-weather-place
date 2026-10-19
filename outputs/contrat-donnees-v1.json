@@ -234,8 +234,16 @@
       "native_max_zoom": 5,
       "storage": { "dtype": "uint16", "scale_factor": 0.1, "nodata": 65535 },
       "palette": {
-        "status": "provisional-until-full-domain-distribution",
+        "status": "validated-on-reference-series-pending-full-grid",
         "type": "sequential",
+        "reference_audit": {
+          "monthly_values": 408,
+          "point_source_series": 34,
+          "minimum_hours_per_month": 0.0,
+          "maximum_hours_per_month": 389.41,
+          "above_400_hours_count": 0,
+          "note": "Reference series are not an area-weighted spatial sample; Canaries excluded."
+        },
         "stops": [
           [0, "#2d1e3e"], [20, "#44345f"], [40, "#5d4d7a"],
           [80, "#786b91"], [120, "#958baa"], [160, "#b3acc0"],
