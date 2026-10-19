@@ -105,10 +105,12 @@
           "above_maximum_percent": 0.0
         },
         "stops": [
+          [-40, "#171747"],
           [-30, "#313695"], [-20, "#4575b4"], [-10, "#74add1"],
           [-5, "#abd9e9"], [0, "#e0f3f8"], [5, "#ffffbf"],
           [10, "#fee090"], [15, "#fdae61"], [20, "#f46d43"],
-          [25, "#d73027"], [35, "#a50026"], [40, "#67001f"]
+          [25, "#d73027"], [35, "#a50026"], [40, "#67001f"],
+          [50, "#31000f"]
         ]
       },
       "base_confidence": "validated"
@@ -125,6 +127,13 @@
       "native_max_zoom": 7,
       "storage": { "dtype": "int16", "scale_factor": 0.1, "nodata": -32768 },
       "palette_ref": "tavg",
+      "palette_audit": {
+        "bounds": [-10.0, 29.0, 8.0, 47.0],
+        "minimum_celsius": -21.74,
+        "maximum_celsius": 45.13,
+        "above_40_percent_july": 19.91,
+        "above_50_percent": 0.0
+      },
       "base_confidence": "validated-with-known-local-bias",
       "known_limit_fr": "Le contrôle WMO marocain montre un biais froid moyen d’environ 0,9 °C."
     },
@@ -140,6 +149,13 @@
       "native_max_zoom": 7,
       "storage": { "dtype": "int16", "scale_factor": 0.1, "nodata": -32768 },
       "palette_ref": "tavg",
+      "palette_audit": {
+        "bounds": [-10.0, 29.0, 8.0, 47.0],
+        "minimum_celsius": -30.03,
+        "maximum_celsius": 29.21,
+        "below_minus_30_percent_january": 0.000032,
+        "below_minus_40_percent": 0.0
+      },
       "base_confidence": "validated"
     },
     {

@@ -70,9 +70,11 @@ Elles restent provisoires jusqu’au calcul des distributions sur tout le domain
 - que les légendes fonctionnent sur écran mobile ;
 - que les couleurs restent compréhensibles en cas de déficience de vision des couleurs.
 
-L’audit des douze mois de température moyenne est terminé sur le témoin Maroc–Méditerranée occidentale–Alpes. Aucun des 3 098 918 pixels terrestres mensuels ne sort de la plage −30 à 40 °C ; le minimum observé est −25,34 °C et le maximum 38,73 °C. La palette de température moyenne est donc conservée pour la maquette. Elle reste à contrôler sur la Scandinavie et l’Europe orientale avant la production complète.
+L’audit des douze mois de température moyenne est terminé sur le témoin Maroc–Méditerranée occidentale–Alpes. Aucun des 3 098 918 pixels terrestres mensuels ne sort de la plage −30 à 40 °C ; le minimum observé est −25,34 °C et le maximum 38,73 °C.
 
-Cette validation ne s’étend pas automatiquement aux températures maximales et minimales. Leurs distributions seront auditées séparément avant de décider si elles peuvent réellement partager les mêmes couleurs.
+L’audit séparé des maximales et minimales montre toutefois que 19,91 % des maximales moyennes dépassent 40 °C en juillet, tandis qu’un seul pixel de minimale descend légèrement sous −30 °C en janvier. La palette thermique commune reçoit donc deux points terminaux à −40 et 50 °C. Toutes les couleurs déjà définies entre −30 et 40 °C restent inchangées : une température donnée conserve ainsi la même couleur dans les cartes moyenne, maximale et minimale.
+
+La palette thermique étendue ne sature aucun pixel du domaine témoin. Elle reste à contrôler sur la Scandinavie et l’Europe orientale avant la production complète.
 
 ## Contrôles exigés pour chaque fichier final
 

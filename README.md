@@ -14,7 +14,7 @@ Le lot témoin 2B est terminé sur janvier et juillet entre le Maroc et les Alpe
 
 Le pilote complémentaire de relief détaillé est également terminé sur les Alpes, les Pyrénées et le Haut Atlas. Le profil retenu utilise environ 1 km aux zooms 3–7 et environ 90 m aux zooms 8–10. Les résultats, dont une archive témoin de 6,37 Mio, sont décrits dans `outputs/pilot-relief-haute-resolution-rapport.md`. Les Canaries restent volontairement hors du périmètre prioritaire.
 
-Les douze normales mensuelles de température moyenne 1991–2020 sont maintenant calculées sur le domaine témoin. L’audit terrestre confirme la palette −30 à 40 °C sans saturation ; elle est retenue pour la maquette, sous réserve du contrôle ultérieur de la Scandinavie et de l’Europe orientale. Le détail se trouve dans `outputs/rapport-palette-temperature-moyenne.md`.
+Les douze normales mensuelles 1991–2020 des températures moyenne, maximale et minimale sont maintenant calculées sur le domaine témoin. La moyenne tient dans la plage −30 à 40 °C, mais cette borne saturerait près de 20 % des maximales de juillet. La palette thermique commune est donc étendue à −40–50 °C en conservant toutes les couleurs intermédiaires. Les détails se trouvent dans `outputs/rapport-palette-temperature-moyenne.md` et `outputs/rapport-palettes-temperatures-extremes.md`.
 
 Période de référence : **1991–2020**. Une vue récente **1996–2025** sera étudiée séparément.
 

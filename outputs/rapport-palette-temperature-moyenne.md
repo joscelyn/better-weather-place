@@ -9,7 +9,7 @@ L’audit porte sur les douze normales mensuelles CHELSA 1991–2020 calculées 
 
 Seuls les pixels terrestres identifiés par le WBM du Copernicus DEM ont été retenus, soit **3 098 918 pixels** par mois. Les valeurs marines présentes dans les fichiers CHELSA ne participent donc pas aux statistiques.
 
-Palette testée : −30 à 40 °C, avec une échelle fixe pour les douze mois.
+Palette initialement testée : −30 à 40 °C, avec une échelle fixe pour les douze mois.
 
 ## Résultats principaux
 
@@ -26,16 +26,18 @@ En juillet, **43,09 %** des pixels sont entre 25 et 35 °C et **16,19 %** entre 
 
 ## Décision
 
-Conserver la palette actuelle pour la **température moyenne** dans la maquette :
+Conserver le cœur de la palette actuelle pour la **température moyenne** dans la maquette :
 
-- bornes fixes −30 et 40 °C ;
+- correspondances couleur–température inchangées entre −30 et 40 °C ;
 - mêmes correspondances couleur–température pendant les douze mois ;
 - aucune adaptation automatique à chaque mois ;
 - valeurs inférieures ou supérieures éventuelles placées dans les couleurs terminales, jamais supprimées.
 
+L’audit ultérieur des maximales et minimales a conduit à ajouter des couleurs terminales communes à −40 et 50 °C. Cette extension n’altère aucune couleur de la plage −30 à 40 °C validée ici et permet aux trois variables thermiques de partager une légende cohérente.
+
 Cette décision est validée uniquement sur le témoin occidental et méditerranéen. Le domaine ne contient ni la Scandinavie ni l’Europe orientale : la borne froide doit être contrôlée sur le domaine européen complet avant la production définitive.
 
-La palette ne doit pas encore être déclarée commune aux températures maximales et minimales. Ces deux variables ont des distributions décalées et nécessitent leur propre audit ; les maximales peuvent notamment dépasser la plage de la température moyenne.
+Les températures maximales et minimales ont depuis été auditées séparément ; leurs résultats sont consignés dans `rapport-palettes-temperatures-extremes.md`.
 
 ## Fichiers associés
 
