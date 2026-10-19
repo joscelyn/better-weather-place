@@ -6,6 +6,7 @@ __pycache__/
 
 # Données brutes et caches reproductibles, parfois volumineux
 work/validation/cache/
+work/downloads/
 
 # Identifiants locaux — ne jamais versionner
 .cdsapirc
