@@ -1,0 +1,117 @@
+{
+  "comparison_period": "1991-2020",
+  "months": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "comparable_points": 10,
+  "good_points": 8,
+  "indicative_points": 2,
+  "non_comparable_points": 8,
+  "temperature_pairs": 120,
+  "temperature_mean_bias_chelsa_minus_station_c": -0.07661858665141624,
+  "temperature_mae_c": 0.7664260393926734,
+  "temperature_p90_absolute_error_c": 1.522861111111145,
+  "precipitation_pairs": 100,
+  "precipitation_wet_pairs_station_ge_10mm": 85,
+  "precipitation_wet_ratio_median_chelsa_to_station": 1.1304028294520234,
+  "precipitation_wet_ratio_p10": 0.9594454884801645,
+  "precipitation_wet_ratio_p90": 1.5967694108673687,
+  "precipitation_wet_mae_mm": 15.490097474616135,
+  "precipitation_dry_pairs_station_lt_10mm": 15,
+  "precipitation_dry_mae_mm": 1.938360153256705,
+  "month_01": {
+    "temperature_pairs": 10,
+    "temperature_bias_c": -0.3483896785179355,
+    "temperature_mae_c": 0.9741969431055072,
+    "precipitation_wet_pairs": 9,
+    "precipitation_wet_ratio_median": 1.0591619689661187
+  },
+  "month_02": {
+    "temperature_pairs": 10,
+    "temperature_bias_c": -0.28570248966121975,
+    "temperature_mae_c": 0.8993411961016766,
+    "precipitation_wet_pairs": 8,
+    "precipitation_wet_ratio_median": 1.2930428541181134
+  },
+  "month_03": {
+    "temperature_pairs": 10,
+    "temperature_bias_c": -0.13517529839147574,
+    "temperature_mae_c": 0.7226215349506444,
+    "precipitation_wet_pairs": 9,
+    "precipitation_wet_ratio_median": 1.1054366798112356
+  },
+  "month_04": {
+    "temperature_pairs": 10,
+    "temperature_bias_c": 0.05070394404449492,
+    "temperature_mae_c": 0.5604983000715775,
+    "precipitation_wet_pairs": 8,
+    "precipitation_wet_ratio_median": 1.077544330483759
+  },
+  "month_05": {
+    "temperature_pairs": 10,
+    "temperature_bias_c": 0.10145801375429278,
+    "temperature_mae_c": 0.6785538362731205,
+    "precipitation_wet_pairs": 7,
+    "precipitation_wet_ratio_median": 1.1018314248695589
+  },
+  "month_06": {
+    "temperature_pairs": 10,
+    "temperature_bias_c": 0.08470721887736747,
+    "temperature_mae_c": 0.830490956638098,
+    "precipitation_wet_pairs": 3,
+    "precipitation_wet_ratio_median": 1.3305995475113126
+  },
+  "month_07": {
+    "temperature_pairs": 10,
+    "temperature_bias_c": 0.13666678986619374,
+    "temperature_mae_c": 0.9021645665453363,
+    "precipitation_wet_pairs": 4,
+    "precipitation_wet_ratio_median": 1.2510820268614284
+  },
+  "month_08": {
+    "temperature_pairs": 10,
+    "temperature_bias_c": -0.010839373554355446,
+    "temperature_mae_c": 0.8409994862016067,
+    "precipitation_wet_pairs": 3,
+    "precipitation_wet_ratio_median": 1.3846153846153846
+  },
+  "month_09": {
+    "temperature_pairs": 10,
+    "temperature_bias_c": -0.02818998924179983,
+    "temperature_mae_c": 0.7152624030349441,
+    "precipitation_wet_pairs": 8,
+    "precipitation_wet_ratio_median": 1.1766931790347042
+  },
+  "month_10": {
+    "temperature_pairs": 10,
+    "temperature_bias_c": -0.06971873686809182,
+    "temperature_mae_c": 0.49528862934122986,
+    "precipitation_wet_pairs": 9,
+    "precipitation_wet_ratio_median": 1.0980360331115078
+  },
+  "month_11": {
+    "temperature_pairs": 10,
+    "temperature_bias_c": -0.1431493547405837,
+    "temperature_mae_c": 0.6869646804111113,
+    "precipitation_wet_pairs": 9,
+    "precipitation_wet_ratio_median": 1.09895577596648
+  },
+  "month_12": {
+    "temperature_pairs": 10,
+    "temperature_bias_c": -0.27179408538388217,
+    "temperature_mae_c": 0.8907299400372279,
+    "precipitation_wet_pairs": 8,
+    "precipitation_wet_ratio_median": 1.1222364159903422
+  }
+}

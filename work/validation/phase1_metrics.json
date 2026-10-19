@@ -1,0 +1,17 @@
+{
+  "points": 18,
+  "rows": 36,
+  "temperature_mean_mae_c": 1.674103942652338,
+  "temperature_mean_median_delta_c": 0.48430107526885086,
+  "temperature_mean_p90_abs_delta_c": 3.324408602150544,
+  "temperature_max_mae_c": 1.6504181600955665,
+  "temperature_min_mae_c": 2.221326164874553,
+  "precip_ratio_median": 0.992541654220475,
+  "precip_ratio_p10": 0.5037600567014442,
+  "precip_ratio_p90": 1.5917162356164507,
+  "official_precip_ratio_median": 1.2408022726563295,
+  "official_precip_ratio_p10": 0.7529659005669734,
+  "official_precip_ratio_p90": 1.5946097115046833,
+  "official_cerra_land_missing_points": 0,
+  "sarah_points_available": 17
+}

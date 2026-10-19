@@ -1,0 +1,14 @@
+.DS_Store
+.venv/
+work/.venv/
+__pycache__/
+*.py[cod]
+
+# Données brutes et caches reproductibles, parfois volumineux
+work/validation/cache/
+
+# Identifiants locaux — ne jamais versionner
+.cdsapirc
+.env
+.env.*
+!.env.example

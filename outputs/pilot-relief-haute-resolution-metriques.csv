@@ -1,0 +1,2 @@
+asset,tile_count,unpacked_tile_bytes,median_tile_bytes,p90_tile_bytes,pmtiles_bytes,elapsed_seconds_cache_dependent
+relief-separate-90m-montagnes.pmtiles,679,6681234,9222,17948,6683239,435.4147047080005

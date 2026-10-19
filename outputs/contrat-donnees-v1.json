@@ -1,0 +1,244 @@
+{
+  "schema_version": "0.1-draft",
+  "reference_period": {
+    "start_year": 1991,
+    "end_year": 2020,
+    "label": "Normale climatique 1991–2020"
+  },
+  "calendar": "gregorian",
+  "months": [
+    { "number": 1, "id": "01", "label_fr": "janvier" },
+    { "number": 2, "id": "02", "label_fr": "février" },
+    { "number": 3, "id": "03", "label_fr": "mars" },
+    { "number": 4, "id": "04", "label_fr": "avril" },
+    { "number": 5, "id": "05", "label_fr": "mai" },
+    { "number": 6, "id": "06", "label_fr": "juin" },
+    { "number": 7, "id": "07", "label_fr": "juillet" },
+    { "number": 8, "id": "08", "label_fr": "août" },
+    { "number": 9, "id": "09", "label_fr": "septembre" },
+    { "number": 10, "id": "10", "label_fr": "octobre" },
+    { "number": 11, "id": "11", "label_fr": "novembre" },
+    { "number": 12, "id": "12", "label_fr": "décembre" }
+  ],
+  "domain": {
+    "geometry_file": "emprise-cerra-officielle.geojson",
+    "water_mask_source": "Copernicus DEM GLO-30 WBM",
+    "canaries_enabled_in_v1": false
+  },
+  "asset_contract": {
+    "display_template": "data/1991-2020/{layer_id}/{month}.pmtiles",
+    "value_template": "data/1991-2020/{layer_id}/{month}.tif",
+    "display_format": "PMTiles v3 raster WebP",
+    "value_format": "Cloud Optimized GeoTIFF",
+    "display_projection": "EPSG:3857",
+    "value_projection": "EPSG:4326",
+    "value_tiling": "256 x 256 pixels",
+    "value_compression": "DEFLATE",
+    "value_overviews": [2, 4, 8, 16, 32],
+    "display_webp_quality_for_pilot": 85,
+    "relief_mode": "separate-raster-layer",
+    "relief_template": "data/terrain/relief.pmtiles",
+    "relief_profile": {
+      "source": "Copernicus DEM GLO-30 and WBM",
+      "low_zoom_range": [3, 7],
+      "low_zoom_processing_resolution": "approximately 1 km",
+      "high_zoom_range": [8, 10],
+      "high_zoom_processing_resolution": "approximately 90 m",
+      "native_max_zoom": 10,
+      "water_is_transparent": true,
+      "note": "Relief resolution does not change the native resolution of climate layers."
+    },
+    "http_requirements": ["HTTPS", "Range requests", "CORS when cross-origin"]
+  },
+  "rounding": {
+    "mode": "half-away-from-zero",
+    "note": "Round only for display; calculations retain the stored precision."
+  },
+  "warnings": {
+    "coastal_mixed_cell": {
+      "condition": "land_fraction_in_climate_cell < 0.80",
+      "label_fr": "Cellule côtière mixte",
+      "message_fr": "La valeur climatique représente une cellule contenant à la fois de la terre et de l’eau."
+    },
+    "complex_terrain": {
+      "condition": "abs(click_elevation_m - climate_cell_median_elevation_m) >= 250 or climate_cell_elevation_p90_minus_p10_m >= 300",
+      "label_fr": "Relief complexe",
+      "message_fr": "La valeur de la maille peut différer sensiblement entre vallée, versant et sommet."
+    },
+    "sarah_edge": {
+      "condition": "latitude >= 63 and latitude <= 65 and layer_id == 'sunshine'",
+      "label_fr": "Bord de couverture satellite",
+      "message_fr": "La durée d’ensoleillement est proche de la limite nord de SARAH-3 et doit être interprétée avec prudence."
+    },
+    "northern_sunshine_indicative": {
+      "condition": "latitude > 65 and layer_id == 'sunshine'",
+      "label_fr": "Estimation indicative",
+      "message_fr": "Au nord de 65° N, l’ensoleillement provient de CERRA et présente une incertitude plus élevée."
+    },
+    "water_click": {
+      "condition": "WBM class != 0",
+      "label_fr": "Point situé sur l’eau",
+      "message_fr": "Aucune valeur terrestre n’est affichée. Une cellule terrestre voisine peut être proposée à moins de 2 km."
+    }
+  },
+  "layers": [
+    {
+      "id": "tavg",
+      "label_fr": "Température moyenne",
+      "short_label_fr": "Moyenne",
+      "unit": "°C",
+      "click_decimals": 1,
+      "source": "CHELSA-monthly V2.1",
+      "source_variable": "tas",
+      "native_resolution": "30 arcsec, environ 1 km",
+      "native_max_zoom": 7,
+      "storage": { "dtype": "int16", "scale_factor": 0.1, "nodata": -32768 },
+      "palette": {
+        "status": "validated-on-western-mediterranean-pilot-pending-full-domain",
+        "type": "diverging",
+        "pilot_audit": {
+          "bounds": [-10.0, 29.0, 8.0, 47.0],
+          "land_pixels_per_month": 3098918,
+          "minimum_celsius": -25.34,
+          "maximum_celsius": 38.73,
+          "below_minimum_percent": 0.0,
+          "above_maximum_percent": 0.0
+        },
+        "stops": [
+          [-30, "#313695"], [-20, "#4575b4"], [-10, "#74add1"],
+          [-5, "#abd9e9"], [0, "#e0f3f8"], [5, "#ffffbf"],
+          [10, "#fee090"], [15, "#fdae61"], [20, "#f46d43"],
+          [25, "#d73027"], [35, "#a50026"], [40, "#67001f"]
+        ]
+      },
+      "base_confidence": "validated"
+    },
+    {
+      "id": "tmax",
+      "label_fr": "Moyenne des maximales journalières",
+      "short_label_fr": "Maximales",
+      "unit": "°C",
+      "click_decimals": 1,
+      "source": "CHELSA-monthly V2.1",
+      "source_variable": "tasmax",
+      "native_resolution": "30 arcsec, environ 1 km",
+      "native_max_zoom": 7,
+      "storage": { "dtype": "int16", "scale_factor": 0.1, "nodata": -32768 },
+      "palette_ref": "tavg",
+      "base_confidence": "validated-with-known-local-bias",
+      "known_limit_fr": "Le contrôle WMO marocain montre un biais froid moyen d’environ 0,9 °C."
+    },
+    {
+      "id": "tmin",
+      "label_fr": "Moyenne des minimales journalières",
+      "short_label_fr": "Minimales",
+      "unit": "°C",
+      "click_decimals": 1,
+      "source": "CHELSA-monthly V2.1",
+      "source_variable": "tasmin",
+      "native_resolution": "30 arcsec, environ 1 km",
+      "native_max_zoom": 7,
+      "storage": { "dtype": "int16", "scale_factor": 0.1, "nodata": -32768 },
+      "palette_ref": "tavg",
+      "base_confidence": "validated"
+    },
+    {
+      "id": "precipitation",
+      "label_fr": "Précipitations mensuelles",
+      "short_label_fr": "Pluie totale",
+      "unit": "mm/mois",
+      "click_decimals": 1,
+      "source": "CHELSA-monthly V2.1",
+      "source_variable": "pr",
+      "native_resolution": "30 arcsec, environ 1 km",
+      "native_max_zoom": 7,
+      "storage": { "dtype": "uint16", "scale_factor": 0.1, "nodata": 65535 },
+      "palette": {
+        "status": "provisional-until-full-domain-distribution",
+        "type": "sequential",
+        "stops": [
+          [0, "#f7fbff"], [5, "#e3eef9"], [10, "#cfe1f2"],
+          [20, "#9ecae1"], [40, "#6baed6"], [60, "#4292c6"],
+          [100, "#2171b5"], [150, "#08519c"], [250, "#08306b"],
+          [400, "#3f007d"]
+        ]
+      },
+      "base_confidence": "validated"
+    },
+    {
+      "id": "rainy_days",
+      "label_fr": "Jours de pluie",
+      "short_label_fr": "Jours ≥ 1 mm",
+      "unit": "jours/mois",
+      "threshold_definition": "daily precipitation >= 1.0 mm",
+      "click_decimals": 1,
+      "source": "CERRA-Land",
+      "source_variable": "total precipitation",
+      "native_resolution": "5.5 km; access grid 0.05 degree",
+      "native_max_zoom": 5,
+      "storage": { "dtype": "uint16", "scale_factor": 0.1, "nodata": 65535 },
+      "palette": {
+        "status": "provisional-until-full-domain-distribution",
+        "type": "sequential",
+        "stops": [
+          [0, "#fff7fb"], [1, "#ece7f2"], [2, "#d0d1e6"],
+          [4, "#a6bddb"], [6, "#74a9cf"], [8, "#3690c0"],
+          [10, "#0570b0"], [15, "#045a8d"], [20, "#023858"],
+          [25, "#081d58"]
+        ]
+      },
+      "base_confidence": "validated",
+      "known_limit_fr": "La maille de 5,5 km peut surestimer le nombre de jours dans certains sites de montagne, comme Ifrane."
+    },
+    {
+      "id": "sunshine",
+      "label_fr": "Durée d’ensoleillement",
+      "short_label_fr": "Ensoleillement",
+      "unit": "h/mois",
+      "click_decimals": 0,
+      "source": "SARAH-3 jusqu’à 65° N; CERRA au nord",
+      "source_variable": "SDU south; derived direct-radiation duration north",
+      "native_resolution": "0.05 degree south; 5.5 km north",
+      "native_max_zoom": 5,
+      "storage": { "dtype": "uint16", "scale_factor": 0.1, "nodata": 65535 },
+      "palette": {
+        "status": "provisional-until-full-domain-distribution",
+        "type": "sequential",
+        "stops": [
+          [0, "#2d1e3e"], [20, "#44345f"], [40, "#5d4d7a"],
+          [80, "#786b91"], [120, "#958baa"], [160, "#b3acc0"],
+          [200, "#d2cfbe"], [240, "#eee9a9"], [280, "#f6d66f"],
+          [320, "#f7b942"], [360, "#f28e2b"], [400, "#d95f0e"]
+        ]
+      },
+      "confidence_zones": [
+        { "condition": "latitude < 63", "confidence": "validated" },
+        { "condition": "latitude >= 63 and latitude <= 65", "confidence": "caution" },
+        { "condition": "latitude > 65", "confidence": "indicative" }
+      ]
+    }
+  ],
+  "auxiliary_point_values": [
+    {
+      "id": "elevation",
+      "label_fr": "Altitude",
+      "unit": "m",
+      "click_decimals": 0,
+      "source": "Copernicus DEM GLO-30",
+      "storage": { "dtype": "int16", "scale_factor": 1, "nodata": -32768 }
+    },
+    {
+      "id": "land_fraction",
+      "label_fr": "Proportion de terre dans la maille climatique",
+      "unit": "%",
+      "click_decimals": 0,
+      "source": "Copernicus DEM GLO-30 WBM"
+    }
+  ],
+  "confidence_levels": {
+    "validated": "Source contrôlée sur la zone ou la variable, sans alerte locale détectée.",
+    "validated-with-known-local-bias": "Source validée, avec un biais local documenté.",
+    "caution": "Valeur utilisable avec prudence en raison de la limite de couverture ou du terrain.",
+    "indicative": "Ordre de grandeur uniquement; incertitude sensiblement plus élevée."
+  }
+}

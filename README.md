@@ -1,0 +1,40 @@
+# Better Weather Place
+
+Projet de carte climatique mensuelle pour l’Europe, le bassin méditerranéen et les Canaries.
+
+## État actuel
+
+L’étape 1 de sélection et de validation des sources gratuites est terminée pour les températures, précipitations, jours de pluie, heures d’ensoleillement et altitude, avec une attention particulière au relief et aux côtes. Aucun code d’application n’a encore été commencé.
+
+L’architecture proposée pour l’étape 2 est documentée dans `outputs/plan-etape-2-architecture.md`. Elle privilégie une carte sans API applicative, avec MapLibre, des archives raster PMTiles pour l’affichage et des COG pour les valeurs au clic. Le choix de l’hébergement est reporté : les mêmes fichiers devront fonctionner sur un stockage objet ou sur un VPS. La prochaine expérimentation prévue est un petit lot de tuiles témoin, pas la génération complète des 72 couches mensuelles.
+
+Le contrat de travail des couches est défini dans `outputs/contrat-donnees-v1.json` et expliqué dans `outputs/contrat-donnees-v1.md` : unités, arrondis, formats, palettes provisoires, résolutions et avertissements côtiers, topographiques et nordiques.
+
+Le lot témoin 2B est terminé sur janvier et juillet entre le Maroc et les Alpes. Les cinq archives PMTiles et deux COG sont dans `outputs/pilot-etape-2b/`, avec le rapport `outputs/pilot-etape-2b-rapport.md`. Le relief séparé est retenu pour la maquette : sa qualité est proche du relief intégré et son coût fixe est amorti après environ huit couches.
+
+Le pilote complémentaire de relief détaillé est également terminé sur les Alpes, les Pyrénées et le Haut Atlas. Le profil retenu utilise environ 1 km aux zooms 3–7 et environ 90 m aux zooms 8–10. Les résultats, dont une archive témoin de 6,37 Mio, sont décrits dans `outputs/pilot-relief-haute-resolution-rapport.md`. Les Canaries restent volontairement hors du périmètre prioritaire.
+
+Les douze normales mensuelles de température moyenne 1991–2020 sont maintenant calculées sur le domaine témoin. L’audit terrestre confirme la palette −30 à 40 °C sans saturation ; elle est retenue pour la maquette, sous réserve du contrôle ultérieur de la Scandinavie et de l’Europe orientale. Le détail se trouve dans `outputs/rapport-palette-temperature-moyenne.md`.
+
+Période de référence : **1991–2020**. Une vue récente **1996–2025** sera étudiée séparément.
+
+## Sources candidates
+
+- CHELSA Monthly V2.1 pour les températures et les précipitations mensuelles ;
+- CERRA et CERRA-Land pour la référence régionale, les jours de pluie et le complément nord ;
+- SARAH-3 pour la durée d’ensoleillement jusqu’à 65° N ;
+- Copernicus DEM GLO-30 pour le relief et l’altitude.
+- NOAA GHCN-Daily comme contrôle indépendant par stations.
+- normales WMO/NCEI 1991–2020 comme contrôle indépendant de l’ensoleillement nordique ainsi que des températures, précipitations et jours de pluie au Maroc.
+
+## Organisation
+
+- `outputs/` : rapport et résultats lisibles de l’étape 1 ;
+- `work/validation/` : scripts, données intermédiaires et caches de validation ;
+- `work/.venv/` : environnement Python local non versionné.
+
+Les identifiants Copernicus restent dans le fichier privé `~/.cdsapirc` et ne sont jamais stockés dans ce dépôt.
+
+La validation actuelle comprend les douze mois 1991–2020, un contrôle indépendant par stations GHCN-Daily, une comparaison annuelle CHELSA/CERRA-Land sur 14 points terrestres hors Canaries, cinq fenêtres température/relief couvrant Alpes, Pyrénées, Atlas, Tenerife et Tromsø, ainsi qu’un contrôle CERRA/WMO sur dix stations d’ensoleillement au nord de 65° N. Au Maroc, les normales WMO de 25 stations confirment CHELSA pour les températures et précipitations et CERRA-Land pour les jours de pluie ; Ifrane reste une exception liée au relief et Essaouira un cas côtier mixte. Le masque terre/mer retenu est le WBM du Copernicus DEM GLO-30. L’emprise native CERRA, exportée dans `outputs/emprise-cerra-officielle.geojson`, fixe la limite commune des couches hybrides. CERRA peut servir de complément nordique indicatif, mais la correction multiplicative unique a été rejetée ; la correction estivale des Canaries est documentée mais non prioritaire.
+
+Attribution requise pour le relief adapté : « produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved ».

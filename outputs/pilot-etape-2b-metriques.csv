@@ -1,0 +1,6 @@
+asset,month,variant,tile_count,unpacked_tile_bytes,median_tile_bytes,p90_tile_bytes,pmtiles_bytes
+tavg-01-plain.pmtiles,1.0,plain,91,171278,1470,3544,171882
+tavg-01-integrated.pmtiles,1.0,integrated,91,232786,1816,5250,233393
+tavg-07-plain.pmtiles,7.0,plain,91,198376,1582,4628,198980
+tavg-07-integrated.pmtiles,7.0,integrated,91,224920,1706,5174,225527
+relief-separate.pmtiles,,relief,91,319686,2372,8158,320288
