@@ -13,5 +13,3 @@ npm run dev
 ```
 
 Le lien symbolique est ignoré par Git. L’URL des données pourra plus tard pointer vers un stockage objet ou le VPS sans modifier leur format.
-
-Si `npm install` renvoie `ENOTFOUND registry.npmjs.org`, il suffit de relancer la même commande lorsque la résolution DNS est revenue ; les sources de la maquette ne dépendent pas de cette installation incomplète.

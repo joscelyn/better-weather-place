@@ -7,11 +7,59 @@ import "./style.css";
 const CLIMATE_SOURCE = "climate-source";
 const CLIMATE_LAYER = "climate-layer";
 const BASEMAP_STYLE = "https://tiles.openfreemap.org/styles/bright";
+const STORAGE_KEY = "better-weather-place:map-state:v1";
 
-let selectedLayer = climateLayers[0];
-let selectedMonth = 1;
-let opacity = 0.76;
+type SavedState = {
+  layerId: string;
+  month: number;
+  opacity: number;
+  center: [number, number];
+  zoom: number;
+};
+
+const defaultState: SavedState = {
+  layerId: "tavg",
+  month: 1,
+  opacity: 0.76,
+  center: [9, 46],
+  zoom: 3.25,
+};
+
+function loadState(): SavedState {
+  try {
+    const candidate = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "null") as Partial<SavedState> | null;
+    if (!candidate) return defaultState;
+    const layerId = climateLayers.some((layer) => layer.id === candidate.layerId)
+      ? candidate.layerId!
+      : defaultState.layerId;
+    const month = Number.isInteger(candidate.month) && candidate.month! >= 1 && candidate.month! <= 12
+      ? candidate.month!
+      : defaultState.month;
+    const opacity = typeof candidate.opacity === "number" && candidate.opacity >= 0.25 && candidate.opacity <= 1
+      ? candidate.opacity
+      : defaultState.opacity;
+    const center = Array.isArray(candidate.center)
+      && candidate.center.length === 2
+      && candidate.center.every((coordinate) => typeof coordinate === "number" && Number.isFinite(coordinate))
+      ? candidate.center as [number, number]
+      : defaultState.center;
+    const zoom = typeof candidate.zoom === "number" && candidate.zoom >= 2.4 && candidate.zoom <= 10
+      ? candidate.zoom
+      : defaultState.zoom;
+    return { layerId, month, opacity, center, zoom };
+  } catch {
+    return defaultState;
+  }
+}
+
+const initialState = loadState();
+
+let selectedLayer = climateLayers.find((layer) => layer.id === initialState.layerId) ?? climateLayers[0];
+let selectedMonth = initialState.month;
+let opacity = initialState.opacity;
 let map: MapLibreMap;
+let activeSourceId: string | undefined;
+let mapReady = false;
 
 const protocol = new Protocol();
 maplibregl.addProtocol("pmtiles", protocol.tile);
@@ -79,6 +127,22 @@ const monthsElement = document.querySelector<HTMLDivElement>("#months")!;
 const statusElement = document.querySelector<HTMLDivElement>("#status")!;
 const placeCard = document.querySelector<HTMLElement>("#place-card")!;
 
+function saveState(): void {
+  const center = map?.getCenter();
+  const state: SavedState = {
+    layerId: selectedLayer.id,
+    month: selectedMonth,
+    opacity,
+    center: center ? [center.lng, center.lat] : initialState.center,
+    zoom: map ? map.getZoom() : initialState.zoom,
+  };
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch {
+    // La carte reste utilisable lorsque le stockage local est désactivé.
+  }
+}
+
 for (const layer of climateLayers) {
   const option = document.createElement("option");
   option.value = layer.id;
@@ -104,10 +168,13 @@ function firstOverlayLayer(style: StyleSpecification): string | undefined {
 }
 
 function addClimateLayer(): void {
-  if (!map?.isStyleLoaded()) return;
+  if (!mapReady) return;
+  const nextSourceId = `${CLIMATE_SOURCE}-${selectedLayer.id}-${String(selectedMonth).padStart(2, "0")}`;
+  const previousSourceId = activeSourceId;
+  activeSourceId = nextSourceId;
   if (map.getLayer(CLIMATE_LAYER)) map.removeLayer(CLIMATE_LAYER);
-  if (map.getSource(CLIMATE_SOURCE)) map.removeSource(CLIMATE_SOURCE);
-  map.addSource(CLIMATE_SOURCE, {
+  if (previousSourceId && map.getSource(previousSourceId)) map.removeSource(previousSourceId);
+  map.addSource(nextSourceId, {
     type: "raster",
     url: climateArchiveUrl(selectedLayer.id, selectedMonth),
     tileSize: 256,
@@ -118,7 +185,7 @@ function addClimateLayer(): void {
     {
       id: CLIMATE_LAYER,
       type: "raster",
-      source: CLIMATE_SOURCE,
+      source: nextSourceId,
       paint: {
         "raster-opacity": opacity,
         "raster-fade-duration": 180,
@@ -127,8 +194,8 @@ function addClimateLayer(): void {
     },
     firstOverlayLayer(map.getStyle()),
   );
-  statusElement.textContent = `${selectedLayer.shortLabel} · ${months[selectedMonth - 1]}`;
-  statusElement.classList.add("ready");
+  statusElement.textContent = `Chargement · ${selectedLayer.shortLabel} · ${months[selectedMonth - 1]}`;
+  statusElement.classList.remove("ready");
   preloadAdjacentMonths();
 }
 
@@ -151,6 +218,10 @@ function renderLegend(): void {
 }
 
 function renderControls(): void {
+  variableSelect.value = selectedLayer.id;
+  const opacityInput = document.querySelector<HTMLInputElement>("#opacity")!;
+  opacityInput.value = String(Math.round(opacity * 100));
+  document.querySelector<HTMLOutputElement>("#opacity-value")!.value = `${Math.round(opacity * 100)} %`;
   document.querySelector<HTMLDivElement>("#current-label")!.textContent = selectedLayer.label;
   document.querySelector<HTMLSpanElement>("#current-meta")!.textContent = `${selectedLayer.resolution} · ${selectedLayer.source}`;
   document.querySelector<HTMLElement>("#place-source")!.textContent = selectedLayer.source;
@@ -167,6 +238,7 @@ function renderControls(): void {
 function selectMonth(month: number): void {
   selectedMonth = ((month - 1 + 12) % 12) + 1;
   renderControls();
+  saveState();
   addClimateLayer();
 }
 
@@ -180,12 +252,14 @@ function preloadAdjacentMonths(): void {
 variableSelect.addEventListener("change", () => {
   selectedLayer = climateLayers.find((layer) => layer.id === variableSelect.value) ?? climateLayers[0];
   renderControls();
+  saveState();
   addClimateLayer();
 });
 document.querySelector<HTMLInputElement>("#opacity")!.addEventListener("input", (event) => {
   opacity = Number((event.target as HTMLInputElement).value) / 100;
   document.querySelector<HTMLOutputElement>("#opacity-value")!.value = `${Math.round(opacity * 100)} %`;
   if (map?.getLayer(CLIMATE_LAYER)) map.setPaintProperty(CLIMATE_LAYER, "raster-opacity", opacity);
+  saveState();
 });
 document.querySelector<HTMLButtonElement>("#previous-month")!.addEventListener("click", () => selectMonth(selectedMonth - 1));
 document.querySelector<HTMLButtonElement>("#next-month")!.addEventListener("click", () => selectMonth(selectedMonth + 1));
@@ -194,8 +268,8 @@ document.querySelector<HTMLButtonElement>("#close-place")!.addEventListener("cli
 map = new maplibregl.Map({
   container: "map",
   style: BASEMAP_STYLE,
-  center: [9, 46],
-  zoom: 3.25,
+  center: initialState.center,
+  zoom: initialState.zoom,
   minZoom: 2.4,
   maxZoom: 10,
   maxBounds: [[-31, 20], [51, 75]],
@@ -204,7 +278,12 @@ map = new maplibregl.Map({
 map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
 map.addControl(new maplibregl.AttributionControl({ compact: true }), "bottom-right");
 map.on("load", () => {
+  mapReady = true;
   addClimateLayer();
+});
+map.on("sourcedata", (event) => {
+  if (!activeSourceId || event.sourceId !== activeSourceId) return;
+  statusElement.textContent = `${selectedLayer.shortLabel} · ${months[selectedMonth - 1]}`;
   statusElement.classList.add("ready");
 });
 map.on("error", (event) => {
@@ -218,5 +297,6 @@ map.on("click", (event) => {
   document.querySelector<HTMLParagraphElement>("#place-copy")!.textContent = `${selectedLayer.label}, ${months[selectedMonth - 1]} — normale climatique 1991–2020.`;
   placeCard.classList.add("visible");
 });
+map.on("moveend", saveState);
 
 renderControls();
