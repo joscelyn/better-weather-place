@@ -3,6 +3,7 @@ import type { Map as MapLibreMap, StyleSpecification } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { Protocol } from "pmtiles";
 import { climateArchiveUrl, climateLayers, months, type ClimateLayer } from "./climate";
+import { readClimateValue } from "./climate-values";
 import "./style.css";
 
 const CLIMATE_SOURCE = "climate-source";
@@ -103,6 +104,11 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
       </div>
     </aside>
 
+    <div id="hover-card" class="hover-card glass" role="status" aria-live="polite">
+      <strong id="hover-value">—</strong>
+      <span id="hover-context"></span>
+    </div>
+
     <section id="place-card" class="place-card glass" aria-live="polite">
       <button id="close-place" aria-label="Fermer">×</button>
       <p class="eyebrow">Point sélectionné</p>
@@ -112,7 +118,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         <div><dt>Source</dt><dd id="place-source"></dd></div>
         <div><dt>Résolution</dt><dd id="place-resolution"></dd></div>
       </dl>
-      <p class="prototype-note">La lecture numérique précise depuis le COG sera branchée après la maquette.</p>
+      <p class="prototype-note">Valeur issue du pixel climatique au point sélectionné.</p>
     </section>
 
     <nav class="month-dock glass" aria-label="Choix du mois">
@@ -129,6 +135,12 @@ const variableSelect = document.querySelector<HTMLSelectElement>("#variable")!;
 const monthsElement = document.querySelector<HTMLDivElement>("#months")!;
 const statusElement = document.querySelector<HTMLDivElement>("#status")!;
 const placeCard = document.querySelector<HTMLElement>("#place-card")!;
+const hoverCard = document.querySelector<HTMLDivElement>("#hover-card")!;
+const hoverValue = document.querySelector<HTMLElement>("#hover-value")!;
+const hoverContext = document.querySelector<HTMLElement>("#hover-context")!;
+let hoverTimer: number | undefined;
+let hoverRequest = 0;
+let placeRequest = 0;
 
 function saveState(): void {
   const center = map?.getCenter();
@@ -143,6 +155,34 @@ function saveState(): void {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   } catch {
     // La carte reste utilisable lorsque le stockage local est désactivé.
+  }
+}
+
+function positionHoverCard(x: number, y: number): void {
+  const cardWidth = 176;
+  const cardHeight = 64;
+  const left = Math.min(x + 16, window.innerWidth - cardWidth - 12);
+  const top = Math.min(y + 16, window.innerHeight - cardHeight - 12);
+  hoverCard.style.left = `${Math.max(12, left)}px`;
+  hoverCard.style.top = `${Math.max(12, top)}px`;
+}
+
+async function showClimateValue(longitude: number, latitude: number, request: number): Promise<number | null> {
+  const layer = selectedLayer;
+  const month = selectedMonth;
+  try {
+    const value = await readClimateValue(layer.id, month, longitude, latitude);
+    if (request !== hoverRequest) return value;
+    hoverValue.textContent = value === null
+      ? "Pas de donnée"
+      : `${value.toLocaleString("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} ${layer.unit}`;
+    hoverContext.textContent = `${layer.shortLabel} · ${months[month - 1]}`;
+    hoverCard.classList.add("visible");
+    return value;
+  } catch (error) {
+    console.error("Lecture de la valeur climatique impossible", error);
+    if (request === hoverRequest) hoverCard.classList.remove("visible");
+    return null;
   }
 }
 
@@ -282,6 +322,8 @@ function renderControls(): void {
 }
 
 function selectMonth(month: number): void {
+  hoverRequest += 1;
+  hoverCard.classList.remove("visible");
   selectedMonth = ((month - 1 + 12) % 12) + 1;
   renderControls();
   saveState();
@@ -296,6 +338,8 @@ function preloadAdjacentMonths(): void {
 }
 
 variableSelect.addEventListener("change", () => {
+  hoverRequest += 1;
+  hoverCard.classList.remove("visible");
   selectedLayer = climateLayers.find((layer) => layer.id === variableSelect.value) ?? climateLayers[0];
   renderControls();
   saveState();
@@ -342,8 +386,34 @@ map.on("error", (event) => {
 map.on("click", (event) => {
   const { lat, lng } = event.lngLat;
   document.querySelector<HTMLHeadingElement>("#place-title")!.textContent = `${lat.toFixed(3)}°, ${lng.toFixed(3)}°`;
-  document.querySelector<HTMLParagraphElement>("#place-copy")!.textContent = `${selectedLayer.label}, ${months[selectedMonth - 1]} — normale climatique 1991–2020.`;
+  const placeCopy = document.querySelector<HTMLParagraphElement>("#place-copy")!;
+  placeCopy.textContent = `Lecture de ${selectedLayer.label.toLowerCase()}…`;
   placeCard.classList.add("visible");
+  const request = ++placeRequest;
+  const layer = selectedLayer;
+  const month = selectedMonth;
+  void readClimateValue(layer.id, month, lng, lat).then((value) => {
+    if (request !== placeRequest) return;
+    placeCopy.textContent = value === null
+      ? `${layer.label}, ${months[month - 1]} — aucune donnée terrestre à ce point.`
+      : `${value.toLocaleString("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} ${layer.unit} · ${months[month - 1]} · normale 1991–2020.`;
+  });
+});
+map.on("mousemove", (event) => {
+  positionHoverCard(event.point.x, event.point.y);
+  hoverValue.textContent = "Lecture…";
+  hoverContext.textContent = `${selectedLayer.shortLabel} · ${months[selectedMonth - 1]}`;
+  hoverCard.classList.add("visible");
+  window.clearTimeout(hoverTimer);
+  const request = ++hoverRequest;
+  hoverTimer = window.setTimeout(() => {
+    void showClimateValue(event.lngLat.lng, event.lngLat.lat, request);
+  }, 90);
+});
+map.getCanvas().addEventListener("mouseleave", () => {
+  window.clearTimeout(hoverTimer);
+  hoverRequest += 1;
+  hoverCard.classList.remove("visible");
 });
 map.on("moveend", saveState);
 

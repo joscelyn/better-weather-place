@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "geotiff": "^3.0.5",
     "maplibre-gl": "^6.15.0",
     "pmtiles": "^4.3.0"
   },
