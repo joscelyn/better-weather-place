@@ -50,28 +50,39 @@ def read_tile(path: Path) -> tuple[np.ndarray, np.ndarray, dict[int, np.ndarray]
             years = np.fromiter((date.year for date in dates), dtype="int16")
             months = np.fromiter((date.month for date in dates), dtype="uint8")
             precipitation = np.ma.filled(dataset["tp"][:], np.nan).astype("float32")
-    if not np.isfinite(precipitation).all():
-        raise RuntimeError(f"Valeurs manquantes dans {path}")
+    complete = np.isfinite(precipitation).all(axis=0)
     normals: dict[int, np.ndarray] = {}
     rainy = precipitation >= 1.0
     for month in range(1, 13):
         annual = np.stack(
             [rainy[(years == year) & (months == month)].sum(axis=0) for year in YEARS]
         )
-        normals[month] = annual.mean(axis=0, dtype="float64").astype("float32")
+        normal = annual.mean(axis=0, dtype="float64").astype("float32")
+        normal[~complete] = np.nan
+        normals[month] = normal
     return latitude, longitude, normals
 
 
 def encode(values: np.ndarray) -> np.ndarray:
-    return np.floor(values / SCALE + 0.5).astype("uint16")
+    encoded = np.full(values.shape, NODATA, dtype="uint16")
+    valid = np.isfinite(values)
+    encoded[valid] = np.floor(values[valid] / SCALE + 0.5).astype("uint16")
+    return encoded
 
 
 def grid(bounds: tuple[float, float, float, float]) -> tuple[int, int, rasterio.Affine]:
     west, south, east, north = bounds
     width = round((east - west) / RESOLUTION)
     height = round((north - south) / RESOLUTION)
-    # CDS area extracts omit the west/south edge and include east/north.
-    transform = from_origin(west + RESOLUTION / 2, north + RESOLUTION / 2, RESOLUTION, RESOLUTION)
+    # CDS area extracts omit the west/north edge and include east/south.
+    # Pixel centres therefore run west + resolution ... east and
+    # north - resolution ... south.
+    transform = from_origin(
+        west + RESOLUTION / 2,
+        north - RESOLUTION / 2,
+        RESOLUTION,
+        RESOLUTION,
+    )
     return width, height, transform
 
 
@@ -130,12 +141,32 @@ def write_tile(
     latitude: np.ndarray, longitude: np.ndarray, normals: dict[int, np.ndarray],
 ) -> None:
     west, _, _, north = bounds
-    column = round((longitude[0] - (west + RESOLUTION)) / RESOLUTION)
-    row = round((north - latitude[-1]) / RESOLUTION)
+    if len(latitude) < 2 or len(longitude) < 2:
+        raise RuntimeError("Une tuile CERRA doit contenir au moins deux coordonnées par axe")
+    if not np.allclose(np.abs(np.diff(latitude)), RESOLUTION, rtol=0, atol=1e-8):
+        raise RuntimeError("Pas de latitude CERRA inattendu")
+    if not np.allclose(np.abs(np.diff(longitude)), RESOLUTION, rtol=0, atol=1e-8):
+        raise RuntimeError("Pas de longitude CERRA inattendu")
+
+    westmost = float(longitude.min())
+    northmost = float(latitude.max())
+    column = round((westmost - (west + RESOLUTION)) / RESOLUTION)
+    row = round(((north - RESOLUTION) - northmost) / RESOLUTION)
     window = Window(column, row, len(longitude), len(latitude))
     for month, path in enumerate(working, start=1):
+        values = encode(normals[month])
+        if latitude[0] < latitude[-1]:
+            values = values[::-1, :]
+        if longitude[0] > longitude[-1]:
+            values = values[:, ::-1]
         with rasterio.open(path, "r+") as dataset:
-            dataset.write(encode(normals[month])[::-1, :], 1, window=window)
+            if (
+                column < 0 or row < 0
+                or column + len(longitude) > dataset.width
+                or row + len(latitude) > dataset.height
+            ):
+                raise RuntimeError(f"Fenêtre CERRA hors grille : {window}")
+            dataset.write(values, 1, window=window)
 
 
 def file_sha256(path: Path) -> str:
