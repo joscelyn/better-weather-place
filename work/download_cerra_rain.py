@@ -246,7 +246,15 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--bounds", type=parse_bounds, default=DEFAULT_BOUNDS)
     parser.add_argument("--hours", type=float, default=10.0)
-    parser.add_argument("--workers", type=int, default=4)
+    parser.add_argument(
+        "--workers",
+        type=int,
+        default=1,
+        help=(
+            "Nombre de requêtes CDS simultanées (défaut : 1, conformément à la "
+            "limite actuelle du service CERRA-Land)."
+        ),
+    )
     parser.add_argument("--minimum-free-gb", type=float, default=15.0)
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--verify-only", action="store_true")

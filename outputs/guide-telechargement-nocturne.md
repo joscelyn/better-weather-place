@@ -77,9 +77,11 @@ La taille exacte dépend de la compression spatiale de chaque fichier. Le test r
 
 Copernicus limite chaque extraction CERRA-Land à 0,5° × 0,5°. Le script ne demande
 que les tuiles rencontrant les terres Natural Earth, traite le sud en premier et
-lance quatre requêtes parallèles par défaut. Une file continue remplace les anciens
-lots : dès qu’un worker termine, la tuile suivante démarre sans attendre une
-requête lente ou en backoff. Un test alpin complet sur trente ans pèse **4,28 Mio**.
+lance désormais **une seule requête à la fois** par défaut. Le CDS a explicitement
+refusé les requêtes parallèles avec le message demandant de configurer le script
+en mode séquentiel. L’option `--rain-workers` reste disponible pour un futur
+relèvement de cette limite, mais il est déconseillé de l’augmenter actuellement.
+Un test alpin complet sur trente ans pèse **4,28 Mio**.
 L’ordre de grandeur de la pluie quotidienne complète est d’environ **33 Gio
 supplémentaires**. Elle pourra donc demander plusieurs nuits et sera reprise
 automatiquement.

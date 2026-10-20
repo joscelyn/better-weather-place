@@ -33,7 +33,12 @@ def main() -> int:
     )
     parser.add_argument("--hours", type=float, default=10.0)
     parser.add_argument("--minimum-free-gb", type=float, default=15.0)
-    parser.add_argument("--rain-workers", type=int, default=4)
+    parser.add_argument(
+        "--rain-workers",
+        type=int,
+        default=1,
+        help="Requêtes CERRA-Land simultanées (défaut : 1, limite recommandée par le CDS).",
+    )
     parser.add_argument("--sarah-url-file", type=Path, default=DEFAULT_SARAH_MANIFEST)
     args = parser.parse_args()
     started = time.monotonic()
