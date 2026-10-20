@@ -191,13 +191,21 @@ def validate_completed(output: Path, tile: Tile) -> bool:
         return False
 
 
-def download_tile(output: Path, tile: Tile) -> dict:
+def download_tile(output: Path, tile: Tile, request_timeout: int) -> dict:
     final, sidecar, temporary = paths_for(output, tile)
     final.parent.mkdir(parents=True, exist_ok=True)
     if temporary.exists():
         temporary.unlink()
     started = time.monotonic()
-    client = cdsapi.Client(quiet=True, progress=False, wait_until_complete=True, delete=False)
+    client = cdsapi.Client(
+        quiet=True,
+        progress=False,
+        wait_until_complete=True,
+        delete=False,
+        timeout=request_timeout,
+        retry_max=2,
+        sleep_max=5,
+    )
     client.retrieve(
         "reanalysis-cerra-land-timeseries",
         {
@@ -256,6 +264,12 @@ def build_parser() -> argparse.ArgumentParser:
         ),
     )
     parser.add_argument("--minimum-free-gb", type=float, default=15.0)
+    parser.add_argument(
+        "--request-timeout",
+        type=int,
+        default=20,
+        help="Timeout de chaque échange HTTP avec le CDS, en secondes (défaut : 20).",
+    )
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--verify-only", action="store_true")
     return parser
@@ -265,6 +279,8 @@ def main() -> int:
     args = build_parser().parse_args()
     if args.workers < 1 or args.workers > 12:
         raise SystemExit("--workers doit être compris entre 1 et 12")
+    if args.request_timeout < 5:
+        raise SystemExit("--request-timeout doit être d’au moins 5 secondes")
     download_land_reference(LAND_PATH)
     jobs = build_jobs(args.bounds, LAND_PATH)
     completed = [tile for tile in jobs if validate_completed(args.output, tile)]
@@ -286,7 +302,7 @@ def main() -> int:
             if time.monotonic() >= deadline:
                 return None, TimeoutError("durée maximale atteinte avant une nouvelle tentative")
             try:
-                return download_tile(args.output, tile), None
+                return download_tile(args.output, tile, args.request_timeout), None
             except Exception as exc:
                 error = exc
                 if attempt >= len(RETRY_DELAYS_SECONDS):

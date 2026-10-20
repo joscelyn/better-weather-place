@@ -56,6 +56,9 @@ work/.venv/bin/python work/download_cerra_rain.py --dry-run
 - les clips valides sont ignorés au lancement suivant ;
 - chaque lecture distante est retentée six fois avec un backoff de 5 s, 30 s,
   120 s, 500 s puis 1 800 s entre les échecs successifs ;
+- chaque échange HTTP CERRA expire après 20 s sans réponse, et les longues
+  reprises internes de la bibliothèque CDS sont limitées à deux essais espacés
+  d’au plus 5 s ;
 - un échec définitif est journalisé puis les autres fichiers continuent ;
 - `Ctrl-C` arrête proprement entre les opérations ;
 - les fichiers partiels ne sont jamais considérés comme terminés ;
