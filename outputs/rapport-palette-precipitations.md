@@ -1,7 +1,9 @@
 # Audit de la palette des précipitations mensuelles
 
-Date : 19 octobre 2026  
-Statut : palette validée sur le domaine témoin, contrôle européen encore requis
+Date : 19 octobre 2026, complété le 20 octobre 2026
+Statut : palette validée sur la grille européenne de production
+
+> Ce rapport conserve l’audit initial du domaine témoin. Le contrôle final de la grille complète est résumé dans `rapport-audit-grilles-production.md`.
 
 ## Périmètre
 
@@ -35,7 +37,7 @@ Conserver la palette 0–400 mm/mois pour la maquette :
 - couleur terminale à partir de 400 mm ;
 - eau et absence de données transparentes, et non assimilées à zéro pluie.
 
-Le domaine témoin couvre des climats secs, méditerranéens et alpins, mais pas les secteurs les plus humides de la façade atlantique nord ni de la Norvège. La borne de 400 mm doit donc rester provisoire jusqu’au contrôle du domaine européen complet. Si une extension devient nécessaire, elle sera ajoutée au-dessus de 400 mm sans modifier les couleurs des faibles précipitations.
+Le contrôle européen complet a ensuite observé un maximum très local de 1 370,5 mm à Saint-Kilda, mais au plus 0,196 % des pixels terrestres mensuels dépassent 400 mm. La borne de 400 mm est donc conservée : ces rares dépassements prennent la couleur terminale sans modifier la valeur numérique du COG.
 
 ## Fichiers associés
 

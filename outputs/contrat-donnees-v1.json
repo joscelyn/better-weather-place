@@ -94,16 +94,17 @@
       "native_max_zoom": 7,
       "storage": { "dtype": "int16", "scale_factor": 0.1, "nodata": -32768 },
       "palette": {
-        "status": "validated-on-western-mediterranean-pilot-pending-full-domain",
+        "status": "validated-on-full-production-grid",
         "type": "diverging",
-        "pilot_audit": {
-          "bounds": [-10.0, 29.0, 8.0, 47.0],
-          "land_pixels_per_month": 3098918,
-          "minimum_celsius": -25.34,
-          "maximum_celsius": 38.73,
+        "production_grid_audit": {
+          "bounds": [-25.0, 25.0, 45.0, 72.0],
+          "land_pixels_per_month": 24414370,
+          "minimum_celsius": -30.7,
+          "maximum_celsius": 40.5,
           "below_minimum_percent": 0.0,
           "above_maximum_percent": 0.0
         },
+        "out_of_range_behavior": "clamp-to-terminal-color",
         "stops": [
           [-40, "#171747"],
           [-30, "#313695"], [-20, "#4575b4"], [-10, "#74add1"],
@@ -128,10 +129,10 @@
       "storage": { "dtype": "int16", "scale_factor": 0.1, "nodata": -32768 },
       "palette_ref": "tavg",
       "palette_audit": {
-        "bounds": [-10.0, 29.0, 8.0, 47.0],
-        "minimum_celsius": -21.74,
-        "maximum_celsius": 45.13,
-        "above_40_percent_july": 19.91,
+        "bounds": [-25.0, 25.0, 45.0, 72.0],
+        "land_pixels_per_month": 24414370,
+        "minimum_celsius": -26.9,
+        "maximum_celsius": 46.5,
         "above_50_percent": 0.0
       },
       "base_confidence": "validated-with-known-local-bias",
@@ -150,10 +151,10 @@
       "storage": { "dtype": "int16", "scale_factor": 0.1, "nodata": -32768 },
       "palette_ref": "tavg",
       "palette_audit": {
-        "bounds": [-10.0, 29.0, 8.0, 47.0],
-        "minimum_celsius": -30.03,
-        "maximum_celsius": 29.21,
-        "below_minus_30_percent_january": 0.000032,
+        "bounds": [-25.0, 25.0, 45.0, 72.0],
+        "land_pixels_per_month": 24414370,
+        "minimum_celsius": -35.2,
+        "maximum_celsius": 31.8,
         "below_minus_40_percent": 0.0
       },
       "base_confidence": "validated"
@@ -170,16 +171,19 @@
       "native_max_zoom": 7,
       "storage": { "dtype": "uint16", "scale_factor": 0.1, "nodata": 65535 },
       "palette": {
-        "status": "validated-on-western-mediterranean-pilot-pending-full-domain",
+        "status": "validated-on-full-production-grid",
         "type": "sequential",
-        "pilot_audit": {
-          "bounds": [-10.0, 29.0, 8.0, 47.0],
-          "land_pixels_per_month": 3098918,
+        "production_grid_audit": {
+          "bounds": [-25.0, 25.0, 45.0, 72.0],
+          "land_pixels_per_month": 24414370,
           "minimum_mm_per_month": 0.0,
-          "maximum_mm_per_month": 348.1,
-          "above_400mm_percent": 0.0,
-          "january_below_10mm_percent": 23.97
+          "maximum_mm_per_month": 1370.5,
+          "maximum_month": 1,
+          "maximum_location": [-8.579306, 57.820694],
+          "maximum_above_400mm_percent": 0.19559382,
+          "maximum_p99_mm_per_month": 269.5
         },
+        "out_of_range_behavior": "clamp-to-terminal-color",
         "stops": [
           [0, "#f7fbff"], [5, "#e3eef9"], [10, "#cfe1f2"],
           [20, "#9ecae1"], [40, "#6baed6"], [60, "#4292c6"],
@@ -234,16 +238,20 @@
       "native_max_zoom": 5,
       "storage": { "dtype": "uint16", "scale_factor": 0.1, "nodata": 65535 },
       "palette": {
-        "status": "validated-on-reference-series-pending-full-grid",
+        "status": "validated-on-full-sarah3-production-grid",
         "type": "sequential",
-        "reference_audit": {
-          "monthly_values": 408,
-          "point_source_series": 34,
+        "production_grid_audit": {
+          "bounds": [-25.0, 25.0, 45.0, 65.0],
+          "land_pixels_per_month_range": [572064, 572953],
           "minimum_hours_per_month": 0.0,
-          "maximum_hours_per_month": 389.41,
-          "above_400_hours_count": 0,
-          "note": "Reference series are not an area-weighted spatial sample; Canaries excluded."
+          "maximum_hours_per_month": 404.1,
+          "maximum_month": 7,
+          "maximum_location": [25.774952, 36.375437],
+          "maximum_above_400_hours_count": 208,
+          "maximum_above_400_hours_percent": 0.0363515,
+          "note": "SARAH-3 only; the CERRA complement north of 65 degrees remains pending. Canaries excluded."
         },
+        "out_of_range_behavior": "clamp-to-terminal-color",
         "stops": [
           [0, "#2d1e3e"], [20, "#44345f"], [40, "#5d4d7a"],
           [80, "#786b91"], [120, "#958baa"], [160, "#b3acc0"],

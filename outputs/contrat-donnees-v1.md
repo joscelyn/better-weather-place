@@ -62,7 +62,7 @@ Cette règle permet de conserver des lieux comme Essaouira sans prétendre que l
 
 Les palettes du manifeste sont des points de départ communs aux douze mois. Elles sont fixes par variable afin que la même couleur conserve la même signification en janvier et en juillet.
 
-Elles restent provisoires jusqu’au calcul des distributions sur tout le domaine. Le lot témoin vérifiera :
+Les distributions sont désormais contrôlées sur les grilles de production disponibles. La vérification porte notamment sur :
 
 - que les valeurs extrêmes ne saturent pas une part excessive de la carte ;
 - que les zones recherchées en hiver restent différenciées ;
@@ -70,17 +70,17 @@ Elles restent provisoires jusqu’au calcul des distributions sur tout le domain
 - que les légendes fonctionnent sur écran mobile ;
 - que les couleurs restent compréhensibles en cas de déficience de vision des couleurs.
 
-L’audit des douze mois de température moyenne est terminé sur le témoin Maroc–Méditerranée occidentale–Alpes. Aucun des 3 098 918 pixels terrestres mensuels ne sort de la plage −30 à 40 °C ; le minimum observé est −25,34 °C et le maximum 38,73 °C.
+L’audit des trois températures est terminé sur les 24 414 370 pixels terrestres mensuels de la grille CHELSA de production. Les plages observées sont −30,7 à 40,5 °C pour la moyenne, −26,9 à 46,5 °C pour les maximales et −35,2 à 31,8 °C pour les minimales.
 
-L’audit séparé des maximales et minimales montre toutefois que 19,91 % des maximales moyennes dépassent 40 °C en juillet, tandis qu’un seul pixel de minimale descend légèrement sous −30 °C en janvier. La palette thermique commune reçoit donc deux points terminaux à −40 et 50 °C. Toutes les couleurs déjà définies entre −30 et 40 °C restent inchangées : une température donnée conserve ainsi la même couleur dans les cartes moyenne, maximale et minimale.
+La palette thermique commune −40 à 50 °C ne sature aucun pixel terrestre. Toutes les couleurs déjà définies entre −30 et 40 °C restent inchangées : une température donnée conserve ainsi la même couleur dans les cartes moyenne, maximale et minimale.
 
-La palette thermique étendue ne sature aucun pixel du domaine témoin. Elle reste à contrôler sur la Scandinavie et l’Europe orientale avant la production complète.
+Les valeurs hors plage, si une source future en introduit, doivent prendre la couleur terminale sans modifier la valeur numérique affichée au clic.
 
-L’audit des précipitations est également terminé sur les douze normales du témoin. La plage observée va de 0 à 348,1 mm/mois et aucun pixel ne dépasse la borne de 400 mm. Les seuils rapprochés de 5, 10 et 20 mm sont conservés : en janvier, 23,97 % des pixels sont sous 10 mm, et cette proportion atteint 64,37 % en juillet. La borne humide reste à vérifier sur l’Europe atlantique et la Norvège.
+L’audit des précipitations est terminé sur la grille CHELSA de production. La plage terrestre va de 0 à 1 370,5 mm/mois. Le maximum, en janvier sur Saint-Kilda, est un pic orographique très local confirmé dans les trente fichiers annuels. Le 99e percentile mensuel ne dépasse pas 269,5 mm et, au mois le plus concerné, seulement 0,196 % des pixels terrestres dépassent 400 mm. La palette 0–400 mm est donc conservée pour ne pas écraser les contrastes utiles ; les rares valeurs supérieures prennent la couleur terminale et leur valeur exacte reste accessible au clic.
 
 Pour les jours de pluie, 906 normales mensuelles issues des points CERRA-Land, des stations GHCN et des normales WMO ont été réunies. Elles vont de 0 à 21,67 jours/mois et aucune ne dépasse l’ancien maximum de palette à 25 jours. Une couleur terminale à 31 jours est tout de même ajoutée, car 31 est la limite physique d’un mois et garantit l’absence de saturation lors de la future production de la grille complète. Les couleurs entre 0 et 25 restent inchangées.
 
-Pour l’ensoleillement, 408 valeurs mensuelles réunissent SARAH-3 sur le domaine principal, CERRA brut au nord de 65° N et les normales WMO correspondantes. Elles vont de 0 à 389,41 h/mois et aucune ne dépasse la borne de 400 heures. La palette 0–400 h est donc conservée sans modification. La grille complète reste à contrôler et l’avertissement nordique demeure obligatoire, car CERRA surestime plusieurs stations malgré une étendue compatible avec la palette.
+Pour l’ensoleillement, la grille SARAH-3 de production au sud de 65° N va de 0 à 404,1 h/mois. Seuls 208 pixels terrestres dépassent 400 h en juillet, soit 0,036 % ; aucun autre mois ne dépasse cette borne. La palette 0–400 h est donc conservée et les rares dépassements prennent la couleur terminale. Le complément CERRA au nord de 65° N reste à produire et l’avertissement nordique demeure obligatoire, car sa validation contre les stations montre une surestimation locale.
 
 ## Contrôles exigés pour chaque fichier final
 
@@ -108,7 +108,7 @@ La résolution détaillée décrit uniquement l’ombrage topographique. Elle ne
 
 ## Décisions encore ouvertes
 
-- seuils définitifs des palettes après analyse du domaine complet ;
+- contrôle final de la palette des jours de pluie après achèvement de la grille CERRA-Land ;
 - format exact de la petite couche d’avertissements côtiers et topographiques ;
 - méthode de lecture ponctuelle du COG dans le navigateur, à tester durant la maquette locale.
 

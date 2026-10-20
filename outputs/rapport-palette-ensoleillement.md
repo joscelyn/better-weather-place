@@ -1,7 +1,9 @@
 # Audit de la palette de durée d’ensoleillement
 
-Date : 19 octobre 2026  
-Statut : palette validée sur les séries de référence, grille complète encore requise
+Date : 19 octobre 2026, complété le 20 octobre 2026
+Statut : palette validée sur la grille SARAH-3 de production
+
+> Ce rapport conserve l’audit initial des séries de référence. Le contrôle final de la grille SARAH-3 est résumé dans `rapport-audit-grilles-production.md`.
 
 ## Méthode
 
@@ -30,7 +32,7 @@ Conserver sans modification la palette commune **0–400 h/mois** et ses points 
 
 La borne de 400 heures laisse une marge de 10,59 heures au-dessus du maximum observé. Elle couvre également CERRA brut, malgré sa surestimation connue dans certaines stations nordiques. Il serait trompeur d’étendre dès maintenant la palette jusqu’au maximum physique théorique d’un mois : cela comprimerait les contrastes réellement utiles sur la carte.
 
-La palette est suffisamment robuste pour la maquette. Sa distribution spatiale devra être contrôlée après acquisition de la grille SARAH-3 complète. Si quelques cellules dépassent 400 heures, elles pourront recevoir un point terminal supplémentaire sans modifier les couleurs de 0 à 400 heures.
+Le contrôle de la grille SARAH-3 complète a ensuite trouvé un maximum terrestre de 404,1 h en juillet. Seuls 208 pixels, soit 0,036 % des terres ce mois-là, dépassent 400 h. La palette reste donc inchangée et ces rares dépassements prennent la couleur terminale.
 
 Au nord de 65° N, la validation WMO confirme que le problème principal est l’incertitude de la valeur CERRA, pas l’étendue de la palette. L’avertissement « estimation indicative » reste donc obligatoire.
 

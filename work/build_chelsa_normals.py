@@ -82,7 +82,9 @@ def validate_sources(sources: list[rasterio.DatasetReader], paths: list[Path]) -
         if (
             source.width != reference.width
             or source.height != reference.height
-            or source.transform != reference.transform
+            or not np.allclose(
+                tuple(source.transform), tuple(reference.transform), rtol=0, atol=1e-10
+            )
             or source.crs != reference.crs
         ):
             raise RuntimeError(f"Grille incompatible : {path}")
