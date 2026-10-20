@@ -15,9 +15,10 @@ import json
 import random
 import shutil
 import tempfile
+import threading
 import time
 import zipfile
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -245,7 +246,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--bounds", type=parse_bounds, default=DEFAULT_BOUNDS)
     parser.add_argument("--hours", type=float, default=10.0)
-    parser.add_argument("--workers", type=int, default=8)
+    parser.add_argument("--workers", type=int, default=4)
     parser.add_argument("--minimum-free-gb", type=float, default=15.0)
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--verify-only", action="store_true")
@@ -269,29 +270,63 @@ def main() -> int:
 
     deadline = time.monotonic() + args.hours * 3600
     successes = failures = downloaded_bytes = 0
-    try:
-        for start in range(0, len(pending), args.workers):
+    output_lock = threading.Lock()
+
+    def run_with_retries(tile: Tile) -> tuple[dict | None, Exception | None]:
+        error: Exception | None = None
+        for attempt, delay in enumerate(RETRY_DELAYS_SECONDS, start=1):
             if time.monotonic() >= deadline:
-                print("Durée maximale atteinte; arrêt propre entre deux lots.", flush=True)
-                break
-            disk_guard(args.output, args.minimum_free_gb)
-            batch = pending[start : start + args.workers]
+                return None, TimeoutError("durée maximale atteinte avant une nouvelle tentative")
+            try:
+                return download_tile(args.output, tile), None
+            except Exception as exc:
+                error = exc
+                if attempt >= len(RETRY_DELAYS_SECONDS):
+                    break
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    break
+                retry_delay = delay + random.uniform(0, min(5, delay / 4))
+                actual_delay = min(retry_delay, remaining)
+                event = {
+                    "status": "retry", "tile": asdict(tile), "attempt": attempt,
+                    "next_delay_seconds": round(actual_delay, 2), "error": repr(exc),
+                    "at": datetime.now(timezone.utc).isoformat(),
+                }
+                with output_lock:
+                    append_event(args.output, event)
+                    print(
+                        f"{tile.identifier} échec {attempt}/{len(RETRY_DELAYS_SECONDS)}; "
+                        f"nouvel essai dans {actual_delay:.1f}s : {exc}",
+                        flush=True,
+                    )
+                time.sleep(actual_delay)
+        return None, error
 
-            def run_with_retries(tile: Tile) -> tuple[dict | None, Exception | None]:
-                error: Exception | None = None
-                for attempt, delay in enumerate(RETRY_DELAYS_SECONDS, start=1):
-                    try:
-                        return download_tile(args.output, tile), None
-                    except Exception as exc:
-                        error = exc
-                        if attempt < len(RETRY_DELAYS_SECONDS) and time.monotonic() < deadline:
-                            time.sleep(delay + random.uniform(0, min(5, delay / 4)))
-                return None, error
+    try:
+        disk_guard(args.output, args.minimum_free_gb)
+        pending_iterator = iter(pending)
+        with ThreadPoolExecutor(max_workers=args.workers) as pool:
+            futures = {}
 
-            with ThreadPoolExecutor(max_workers=args.workers) as pool:
-                futures = {pool.submit(run_with_retries, tile): tile for tile in batch}
-                for future in as_completed(futures):
-                    tile = futures[future]
+            def submit_next() -> bool:
+                if time.monotonic() >= deadline:
+                    return False
+                try:
+                    tile = next(pending_iterator)
+                except StopIteration:
+                    return False
+                futures[pool.submit(run_with_retries, tile)] = tile
+                return True
+
+            for _ in range(args.workers):
+                if not submit_next():
+                    break
+
+            while futures:
+                done, _ = wait(futures, return_when=FIRST_COMPLETED)
+                for future in done:
+                    tile = futures.pop(future)
                     metadata, error = future.result()
                     if metadata is not None:
                         successes += 1
@@ -314,6 +349,11 @@ def main() -> int:
                             },
                         )
                         print(f"{tile.identifier} échec temporaire : {error}", flush=True)
+                    if time.monotonic() < deadline:
+                        disk_guard(args.output, args.minimum_free_gb)
+                        submit_next()
+            if time.monotonic() >= deadline:
+                print("Durée maximale atteinte; aucune nouvelle tuile n’est lancée.", flush=True)
     except KeyboardInterrupt:
         print("\nInterruption demandée; les tuiles terminées restent acquises.", flush=True)
     except RuntimeError as exc:

@@ -70,7 +70,14 @@ Un code de sortie 0 signifie que la phase contrôlée est complète ; 2 signifie
 
 La taille exacte dépend de la compression spatiale de chaque fichier. Le test réel du premier mois de 1991 donne **32,2 Mio pour quatre clips CHELSA** (6,6 à 8,7 Mio chacun), téléchargés en **37 secondes** au total. Si cet ordre de grandeur reste stable, les 1 440 clips occuperont environ **11 à 13 Gio** et demanderont autour de **quatre heures** à 1 Mo/s.
 
-Copernicus limite chaque extraction CERRA-Land à 0,5° × 0,5°. Le script ne demande que les tuiles rencontrant les terres Natural Earth, traite le sud en premier et lance huit requêtes parallèles. Un test alpin complet sur trente ans pèse **4,28 Mio**. L’ordre de grandeur de la pluie quotidienne complète est d’environ **33 Gio supplémentaires**. Elle pourra donc demander plus d’une nuit et sera reprise automatiquement.
+Copernicus limite chaque extraction CERRA-Land à 0,5° × 0,5°. Le script ne demande
+que les tuiles rencontrant les terres Natural Earth, traite le sud en premier et
+lance quatre requêtes parallèles par défaut. Une file continue remplace les anciens
+lots : dès qu’un worker termine, la tuile suivante démarre sans attendre une
+requête lente ou en backoff. Un test alpin complet sur trente ans pèse **4,28 Mio**.
+L’ordre de grandeur de la pluie quotidienne complète est d’environ **33 Gio
+supplémentaires**. Elle pourra donc demander plusieurs nuits et sera reprise
+automatiquement.
 
 Le disque contient actuellement environ **31 Gio libres**, moins que les 44–46 Gio estimés pour les deux phases complètes. Le lanceur conserve par défaut **15 Gio libres** : il privilégiera CHELSA, téléchargera ensuite autant de pluie quotidienne que possible, puis s’arrêtera proprement. Il faudra libérer environ 30 Gio supplémentaires ou déplacer `work/downloads/` vers un disque plus grand pour terminer l’ensemble.
 
