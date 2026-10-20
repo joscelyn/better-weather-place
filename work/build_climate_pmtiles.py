@@ -33,6 +33,7 @@ TILE_SIZE = 256
 MIN_ZOOM = 3
 WEBP_QUALITY = 85
 WEBP_METHOD = 4
+RENDER_BUFFER = 2
 
 
 def sha256(path: Path) -> str:
@@ -98,6 +99,7 @@ def expected_build(
     max_zoom: int,
     quality: int,
     method: int,
+    stops: list[list],
 ) -> dict:
     return {
         "schema_version": 1,
@@ -110,6 +112,8 @@ def expected_build(
         "format": "webp",
         "webp_quality": quality,
         "webp_method": method,
+        "render_buffer_pixels": RENDER_BUFFER,
+        "palette_stops": stops,
         "alpha": "opaque-valid-transparent-nodata",
         "resampling": "bilinear",
     }
@@ -161,20 +165,31 @@ def render_tile(
     stops: list[list],
 ) -> np.ndarray | None:
     bounds = mercantile.xy_bounds(tile)
-    raw = np.full((TILE_SIZE, TILE_SIZE), dataset.nodata, dtype="float32")
+    render_size = TILE_SIZE + 2 * RENDER_BUFFER
+    pixel_width = (bounds.right - bounds.left) / TILE_SIZE
+    pixel_height = (bounds.top - bounds.bottom) / TILE_SIZE
+    buffered_bounds = (
+        bounds.left - RENDER_BUFFER * pixel_width,
+        bounds.bottom - RENDER_BUFFER * pixel_height,
+        bounds.right + RENDER_BUFFER * pixel_width,
+        bounds.top + RENDER_BUFFER * pixel_height,
+    )
+    raw = np.full((render_size, render_size), dataset.nodata, dtype="float32")
     reproject(
         source=rasterio.band(dataset, 1),
         destination=raw,
         src_transform=dataset.transform,
         src_crs=dataset.crs,
         src_nodata=dataset.nodata,
-        dst_transform=from_bounds(
-            bounds.left, bounds.bottom, bounds.right, bounds.top, TILE_SIZE, TILE_SIZE
-        ),
+        dst_transform=from_bounds(*buffered_bounds, render_size, render_size),
         dst_crs="EPSG:3857",
         dst_nodata=dataset.nodata,
         resampling=Resampling.bilinear,
     )
+    raw = raw[
+        RENDER_BUFFER : RENDER_BUFFER + TILE_SIZE,
+        RENDER_BUFFER : RENDER_BUFFER + TILE_SIZE,
+    ]
     valid = np.isfinite(raw) & (raw != dataset.nodata)
     if not valid.any():
         return None
@@ -198,14 +213,14 @@ def build_one(
     force: bool,
 ) -> tuple[str, dict]:
     max_zoom = layer["native_max_zoom"]
+    stops = palette_for(layer, layers)
     expected = expected_build(
-        source, layer["id"], month, min_zoom, max_zoom, quality, method
+        source, layer["id"], month, min_zoom, max_zoom, quality, method, stops
     )
     if not force and is_current(output, expected):
         return "current", json.loads(output.with_suffix(output.suffix + ".json").read_text())
 
     started = time.monotonic()
-    stops = palette_for(layer, layers)
     output.parent.mkdir(parents=True, exist_ok=True)
     temporary_archive = output.with_suffix(".building.pmtiles")
     temporary_archive.unlink(missing_ok=True)
@@ -292,11 +307,14 @@ def inventory(output_root: Path, destination: Path) -> list[dict]:
         rows.append(metadata)
     columns = [
         "layer_id", "month", "min_zoom", "max_zoom", "tile_count", "bytes",
-        "sha256", "source_sha256", "webp_quality", "webp_method", "elapsed_seconds", "pmtiles",
+        "sha256", "source_sha256", "webp_quality", "webp_method",
+        "render_buffer_pixels", "elapsed_seconds", "pmtiles",
     ]
     destination.parent.mkdir(parents=True, exist_ok=True)
     with destination.open("w", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=columns, extrasaction="ignore")
+        writer = csv.DictWriter(
+            stream, fieldnames=columns, extrasaction="ignore", lineterminator="\n"
+        )
         writer.writeheader()
         writer.writerows(rows)
     return rows

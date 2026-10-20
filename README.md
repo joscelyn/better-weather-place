@@ -14,7 +14,7 @@ Le lot témoin 2B est terminé sur janvier et juillet entre le Maroc et les Alpe
 
 Le pilote complémentaire de relief détaillé est également terminé sur les Alpes, les Pyrénées et le Haut Atlas. Le profil retenu utilise environ 1 km aux zooms 3–7 et environ 90 m aux zooms 8–10. Les résultats, dont une archive témoin de 6,37 Mio, sont décrits dans `outputs/pilot-relief-haute-resolution-rapport.md`. Les Canaries restent volontairement hors du périmètre prioritaire.
 
-Les 36 normales mensuelles 1991–2020 des températures moyenne, maximale et minimale sont calculées sur le domaine complet. Leurs valeurs terrestres vont respectivement de −30,7 à 40,5 °C, de −26,9 à 46,5 °C et de −35,2 à 31,8 °C. La palette thermique commune −40–50 °C ne sature aucun pixel.
+Les 36 normales mensuelles 1991–2020 des températures moyenne, maximale et minimale sont calculées sur le domaine complet. Leurs valeurs terrestres vont respectivement de −30,7 à 40,5 °C, de −26,9 à 46,5 °C et de −35,2 à 31,8 °C. Pour mieux distinguer les écarts utiles à l’écran, la palette commune est volontairement resserrée à −20–40 °C ; les valeurs au-delà utilisent les couleurs terminales tandis que les COG conservent la valeur exacte.
 
 Les douze normales de précipitations sont également calculées sur le domaine complet. Les rares pics au-dessus de 400 mm/mois représentent au plus 0,201 % des pixels WBM valides et prennent la couleur terminale sans perdre leur valeur numérique. Le contrôle détaillé est documenté dans `outputs/rapport-audit-grilles-production.md`.
 

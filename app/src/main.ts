@@ -1,4 +1,5 @@
-import maplibregl, { type Map as MapLibreMap, type StyleSpecification } from "maplibre-gl";
+import * as maplibregl from "maplibre-gl";
+import type { Map as MapLibreMap, StyleSpecification } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { Protocol } from "pmtiles";
 import { climateArchiveUrl, climateLayers, months, type ClimateLayer } from "./climate";
@@ -6,6 +7,8 @@ import "./style.css";
 
 const CLIMATE_SOURCE = "climate-source";
 const CLIMATE_LAYER = "climate-layer";
+const TERRAIN_SOURCE = "terrain-dem";
+const RELIEF_LAYER = "terrain-hillshade";
 const BASEMAP_STYLE = "https://tiles.openfreemap.org/styles/bright";
 const STORAGE_KEY = "better-weather-place:map-state:v1";
 
@@ -167,6 +170,49 @@ function firstOverlayLayer(style: StyleSpecification): string | undefined {
   return style.layers?.find((layer) => layer.type === "line" || layer.type === "symbol")?.id;
 }
 
+function customizeBasemap(): void {
+  for (const layer of map.getStyle().layers ?? []) {
+    if (layer.id === "ferry") {
+      map.setLayoutProperty(layer.id, "visibility", "none");
+      continue;
+    }
+    const isRoad = layer.type === "line"
+      && (/^(tunnel|highway|bridge)-/.test(layer.id) || layer.id === "road_pier")
+      && !layer.id.includes("railway");
+    if (!isRoad) continue;
+    const isCasing = layer.id.includes("casing");
+    map.setPaintProperty(layer.id, "line-color", isCasing ? "#777d79" : "#eceeea");
+    map.setPaintProperty(layer.id, "line-opacity", isCasing ? 0.46 : 0.72);
+  }
+}
+
+function addTerrainRelief(): void {
+  if (map.getSource(TERRAIN_SOURCE)) return;
+  map.addSource(TERRAIN_SOURCE, {
+    type: "raster-dem",
+    tiles: ["https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"],
+    tileSize: 256,
+    maxzoom: 15,
+    encoding: "terrarium",
+    attribution: "Terrain: Mapzen, AWS Terrain Tiles",
+  });
+  map.addLayer(
+    {
+      id: RELIEF_LAYER,
+      type: "hillshade",
+      source: TERRAIN_SOURCE,
+      paint: {
+        "hillshade-exaggeration": 0.34,
+        "hillshade-illumination-direction": 315,
+        "hillshade-shadow-color": "rgba(35, 44, 40, 0.48)",
+        "hillshade-highlight-color": "rgba(255, 255, 248, 0.44)",
+        "hillshade-accent-color": "rgba(84, 96, 89, 0.22)",
+      },
+    },
+    firstOverlayLayer(map.getStyle()),
+  );
+}
+
 function addClimateLayer(): void {
   if (!mapReady) return;
   const nextSourceId = `${CLIMATE_SOURCE}-${selectedLayer.id}-${String(selectedMonth).padStart(2, "0")}`;
@@ -192,7 +238,7 @@ function addClimateLayer(): void {
         "raster-resampling": "linear",
       },
     },
-    firstOverlayLayer(map.getStyle()),
+    map.getLayer(RELIEF_LAYER) ? RELIEF_LAYER : firstOverlayLayer(map.getStyle()),
   );
   statusElement.textContent = `Chargement · ${selectedLayer.shortLabel} · ${months[selectedMonth - 1]}`;
   statusElement.classList.remove("ready");
@@ -279,6 +325,8 @@ map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-ri
 map.addControl(new maplibregl.AttributionControl({ compact: true }), "bottom-right");
 map.on("load", () => {
   mapReady = true;
+  customizeBasemap();
+  addTerrainRelief();
   addClimateLayer();
 });
 map.on("sourcedata", (event) => {

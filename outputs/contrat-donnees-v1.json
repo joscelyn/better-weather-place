@@ -102,17 +102,16 @@
           "land_pixels_per_month": 24524605,
           "minimum_celsius": -30.7,
           "maximum_celsius": 40.5,
-          "below_minimum_percent": 0.0,
-          "above_maximum_percent": 0.0
+          "display_minimum_celsius": -20,
+          "display_maximum_celsius": 40,
+          "display_clamping": "intentional-for-contrast"
         },
         "out_of_range_behavior": "clamp-to-terminal-color",
         "stops": [
-          [-40, "#171747"],
-          [-30, "#313695"], [-20, "#4575b4"], [-10, "#74add1"],
+          [-20, "#4575b4"], [-10, "#74add1"],
           [-5, "#abd9e9"], [0, "#e0f3f8"], [5, "#ffffbf"],
           [10, "#fee090"], [15, "#fdae61"], [20, "#f46d43"],
-          [25, "#d73027"], [35, "#a50026"], [40, "#67001f"],
-          [50, "#31000f"]
+          [25, "#d73027"], [35, "#a50026"], [40, "#67001f"]
         ]
       },
       "base_confidence": "validated"
@@ -134,7 +133,8 @@
         "land_pixels_per_month": 24524605,
         "minimum_celsius": -26.9,
         "maximum_celsius": 46.5,
-        "above_50_percent": 0.0
+        "display_maximum_celsius": 40,
+        "display_clamping": "intentional-for-contrast"
       },
       "base_confidence": "validated-with-known-local-bias",
       "known_limit_fr": "Le contrôle WMO marocain montre un biais froid moyen d’environ 0,9 °C."
@@ -156,7 +156,8 @@
         "land_pixels_per_month": 24524605,
         "minimum_celsius": -35.2,
         "maximum_celsius": 31.8,
-        "below_minus_40_percent": 0.0
+        "display_minimum_celsius": -20,
+        "display_clamping": "intentional-for-contrast"
       },
       "base_confidence": "validated"
     },
@@ -186,10 +187,10 @@
         },
         "out_of_range_behavior": "clamp-to-terminal-color",
         "stops": [
-          [0, "#f7fbff"], [5, "#e3eef9"], [10, "#cfe1f2"],
-          [20, "#9ecae1"], [40, "#6baed6"], [60, "#4292c6"],
-          [100, "#2171b5"], [150, "#08519c"], [250, "#08306b"],
-          [400, "#3f007d"]
+          [0, "#fff7dc"], [5, "#fee8a6"], [10, "#fdd477"],
+          [20, "#f6b84c"], [40, "#e88f3c"], [60, "#d26145"],
+          [100, "#ad3d5d"], [150, "#7b2f70"], [250, "#47206f"],
+          [400, "#21104f"]
         ]
       },
       "base_confidence": "validated"
