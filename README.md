@@ -6,7 +6,7 @@ Projet de carte climatique mensuelle pour l’Europe, le bassin méditerranéen 
 
 L’étape 1 de sélection et de validation des sources gratuites est terminée pour les températures, précipitations, jours de pluie, heures d’ensoleillement et altitude, avec une attention particulière au relief et aux côtes. Aucun code d’application n’a encore été commencé.
 
-L’architecture proposée pour l’étape 2 est documentée dans `outputs/plan-etape-2-architecture.md`. Elle privilégie une carte sans API applicative, avec MapLibre, des archives raster PMTiles pour l’affichage et des COG pour les valeurs au clic. Le choix de l’hébergement est reporté : les mêmes fichiers devront fonctionner sur un stockage objet ou sur un VPS. La prochaine expérimentation prévue est un petit lot de tuiles témoin, pas la génération complète des 72 couches mensuelles.
+L’architecture proposée pour l’étape 2 est documentée dans `outputs/plan-etape-2-architecture.md`. Elle privilégie une carte sans API applicative, avec MapLibre, des archives raster PMTiles pour l’affichage et des COG pour les valeurs au clic. Le choix de l’hébergement est reporté : les mêmes fichiers devront fonctionner sur un stockage objet ou sur un VPS. Le lot témoin de tuiles est terminé et la production des grilles mensuelles est en cours.
 
 Le contrat de travail des couches est défini dans `outputs/contrat-donnees-v1.json` et expliqué dans `outputs/contrat-donnees-v1.md` : unités, arrondis, formats, palettes provisoires, résolutions et avertissements côtiers, topographiques et nordiques.
 
@@ -14,13 +14,15 @@ Le lot témoin 2B est terminé sur janvier et juillet entre le Maroc et les Alpe
 
 Le pilote complémentaire de relief détaillé est également terminé sur les Alpes, les Pyrénées et le Haut Atlas. Le profil retenu utilise environ 1 km aux zooms 3–7 et environ 90 m aux zooms 8–10. Les résultats, dont une archive témoin de 6,37 Mio, sont décrits dans `outputs/pilot-relief-haute-resolution-rapport.md`. Les Canaries restent volontairement hors du périmètre prioritaire.
 
-Les douze normales mensuelles 1991–2020 des températures moyenne, maximale et minimale sont maintenant calculées sur le domaine témoin. La moyenne tient dans la plage −30 à 40 °C, mais cette borne saturerait près de 20 % des maximales de juillet. La palette thermique commune est donc étendue à −40–50 °C en conservant toutes les couleurs intermédiaires. Les détails se trouvent dans `outputs/rapport-palette-temperature-moyenne.md` et `outputs/rapport-palettes-temperatures-extremes.md`.
+Les 36 normales mensuelles 1991–2020 des températures moyenne, maximale et minimale sont calculées sur le domaine complet. Leurs valeurs terrestres vont respectivement de −30,7 à 40,5 °C, de −26,9 à 46,5 °C et de −35,2 à 31,8 °C. La palette thermique commune −40–50 °C ne sature aucun pixel.
 
-Les douze normales de précipitations sont également calculées. La plage 0–400 mm/mois ne sature aucun pixel du témoin et les seuils rapprochés sous 20 mm distinguent correctement les zones sèches recherchées. Le contrôle détaillé est documenté dans `outputs/rapport-palette-precipitations.md`.
+Les douze normales de précipitations sont également calculées sur le domaine complet. Les rares pics au-dessus de 400 mm/mois représentent au plus 0,196 % des terres et prennent la couleur terminale sans perdre leur valeur numérique. Le contrôle détaillé est documenté dans `outputs/rapport-audit-grilles-production.md`.
 
 La palette des jours de pluie a été contrôlée sur 906 normales mensuelles CERRA-Land, GHCN et WMO. Le maximum observé est 21,67 jours/mois ; une borne terminale à 31 jours a été ajoutée pour respecter le maximum physique sans toucher aux couleurs 0–25. Voir `outputs/rapport-palette-jours-pluie.md`.
 
-La palette d’ensoleillement a été contrôlée sur 408 valeurs mensuelles SARAH-3, CERRA et WMO, hors Canaries. Le maximum observé est 389,41 h/mois : l’échelle 0–400 h est conservée sans modification, avec un contrôle spatial complet encore nécessaire. Voir `outputs/rapport-palette-ensoleillement.md`.
+Les douze normales SARAH-3 d’ensoleillement sont produites et contrôlées au sud de 65° N. Le maximum terrestre atteint 404,1 h en juillet, mais seuls 0,036 % des pixels dépassent 400 h ; l’échelle 0–400 h est conservée. Le complément CERRA au nord de 65° N reste à produire.
+
+Les 60 COG actuellement disponibles ont passé le contrôle complet de structure et d’intégrité SHA-256. Leur inventaire se trouve dans `outputs/inventaire-cogs-production.csv`. Les jours de pluie CERRA-Land sont téléchargés et assemblés progressivement ; les douze COG correspondants seront finalisés lorsque toutes les tuiles seront présentes. La prochaine étape commune aux couches terminées est l’application du masque terre/eau WBM avant la génération des PMTiles de production.
 
 Période de référence : **1991–2020**. Une vue récente **1996–2025** sera étudiée séparément.
 
@@ -33,10 +35,7 @@ Période de référence : **1991–2020**. Une vue récente **1996–2025** sera
 - NOAA GHCN-Daily comme contrôle indépendant par stations.
 - normales WMO/NCEI 1991–2020 comme contrôle indépendant de l’ensoleillement nordique ainsi que des températures, précipitations et jours de pluie au Maroc.
 
-Le traitement de production SARAH-3 est prêt : après la commande CM SAF des 360
-sommes mensuelles 1991–2020, `work/build_sarah_normals.py` contrôle l’inventaire
-et produit les douze COG d’ensoleillement. Voir
-`outputs/guide-production-normales-sarah3.md`.
+Le traitement SARAH-3 est terminé : les 360 sommes mensuelles 1991–2020 de la commande CM SAF ont été contrôlées et transformées par `work/build_sarah_normals.py` en douze COG d’ensoleillement. Voir `outputs/guide-production-normales-sarah3.md`.
 
 ## Organisation
 
@@ -46,7 +45,7 @@ et produit les douze COG d’ensoleillement. Voir
 
 Les identifiants Copernicus restent dans le fichier privé `~/.cdsapirc` et ne sont jamais stockés dans ce dépôt.
 
-Le téléchargement reprenable se lance avec `work/run_overnight.py`. Il récupère d’abord les quatre variables CHELSA, puis les précipitations quotidiennes CERRA-Land par tuiles terrestres de 0,5°, Canaries exclues. Une réserve d’espace disque empêche le remplissage du volume local.
+Le téléchargement reprenable se lance avec `work/run_overnight.py`. Il contrôle SARAH-3 et CHELSA, poursuit les précipitations quotidiennes CERRA-Land par tuiles terrestres de 0,5° (Canaries exclues), puis assemble automatiquement toutes les nouvelles tuiles reçues. Une réserve d’espace disque empêche le remplissage du volume local.
 
 Une fois CHELSA complet, `work/build_chelsa_normals.py --strict` produit les 48 COG mensuels 1991–2020 avec contrôle des trente années, conversion des unités, arrondi conforme au contrat et reprise automatique. Le processus est documenté dans `outputs/guide-production-normales-chelsa.md`.
 
