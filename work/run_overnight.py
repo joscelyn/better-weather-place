@@ -12,11 +12,18 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SARAH_MANIFEST = ROOT / "work/downloads/sarah3-ORD70729-urls.txt"
+DEFAULT_CERRA_DOWNLOADS = ROOT / "work/downloads/cerra-land-daily-rain-1991-2020"
 
 
 def run(script: str, hours: float, extra: list[str]) -> int:
     command = [sys.executable, str(ROOT / "work" / script), "--hours", f"{hours:.4f}", *extra]
     print(f"\n=== {script} — jusqu’à {hours:.2f} h disponibles ===", flush=True)
+    return subprocess.run(command, cwd=ROOT, check=False).returncode
+
+
+def run_rain_builder() -> int:
+    command = [sys.executable, str(ROOT / "work/build_cerra_rainy_days.py")]
+    print("\n=== build_cerra_rainy_days.py — traitement des tuiles disponibles ===", flush=True)
     return subprocess.run(command, cwd=ROOT, check=False).returncode
 
 
@@ -60,12 +67,18 @@ def main() -> int:
     else:
         print("Aucun temps restant pour la phase CERRA-Land; elle reprendra au prochain lancement.")
 
+    rain_build_code = 0
+    if DEFAULT_CERRA_DOWNLOADS.exists() and any(DEFAULT_CERRA_DOWNLOADS.rglob("*.zip")):
+        rain_build_code = run_rain_builder()
+    else:
+        print("Calcul des jours de pluie ignoré : aucune archive CERRA-Land disponible.")
+
     print(
         f"\nFin de nuit : SARAH-3={sarah_code}, CHELSA={chelsa_code}, "
-        f"pluie quotidienne={rain_code}",
+        f"pluie quotidienne={rain_code}, normales jours de pluie={rain_build_code}",
         flush=True,
     )
-    return 2 if sarah_code != 0 or chelsa_code != 0 or rain_code != 0 else 0
+    return 2 if any(code != 0 for code in (sarah_code, chelsa_code, rain_code, rain_build_code)) else 0
 
 
 if __name__ == "__main__":

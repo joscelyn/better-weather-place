@@ -4,7 +4,7 @@ Date : 19 octobre 2026
 
 ## Ce que le script récupère
 
-`work/run_overnight.py` enchaîne jusqu’à trois phases reprenables :
+`work/run_overnight.py` enchaîne trois téléchargements reprenables puis une phase de calcul local :
 
 1. la commande SARAH-3, si le manifeste
    `work/downloads/sarah3-ORD70729-urls.txt` existe ;
@@ -17,6 +17,8 @@ Date : 19 octobre 2026
 - précipitations mensuelles (`pr`) ;
 
 3. les précipitations **quotidiennes** CERRA-Land 1991–2020, nécessaires au calcul des jours avec au moins 1 mm de pluie.
+
+4. l’assemblage incrémental des nouvelles tuiles CERRA-Land en normales de jours de pluie. Cette phase conserve un checkpoint et ne recalcule pas les tuiles déjà traitées.
 
 Cela représente 1 440 sources. Le script ne copie pas les GeoTIFF mondiaux complets : les quatre fichiers d’un seul mois de 1991 pèsent déjà environ 613 Mo, soit un ordre de grandeur proche de **220 Go** pour les 1 440 fichiers mondiaux. Il lit uniquement la fenêtre Europe–Méditerranée grâce aux requêtes partielles des COG.
 
@@ -55,6 +57,7 @@ work/.venv/bin/python work/download_cerra_rain.py --dry-run
 - un échec définitif est journalisé puis les autres fichiers continuent ;
 - `Ctrl-C` arrête proprement entre les opérations ;
 - les fichiers partiels ne sont jamais considérés comme terminés ;
+- les archives CERRA disponibles sont assemblées à la fin de chaque lancement, même si le téléchargement complet demandera plusieurs nuits ;
 - le lanceur complet s’arrête si l’espace libre descend sous la réserve de 15 Gio.
 
 Pour vérifier ensuite ce qui manque :
@@ -79,7 +82,7 @@ L’ordre de grandeur de la pluie quotidienne complète est d’environ **33 Gio
 supplémentaires**. Elle pourra donc demander plusieurs nuits et sera reprise
 automatiquement.
 
-Le disque contient actuellement environ **31 Gio libres**, moins que les 44–46 Gio estimés pour les deux phases complètes. Le lanceur conserve par défaut **15 Gio libres** : il privilégiera CHELSA, téléchargera ensuite autant de pluie quotidienne que possible, puis s’arrêtera proprement. Il faudra libérer environ 30 Gio supplémentaires ou déplacer `work/downloads/` vers un disque plus grand pour terminer l’ensemble.
+Le lanceur conserve par défaut **15 Gio libres** et s’arrête proprement avant d’atteindre cette réserve. Vérifier l’espace disponible avant chaque longue session avec `df -h .` ; l’estimation de la pluie quotidienne complète reste proche de 33 Gio.
 
 ## SARAH-3
 
