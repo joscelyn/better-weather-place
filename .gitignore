@@ -8,6 +8,7 @@ __pycache__/
 work/validation/cache/
 work/downloads/
 work/derived/
+work/tiles/
 
 # Identifiants locaux — ne jamais versionner
 .cdsapirc

@@ -2,8 +2,11 @@ cdsapi==0.7.7
 aiohttp>=3.13,<4
 fsspec>=2026.9,<2027
 matplotlib>=3.10,<4
+mercantile>=1.2,<2
 netCDF4>=1.7,<2
 pandas>=3,<4
+Pillow>=12,<13
+pmtiles>=3.7,<4
 rasterio>=1.5,<2
 requests>=2.32,<3
 scipy>=1.18,<2

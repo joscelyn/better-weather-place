@@ -35,7 +35,8 @@
     "value_tiling": "256 x 256 pixels",
     "value_compression": "DEFLATE",
     "value_overviews": [2, 4, 8, 16, 32],
-    "display_webp_quality_for_pilot": 85,
+    "display_webp_quality": 85,
+    "display_webp_method": 4,
     "relief_mode": "separate-raster-layer",
     "relief_template": "data/terrain/relief.pmtiles",
     "relief_profile": {
