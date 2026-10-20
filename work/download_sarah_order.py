@@ -23,7 +23,8 @@ from netCDF4 import Dataset
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "work/downloads/sarah3-monthly"
-RETRY_DELAYS_SECONDS = (5, 15, 30, 60, 120, 300)
+# Six attempts; the final value is unused because no wait follows the last failure.
+RETRY_DELAYS_SECONDS = (5, 30, 120, 500, 1800, 3600)
 CHUNK_SIZE = 1024 * 1024
 EXPECTED_FILES = {
     "ORD70729.tar": {

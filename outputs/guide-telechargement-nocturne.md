@@ -50,7 +50,8 @@ work/.venv/bin/python work/download_cerra_rain.py --dry-run
 
 - chaque clip terminé possède un fichier JSON avec sa taille, son empreinte SHA-256, sa source et son emprise ;
 - les clips valides sont ignorés au lancement suivant ;
-- chaque lecture distante est retentée six fois avec attente croissante ;
+- chaque lecture distante est retentée six fois avec un backoff de 5 s, 30 s,
+  120 s, 500 s puis 1 800 s entre les échecs successifs ;
 - un échec définitif est journalisé puis les autres fichiers continuent ;
 - `Ctrl-C` arrête proprement entre les opérations ;
 - les fichiers partiels ne sont jamais considérés comme terminés ;

@@ -30,7 +30,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "work/downloads/chelsa-europe-mediterranee"
 DEFAULT_BOUNDS = (-25.0, 25.0, 45.0, 72.0)  # west, south, east, north; Canaries excluded.
 VARIABLES = ("tas", "tasmax", "tasmin", "pr")
-RETRY_DELAYS_SECONDS = (5, 15, 30, 60, 120, 300)
+# Six attempts; the final value is unused because no wait follows the last failure.
+RETRY_DELAYS_SECONDS = (5, 30, 120, 500, 1800, 3600)
 GDAL_ENV = {
     "GDAL_DISABLE_READDIR_ON_OPEN": "EMPTY_DIR",
     "CPL_VSIL_CURL_ALLOWED_EXTENSIONS": ".tif",

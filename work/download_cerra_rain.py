@@ -38,7 +38,8 @@ LAND_URL = (
     "master/geojson/ne_10m_land.geojson"
 )
 LAND_PATH = ROOT / "work/downloads/reference/ne_10m_land.geojson"
-RETRY_DELAYS_SECONDS = (5, 15, 30, 60, 120, 300)
+# Six attempts; the final value is unused because no wait follows the last failure.
+RETRY_DELAYS_SECONDS = (5, 30, 120, 500, 1800, 3600)
 EXPECTED_DAYS = 10_958
 TILE_DEGREES = 0.5
 
