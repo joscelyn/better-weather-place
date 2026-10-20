@@ -1,0 +1,19 @@
+{
+  "status": "valid",
+  "reference_period": "1991-2020",
+  "layers": [
+    "tavg",
+    "tmax",
+    "tmin",
+    "precipitation",
+    "sunshine"
+  ],
+  "expected_files": 60,
+  "validated_files": 60,
+  "invalid_files": 0,
+  "total_bytes": 737691647,
+  "checksums_verified": true,
+  "water_mask_applied": true,
+  "validated_at": "2026-10-20T10:26:54.735904+00:00",
+  "inventory": "outputs/inventaire-cogs-production-masques.csv"
+}

@@ -14,6 +14,7 @@ Le catalogue du domaine 25° O–45° E et 25–72° N contient 2 138 tuiles, Ca
 work/.venv/bin/python work/catalog_copdem_wbm.py
 work/.venv/bin/python work/download_copdem_wbm.py --hours 2 --workers 4
 work/.venv/bin/python work/build_wbm_masks.py
+work/.venv/bin/python work/apply_wbm_masks.py
 ```
 
 Le téléchargement est reprenable, conserve les fichiers partiels et valide chaque tuile avec sa taille et son MD5. Le lanceur nocturne exécute désormais cette petite phase avant le téléchargement CERRA-Land.
@@ -36,3 +37,17 @@ La fraction terrestre de la maille climatique sert à masquer les cellules enti�
 La classe WBM native à environ 30 m reste la référence pour un clic précis. Ainsi, un clic marin à l’intérieur d’une maille climatique mixte n’affichera pas de valeur terrestre ; il pourra proposer la terre la plus proche lorsqu’elle est située à moins de 2 km.
 
 Les Canaries n’étant pas prioritaires, leurs tuiles ne figurent pas au catalogue et leur fraction terrestre reste à zéro dans les produits actuels.
+
+## COG climatiques publiables
+
+`work/apply_wbm_masks.py` conserve les sources non masquées et écrit les copies publiables dans `work/derived/1991-2020-masked/`. Une maille est conservée dès que sa fraction terrestre est supérieure à zéro. Sous 80 % de terre, elle reçoit l’indicateur de cellule côtière mixte dans les métadonnées.
+
+Les 60 COG disponibles représentent 737 691 647 octets après masquage. Leur structure, leurs métadonnées et leurs SHA-256 ont été contrôlés avec :
+
+```bash
+work/.venv/bin/python work/validate_production_cogs.py \
+  --input work/derived/1991-2020-masked \
+  --inventory outputs/inventaire-cogs-production-masques.csv \
+  --summary outputs/validation-cogs-production-masques.json \
+  --expect-water-mask
+```

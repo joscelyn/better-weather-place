@@ -37,7 +37,7 @@ Conserver la palette 0–400 mm/mois pour la maquette :
 - couleur terminale à partir de 400 mm ;
 - eau et absence de données transparentes, et non assimilées à zéro pluie.
 
-Le contrôle européen complet a ensuite observé un maximum très local de 1 370,5 mm à Saint-Kilda, mais au plus 0,196 % des pixels terrestres mensuels dépassent 400 mm. La borne de 400 mm est donc conservée : ces rares dépassements prennent la couleur terminale sans modifier la valeur numérique du COG.
+Le contrôle européen final avec le WBM a observé un maximum très local de 1 370,5 mm à Saint-Kilda, mais au plus 0,201 % des pixels comportant de la terre dépassent 400 mm. La borne de 400 mm est donc conservée : ces rares dépassements prennent la couleur terminale sans modifier la valeur numérique du COG.
 
 ## Fichiers associés
 

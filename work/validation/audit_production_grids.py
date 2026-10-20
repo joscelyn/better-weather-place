@@ -53,7 +53,7 @@ def land_mask(dataset: rasterio.DatasetReader, geometries: list[dict]) -> np.nda
     ).astype(bool)
 
 
-def audit_layer(input_root: Path, layer: str, geometries: list[dict]) -> list[dict]:
+def audit_layer(input_root: Path, layer: str, geometries: list[dict] | None) -> list[dict]:
     paths = [input_root / layer / f"{month:02d}.tif" for month in range(1, 13)]
     missing = [path for path in paths if not path.exists()]
     if missing:
@@ -68,7 +68,11 @@ def audit_layer(input_root: Path, layer: str, geometries: list[dict]) -> list[di
         with rasterio.open(path) as dataset:
             grid = (dataset.shape, dataset.transform, dataset.crs)
             if mask is None:
-                mask = land_mask(dataset, geometries)
+                mask = (
+                    land_mask(dataset, geometries)
+                    if geometries is not None
+                    else np.ones(dataset.shape, dtype=bool)
+                )
                 reference_grid = grid
             elif grid != reference_grid:
                 raise RuntimeError(f"Grille incohérente dans {path}")
@@ -119,9 +123,13 @@ def main() -> int:
     parser.add_argument("--land", type=Path, default=DEFAULT_LAND)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--layers", type=parse_layers, default=list(LAYERS))
+    parser.add_argument(
+        "--valid-only", action="store_true",
+        help="Utilise tous les pixels non-nodata, par exemple après application du WBM.",
+    )
     args = parser.parse_args()
 
-    geometries = load_land_geometries(args.land)
+    geometries = None if args.valid_only else load_land_geometries(args.land)
     rows: list[dict] = []
     for layer in args.layers:
         rows.extend(audit_layer(args.input, layer, geometries))

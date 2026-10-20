@@ -70,17 +70,17 @@ Les distributions sont désormais contrôlées sur les grilles de production dis
 - que les légendes fonctionnent sur écran mobile ;
 - que les couleurs restent compréhensibles en cas de déficience de vision des couleurs.
 
-L’audit des trois températures est terminé sur les 24 414 370 pixels terrestres mensuels de la grille CHELSA de production. Les plages observées sont −30,7 à 40,5 °C pour la moyenne, −26,9 à 46,5 °C pour les maximales et −35,2 à 31,8 °C pour les minimales.
+L’audit des trois températures est terminé sur les 24 524 605 pixels comportant de la terre selon le WBM dans la grille CHELSA de production. Les plages observées sont −30,7 à 40,5 °C pour la moyenne, −26,9 à 46,5 °C pour les maximales et −35,2 à 31,8 °C pour les minimales.
 
 La palette thermique commune −40 à 50 °C ne sature aucun pixel terrestre. Toutes les couleurs déjà définies entre −30 et 40 °C restent inchangées : une température donnée conserve ainsi la même couleur dans les cartes moyenne, maximale et minimale.
 
 Les valeurs hors plage, si une source future en introduit, doivent prendre la couleur terminale sans modifier la valeur numérique affichée au clic.
 
-L’audit des précipitations est terminé sur la grille CHELSA de production. La plage terrestre va de 0 à 1 370,5 mm/mois. Le maximum, en janvier sur Saint-Kilda, est un pic orographique très local confirmé dans les trente fichiers annuels. Le 99e percentile mensuel ne dépasse pas 269,5 mm et, au mois le plus concerné, seulement 0,196 % des pixels terrestres dépassent 400 mm. La palette 0–400 mm est donc conservée pour ne pas écraser les contrastes utiles ; les rares valeurs supérieures prennent la couleur terminale et leur valeur exacte reste accessible au clic.
+L’audit des précipitations est terminé sur la grille CHELSA masquée par le WBM. La plage terrestre va de 0 à 1 370,5 mm/mois. Le maximum, en janvier sur Saint-Kilda, est un pic orographique très local confirmé dans les trente fichiers annuels. Le 99e percentile mensuel ne dépasse pas 273,4 mm et, au mois le plus concerné, seulement 0,201 % des pixels comportant de la terre dépassent 400 mm. La palette 0–400 mm est donc conservée pour ne pas écraser les contrastes utiles ; les rares valeurs supérieures prennent la couleur terminale et leur valeur exacte reste accessible au clic.
 
 Pour les jours de pluie, 906 normales mensuelles issues des points CERRA-Land, des stations GHCN et des normales WMO ont été réunies. Elles vont de 0 à 21,67 jours/mois et aucune ne dépasse l’ancien maximum de palette à 25 jours. Une couleur terminale à 31 jours est tout de même ajoutée, car 31 est la limite physique d’un mois et garantit l’absence de saturation lors de la future production de la grille complète. Les couleurs entre 0 et 25 restent inchangées.
 
-Pour l’ensoleillement, la grille SARAH-3 de production au sud de 65° N va de 0 à 404,1 h/mois. Seuls 208 pixels terrestres dépassent 400 h en juillet, soit 0,036 % ; aucun autre mois ne dépasse cette borne. La palette 0–400 h est donc conservée et les rares dépassements prennent la couleur terminale. Le complément CERRA au nord de 65° N reste à produire et l’avertissement nordique demeure obligatoire, car sa validation contre les stations montre une surestimation locale.
+Pour l’ensoleillement, la grille SARAH-3 masquée par le WBM au sud de 65° N va de 0 à 404,4 h/mois. Seuls 606 pixels dépassent 400 h en juillet, soit 0,103 % ; aucun autre mois ne dépasse cette borne. La palette 0–400 h est donc conservée et les rares dépassements prennent la couleur terminale. Le complément CERRA au nord de 65° N reste à produire et l’avertissement nordique demeure obligatoire, car sa validation contre les stations montre une surestimation locale.
 
 ## Contrôles exigés pour chaque fichier final
 

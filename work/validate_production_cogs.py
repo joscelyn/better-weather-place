@@ -36,7 +36,9 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def validate_one(path: Path, layer: str, month: int, verify_checksum: bool) -> dict:
+def validate_one(
+    path: Path, layer: str, month: int, verify_checksum: bool, expected_water_mask: bool,
+) -> dict:
     sidecar_path = path.with_suffix(".tif.json")
     if not path.exists() or not sidecar_path.exists():
         raise FileNotFoundError(f"COG ou métadonnées absents : {path}")
@@ -52,6 +54,8 @@ def validate_one(path: Path, layer: str, month: int, verify_checksum: bool) -> d
         errors.append("years")
     if sidecar.get("bytes") != path.stat().st_size:
         errors.append("bytes")
+    if sidecar.get("water_mask_applied") is not expected_water_mask:
+        errors.append("water_mask_applied")
 
     actual_sha256 = sha256(path) if verify_checksum else sidecar.get("sha256")
     if actual_sha256 != sidecar.get("sha256"):
@@ -107,10 +111,17 @@ def main() -> int:
     parser.add_argument("--inventory", type=Path, default=DEFAULT_INVENTORY)
     parser.add_argument("--summary", type=Path, default=DEFAULT_SUMMARY)
     parser.add_argument("--skip-checksum", action="store_true")
+    parser.add_argument("--expect-water-mask", action="store_true")
     args = parser.parse_args()
+    args.input = args.input.resolve()
+    args.inventory = args.inventory.resolve()
+    args.summary = args.summary.resolve()
 
     rows = [
-        validate_one(args.input / layer / f"{month:02d}.tif", layer, month, not args.skip_checksum)
+        validate_one(
+            args.input / layer / f"{month:02d}.tif", layer, month,
+            not args.skip_checksum, args.expect_water_mask,
+        )
         for layer in LAYERS
         for month in range(1, 13)
     ]
@@ -132,7 +143,7 @@ def main() -> int:
         "invalid_files": len(invalid),
         "total_bytes": sum(row["bytes"] for row in rows),
         "checksums_verified": not args.skip_checksum,
-        "water_mask_applied": False,
+        "water_mask_applied": args.expect_water_mask,
         "validated_at": datetime.now(timezone.utc).isoformat(),
         "inventory": args.inventory.relative_to(ROOT).as_posix(),
     }
