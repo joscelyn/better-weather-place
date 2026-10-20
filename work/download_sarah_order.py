@@ -285,6 +285,9 @@ def main() -> int:
     print(f"Fichiers : {len(jobs)} total, {len(completed)} terminés, {len(pending)} à faire")
     if args.dry_run or args.verify_only:
         return 0 if not args.verify_only or not pending else 2
+    if not pending:
+        print(f"Fin : {len(jobs)}/{len(jobs)} fichiers valides, 0 échec(s).")
+        return 0
 
     deadline = time.monotonic() + args.hours * 3600
     failures = 0
