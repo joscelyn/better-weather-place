@@ -57,6 +57,13 @@ def main() -> int:
         print("Aucun temps restant pour CHELSA; cette phase reprendra au prochain lancement.")
 
     remaining = max(0.0, args.hours - (time.monotonic() - started) / 3600)
+    wbm_code = 0
+    if remaining > 0.01:
+        wbm_code = run("download_copdem_wbm.py", remaining, reserve)
+    else:
+        print("Aucun temps restant pour le WBM; cette phase reprendra au prochain lancement.")
+
+    remaining = max(0.0, args.hours - (time.monotonic() - started) / 3600)
     rain_code = 0
     if remaining > 0.01:
         rain_code = run(
@@ -75,10 +82,13 @@ def main() -> int:
 
     print(
         f"\nFin de nuit : SARAH-3={sarah_code}, CHELSA={chelsa_code}, "
-        f"pluie quotidienne={rain_code}, normales jours de pluie={rain_build_code}",
+        f"WBM={wbm_code}, pluie quotidienne={rain_code}, "
+        f"normales jours de pluie={rain_build_code}",
         flush=True,
     )
-    return 2 if any(code != 0 for code in (sarah_code, chelsa_code, rain_code, rain_build_code)) else 0
+    return 2 if any(
+        code != 0 for code in (sarah_code, chelsa_code, wbm_code, rain_code, rain_build_code)
+    ) else 0
 
 
 if __name__ == "__main__":

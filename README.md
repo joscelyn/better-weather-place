@@ -22,7 +22,7 @@ La palette des jours de pluie a été contrôlée sur 906 normales mensuelles CE
 
 Les douze normales SARAH-3 d’ensoleillement sont produites et contrôlées au sud de 65° N. Le maximum terrestre atteint 404,1 h en juillet, mais seuls 0,036 % des pixels dépassent 400 h ; l’échelle 0–400 h est conservée. Le complément CERRA au nord de 65° N reste à produire.
 
-Les 60 COG actuellement disponibles ont passé le contrôle complet de structure et d’intégrité SHA-256. Leur inventaire se trouve dans `outputs/inventaire-cogs-production.csv`. Les jours de pluie CERRA-Land sont téléchargés et assemblés progressivement ; les douze COG correspondants seront finalisés lorsque toutes les tuiles seront présentes. La prochaine étape commune aux couches terminées est l’application du masque terre/eau WBM avant la génération des PMTiles de production.
+Les 60 COG actuellement disponibles ont passé le contrôle complet de structure et d’intégrité SHA-256. Leur inventaire se trouve dans `outputs/inventaire-cogs-production.csv`. Les 2 138 tuiles du masque WBM, soit environ 141 Mio, sont téléchargées et transformées en fractions terrestres alignées sur CHELSA, SARAH-3 et CERRA. Les jours de pluie CERRA-Land sont téléchargés et assemblés progressivement ; les douze COG correspondants seront finalisés lorsque toutes les tuiles seront présentes. La prochaine opération est la création des COG climatiques masqués avant les PMTiles de production.
 
 Période de référence : **1991–2020**. Une vue récente **1996–2025** sera étudiée séparément.
 

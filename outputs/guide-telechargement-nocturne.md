@@ -4,7 +4,7 @@ Date : 19 octobre 2026
 
 ## Ce que le script récupère
 
-`work/run_overnight.py` enchaîne trois téléchargements reprenables puis une phase de calcul local :
+`work/run_overnight.py` enchaîne quatre téléchargements reprenables puis une phase de calcul local :
 
 1. la commande SARAH-3, si le manifeste
    `work/downloads/sarah3-ORD70729-urls.txt` existe ;
@@ -16,9 +16,11 @@ Date : 19 octobre 2026
 - minimales moyennes (`tasmin`) ;
 - précipitations mensuelles (`pr`) ;
 
-3. les précipitations **quotidiennes** CERRA-Land 1991–2020, nécessaires au calcul des jours avec au moins 1 mm de pluie.
+3. le masque terre/eau WBM du Copernicus DEM GLO-30, soit environ 141 Mio pour 2 138 tuiles sur le domaine prioritaire ;
 
-4. l’assemblage incrémental des nouvelles tuiles CERRA-Land en normales de jours de pluie. Cette phase conserve un checkpoint et ne recalcule pas les tuiles déjà traitées.
+4. les précipitations **quotidiennes** CERRA-Land 1991–2020, nécessaires au calcul des jours avec au moins 1 mm de pluie ;
+
+5. l’assemblage incrémental des nouvelles tuiles CERRA-Land en normales de jours de pluie. Cette phase conserve un checkpoint et ne recalcule pas les tuiles déjà traitées.
 
 Cela représente 1 440 sources. Le script ne copie pas les GeoTIFF mondiaux complets : les quatre fichiers d’un seul mois de 1991 pèsent déjà environ 613 Mo, soit un ordre de grandeur proche de **220 Go** pour les 1 440 fichiers mondiaux. Il lit uniquement la fenêtre Europe–Méditerranée grâce aux requêtes partielles des COG.
 

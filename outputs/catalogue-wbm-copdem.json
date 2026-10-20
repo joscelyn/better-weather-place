@@ -1,0 +1,16 @@
+{
+  "source": "Copernicus DEM GLO-30 Water Body Mask",
+  "bounds": [
+    -25,
+    25,
+    45,
+    72
+  ],
+  "canaries_included": false,
+  "tile_count": 2138,
+  "total_bytes": 148215185,
+  "minimum_tile_bytes": 13740,
+  "maximum_tile_bytes": 388201,
+  "catalogued_at": "2026-10-20T10:08:54.623462+00:00",
+  "catalogue": "outputs/catalogue-wbm-copdem.csv"
+}
