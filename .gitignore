@@ -9,6 +9,9 @@ work/validation/cache/
 work/downloads/
 work/derived/
 work/tiles/
+app/node_modules/
+app/dist/
+app/public/data/1991-2020
 
 # Identifiants locaux — ne jamais versionner
 .cdsapirc
