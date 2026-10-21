@@ -563,7 +563,7 @@ export function App() {
         </Select>
       </div>
 
-      <div className="layer-selector glass" aria-label={copy.ui.climateDataChoice}>
+      <div className="layer-selector" aria-label={copy.ui.climateDataChoice}>
         <div className="layer-selector-sizer" aria-hidden="true">
           {[...localizedLayers.map(layer => layer.label), copy.ui.rainyDays].map(label => <span key={label}>{label}</span>)}
         </div>
@@ -649,7 +649,7 @@ export function App() {
         <Button type="button" variant="ghost" size="icon" className="month-arrow" aria-label={copy.ui.nextMonth} onPointerUp={event => event.currentTarget.blur()} onClick={() => selectMonth(selectedMonth + 1)}><ChevronRightIcon /></Button>
       </nav>
 
-      <nav className="mobile-month-selector glass" aria-label={copy.ui.monthChoice}>
+      <nav className="mobile-month-selector" aria-label={copy.ui.monthChoice}>
         <Select value={String(selectedMonth)} onValueChange={value => selectMonth(Number(value))}>
           <SelectTrigger className="mobile-month-trigger" aria-label={copy.ui.monthChoice}>
             <SelectValue>{copy.months[selectedMonth - 1]}</SelectValue>
