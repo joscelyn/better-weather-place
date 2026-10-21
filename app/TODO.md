@@ -1,0 +1,6 @@
+- add dark theme based on device theme
+- fix images bug
+- add altitude to hover panel
+- add button any ideas ? => github
+- update github link
+- update readme for project, web and sources (everything in english)

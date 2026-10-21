@@ -16,6 +16,10 @@ npm run dev
 
 Les liens symboliques sont ignorés par Git. Les PMTiles servent l’affichage, tandis que les COG sous `raw/` permettent la lecture exacte du pixel au survol avec des requêtes HTTP partielles. Ces URL pourront plus tard pointer vers un stockage objet ou le VPS sans modifier leur format.
 
+## Thème d’affichage
+
+L’interface suit automatiquement le thème clair ou sombre configuré sur l’appareil via `prefers-color-scheme`. Un changement de préférence pendant que l’application est ouverte est appliqué immédiatement à l’interface, aux contrôles et au fond de carte, sans modifier les palettes des données climatiques.
+
 Le score météo composite se régénère à partir des quatre couches sources, puis se transforme en PMTiles avec :
 
 ```bash

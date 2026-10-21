@@ -4,7 +4,7 @@ Projet de carte climatique mensuelle pour l’Europe, le bassin méditerranéen 
 
 ## État actuel
 
-L’étape 1 de sélection et de validation des sources gratuites est terminée pour les températures, précipitations, jours de pluie, heures d’ensoleillement et altitude, avec une attention particulière au relief et aux côtes. Aucun code d’application n’a encore été commencé.
+L’étape 1 de sélection et de validation des sources gratuites est terminée pour les températures, précipitations, jours de pluie, heures d’ensoleillement et altitude, avec une attention particulière au relief et aux côtes. Une application React/Vite est maintenant disponible dans `app/` : elle affiche les couches climatiques mensuelles sur une carte MapLibre, lit les valeurs exactes au survol ou au toucher, propose plusieurs langues et adapte automatiquement son thème clair ou sombre aux préférences de l’appareil.
 
 L’architecture proposée pour l’étape 2 est documentée dans `outputs/plan-etape-2-architecture.md`. Elle privilégie une carte sans API applicative, avec MapLibre, des archives raster PMTiles pour l’affichage et des COG pour les valeurs au clic. Le choix de l’hébergement est reporté : les mêmes fichiers devront fonctionner sur un stockage objet ou sur un VPS. Le lot témoin de tuiles est terminé et la production des grilles mensuelles est en cours.
 
@@ -40,6 +40,7 @@ Le traitement SARAH-3 est terminé : les 360 sommes mensuelles 1991–2020 de la
 ## Organisation
 
 - `outputs/` : rapport et résultats lisibles de l’étape 1 ;
+- `app/` : application cartographique React/Vite et instructions de lancement ;
 - `work/validation/` : scripts, données intermédiaires et caches de validation ;
 - `work/.venv/` : environnement Python local non versionné.
 

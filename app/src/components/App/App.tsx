@@ -8,18 +8,32 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/Dialog";
-import { Label } from "@/components/Label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/Select";
-import { Separator } from "@/components/Separator";
-import { Slider } from "@/components/Slider";
-import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, InfoIcon, XIcon } from "lucide-react";
+import type { ClimateLayer } from "@/types/climate";
+import { climateArchiveUrl, climateLayers } from "@/utils/climate";
+import { readClimateValue } from "@/utils/climateValues";
+import { detectLanguage, languageNames, supportedLanguages, translations } from "@/utils/i18n";
+import type { Language } from "@/utils/i18n";
+import { applySystemTheme, getSystemTheme, SYSTEM_THEME_QUERY } from "@/utils/theme";
+import type { SystemTheme } from "@/utils/theme";
+import {
+  ArrowRightIcon,
+  CloudRainIcon,
+  GaugeIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  InfoIcon,
+  MoonIcon,
+  SunIcon,
+  ThermometerIcon,
+  ThermometerSunIcon,
+  UmbrellaIcon,
+  XIcon,
+} from "lucide-react";
 import type { Map as MapLibreMap, StyleSpecification } from "maplibre-gl";
 import * as maplibregl from "maplibre-gl";
 import { Protocol } from "pmtiles";
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { ClimateLayer } from "@/types/climate";
-import { climateArchiveUrl, climateLayers, months } from "@/utils/climate";
-import { readClimateValue } from "@/utils/climateValues";
 
 const CLIMATE_LAYER = "climate-layer";
 const CLIMATE_SOURCE = "climate-source";
@@ -28,6 +42,7 @@ const RELIEF_LAYER = "terrain-hillshade";
 const LAYER_FADE_DURATION = 220;
 const BASEMAP_STYLE = "https://tiles.openfreemap.org/styles/positron";
 const STORAGE_KEY = "better-weather-place:map-state:v1";
+const LANGUAGE_STORAGE_KEY = "better-weather-place:language:v1";
 const GITHUB_URL = import.meta.env.VITE_GITHUB_URL || "https://github.com";
 
 type SavedState = {
@@ -39,7 +54,7 @@ type SavedState = {
 };
 
 type Place = {
-  title: string;
+  coordinatesTitle?: string;
   values: Partial<Record<string, number | null>>;
 };
 
@@ -82,6 +97,17 @@ function loadState(): SavedState {
   }
 }
 
+function loadLanguage(): Language {
+  try {
+    const savedLanguage = localStorage.getItem(LANGUAGE_STORAGE_KEY);
+    const supportedLanguage = supportedLanguages.find(language => language === savedLanguage);
+    return supportedLanguage ?? detectLanguage();
+  }
+  catch {
+    return detectLanguage();
+  }
+}
+
 function persistState(layer: ClimateLayer, month: number, opacity: number, map?: MapLibreMap): void {
   const center = map?.getCenter();
   const state: SavedState = {
@@ -100,31 +126,81 @@ function persistState(layer: ClimateLayer, month: number, opacity: number, map?:
 }
 
 function firstOverlayLayer(style: StyleSpecification): string | undefined {
-  return style.layers?.find(layer => layer.type === "line" || layer.type === "symbol")?.id;
+  const layers = style.layers ?? [];
+  const lastFillIndex = layers.reduce(
+    (lastIndex, layer, index) => layer.type === "fill" ? index : lastIndex,
+    -1,
+  );
+  return layers.slice(lastFillIndex + 1).find(layer => layer.type === "line" || layer.type === "symbol")?.id;
 }
 
-function customizeBasemap(map: MapLibreMap): void {
+function customizeBasemap(map: MapLibreMap, theme: SystemTheme): void {
+  const isDark = theme === "dark";
   for (const layer of map.getStyle().layers ?? []) {
     if (layer.id === "ferry") {
       map.setLayoutProperty(layer.id, "visibility", "none");
       continue;
     }
+    if (layer.type === "background") {
+      map.setPaintProperty(layer.id, "background-color", isDark ? "#17212c" : "#e9efe9");
+      continue;
+    }
     if (layer.id === "water" && layer.type === "fill") {
-      map.setPaintProperty(layer.id, "fill-color", "#9fcbdc");
+      map.setPaintProperty(layer.id, "fill-color", isDark ? "#1f3b4c" : "#9fcbdc");
       map.setPaintProperty(layer.id, "fill-opacity", 1);
+      continue;
+    }
+    if (layer.type === "fill" && /building/i.test(layer.id)) {
+      map.setPaintProperty(layer.id, "fill-color", isDark ? "#2b333f" : "#dfe5df");
+      map.setPaintProperty(layer.id, "fill-opacity", isDark ? 0.72 : 0.64);
+      continue;
+    }
+    if (layer.type === "fill" && layer.id === "landuse_residential") {
+      map.setPaintProperty(layer.id, "fill-color", isDark ? "#24323d" : "#eaeae6");
+      continue;
+    }
+    if (layer.type === "fill" && /^(aeroway-area|road_area_pier)$/.test(layer.id)) {
+      map.setPaintProperty(layer.id, "fill-color", isDark ? "#303d48" : "#f2f3f0");
+      continue;
+    }
+    if (layer.type === "fill" && /(park|wood|grass|landcover)/i.test(layer.id)) {
+      map.setPaintProperty(layer.id, "fill-color", isDark ? "#22343d" : "#dce9dd");
+      map.setPaintProperty(layer.id, "fill-opacity", isDark ? 0.72 : 0.62);
       continue;
     }
     const isRoad = layer.type === "line"
       && (/^(tunnel|highway|bridge)[_-]/.test(layer.id) || layer.id === "road_pier")
       && !layer.id.includes("railway");
-    if (!isRoad) { continue; }
-    const isCasing = layer.id.includes("casing");
-    map.setPaintProperty(layer.id, "line-color", isCasing ? "#777d79" : "#eceeea");
-    map.setPaintProperty(layer.id, "line-opacity", layer.id === "highway_path" ? 0.08 : isCasing ? 0.1 : 0.2);
+    if (isRoad) {
+      const isCasing = layer.id.includes("casing");
+      map.setPaintProperty(layer.id, "line-color", isDark
+        ? (isCasing ? "#151b22" : "#596875")
+        : (isCasing ? "#777d79" : "#eceeea"));
+      map.setPaintProperty(layer.id, "line-opacity", layer.id === "highway_path" ? 0.08 : isCasing ? 0.14 : 0.24);
+      continue;
+    }
+    if (layer.type === "line" && /(boundary|waterway)/i.test(layer.id)) {
+      map.setPaintProperty(layer.id, "line-color", isDark ? "#667986" : "#8ea099");
+      map.setPaintProperty(layer.id, "line-opacity", isDark ? 0.46 : 0.4);
+      continue;
+    }
+    if (layer.type === "symbol" && layer.layout?.["text-field"]) {
+      map.setPaintProperty(layer.id, "text-color", isDark ? "#d0d9e1" : "#53605b");
+      map.setPaintProperty(layer.id, "text-halo-color", isDark ? "#15202b" : "#f3f6f2");
+      map.setPaintProperty(layer.id, "text-halo-width", 1);
+    }
   }
 }
 
-function addTerrainRelief(map: MapLibreMap): void {
+function applyTerrainTheme(map: MapLibreMap, theme: SystemTheme): void {
+  if (!map.getLayer(RELIEF_LAYER)) { return; }
+  const isDark = theme === "dark";
+  map.setPaintProperty(RELIEF_LAYER, "hillshade-shadow-color", isDark ? "rgba(4, 8, 15, 0.68)" : "rgba(42, 46, 44, 0.3)");
+  map.setPaintProperty(RELIEF_LAYER, "hillshade-highlight-color", isDark ? "rgba(158, 180, 199, 0.18)" : "rgba(255, 255, 255, 0.36)");
+  map.setPaintProperty(RELIEF_LAYER, "hillshade-accent-color", isDark ? "rgba(67, 89, 108, 0.3)" : "rgba(96, 101, 98, 0.16)");
+}
+
+function addTerrainRelief(map: MapLibreMap, theme: SystemTheme): void {
   if (map.getSource(TERRAIN_SOURCE)) { return; }
   const overlayLayer = firstOverlayLayer(map.getStyle());
   map.addSource(TERRAIN_SOURCE, {
@@ -148,6 +224,7 @@ function addTerrainRelief(map: MapLibreMap): void {
     },
   }, overlayLayer);
   if (overlayLayer && map.getLayer("water")) { map.moveLayer("water", overlayLayer); }
+  applyTerrainTheme(map, theme);
 }
 
 function gradientFor(layer: ClimateLayer): string {
@@ -167,20 +244,30 @@ function preloadAdjacentMonths(layer: ClimateLayer, month: number): void {
   }
 }
 
+function ClimateLayerIcon({ layerId }: { layerId: string }) {
+  switch (layerId) {
+    case "comfort": return <GaugeIcon />;
+    case "tavg": return <ThermometerIcon />;
+    case "tmax": return <ThermometerSunIcon />;
+    case "tmin": return <MoonIcon />;
+    case "precipitation": return <CloudRainIcon />;
+    case "sunshine": return <SunIcon />;
+    default: return <UmbrellaIcon />;
+  }
+}
+
 export function App() {
   const initialState = useMemo(() => loadState(), []);
+  const [systemTheme, setSystemTheme] = useState<SystemTheme>(() => getSystemTheme());
+  const [language, setLanguage] = useState<Language>(() => loadLanguage());
   const [layerId, setLayerId] = useState(initialState.layerId);
   const [selectedMonth, setSelectedMonth] = useState(initialState.month);
-  const [opacity, setOpacity] = useState(initialState.opacity);
+  const [opacity] = useState(initialState.opacity);
   const [mapReady, setMapReady] = useState(false);
-  const [status, setStatus] = useState("Chargement de la carte…");
-  const [statusReady, setStatusReady] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [attributionOpen, setAttributionOpen] = useState(false);
-  const [place, setPlace] = useState<Place>({
-    title: "Explorer la carte",
-    values: {},
-  });
+  const [placeLoading, setPlaceLoading] = useState(false);
+  const [place, setPlace] = useState<Place>({ values: {} });
 
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MapLibreMap | undefined>(undefined);
@@ -197,9 +284,15 @@ export function App() {
   const pendingHoverRef = useRef<[number, number] | undefined>(undefined);
   const lastPlaceCoordinatesRef = useRef<[number, number] | undefined>(undefined);
   const placeReaderRef = useRef<((lng: number, lat: number) => void) | undefined>(undefined);
+  const systemThemeRef = useRef(systemTheme);
 
-  const selectedLayer = climateLayers.find(layer => layer.id === layerId) ?? climateLayers[0];
-  const isComfortScore = selectedLayer.id === "comfort";
+  const copy = translations[language];
+  const localizedLayers = useMemo(
+    () => climateLayers.map(layer => ({ ...layer, ...copy.layers[layer.id] })),
+    [copy],
+  );
+  const selectedClimateLayer = climateLayers.find(layer => layer.id === layerId) ?? climateLayers[0];
+  const selectedLayer = localizedLayers.find(layer => layer.id === layerId) ?? localizedLayers[0];
   const legendIndexes = [
     selectedLayer.stops.length - 1,
     Math.round((selectedLayer.stops.length - 1) * 0.75),
@@ -207,12 +300,85 @@ export function App() {
     Math.round((selectedLayer.stops.length - 1) * 0.25),
     0,
   ];
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(SYSTEM_THEME_QUERY);
+    const handleThemeChange = () => setSystemTheme(mediaQuery.matches ? "dark" : "light");
+    mediaQuery.addEventListener("change", handleThemeChange);
+    return () => mediaQuery.removeEventListener("change", handleThemeChange);
+  }, []);
 
   useEffect(() => {
-    layerRef.current = selectedLayer;
+    systemThemeRef.current = systemTheme;
+    applySystemTheme(systemTheme);
+    document.querySelector("meta[name=\"theme-color\"]")?.setAttribute(
+      "content",
+      systemTheme === "dark" ? "#0f1822" : "#e9f2ec",
+    );
+    const map = mapRef.current;
+    if (mapReady && map) {
+      customizeBasemap(map, systemTheme);
+      applyTerrainTheme(map, systemTheme);
+    }
+  }, [mapReady, systemTheme]);
+
+  useEffect(() => {
+    document.documentElement.lang = language;
+    document.querySelector("meta[name=\"description\"]")?.setAttribute("content", copy.metaDescription);
+    document.querySelector("meta[property=\"og:description\"]")?.setAttribute("content", copy.metaDescription);
+    document.querySelector("meta[name=\"twitter:description\"]")?.setAttribute("content", copy.metaDescription);
+    try {
+      localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
+    }
+    catch {
+      // La langue détectée reste active lorsque le stockage local est désactivé.
+    }
+  }, [copy.metaDescription, language]);
+
+  useEffect(() => {
+    const zoomInButton = mapContainerRef.current?.querySelector<HTMLButtonElement>(".maplibregl-ctrl-zoom-in");
+    const zoomOutButton = mapContainerRef.current?.querySelector<HTMLButtonElement>(".maplibregl-ctrl-zoom-out");
+    for (const [button, label] of [[zoomInButton, copy.ui.zoomIn], [zoomOutButton, copy.ui.zoomOut]] as const) {
+      if (!button) { continue; }
+      button.title = label;
+      button.setAttribute("aria-label", label);
+    }
+  }, [copy.ui.zoomIn, copy.ui.zoomOut, mapReady]);
+
+  useEffect(() => {
+    layerRef.current = selectedClimateLayer;
     monthRef.current = selectedMonth;
     opacityRef.current = opacity;
-  }, [opacity, selectedLayer, selectedMonth]);
+  }, [opacity, selectedClimateLayer, selectedMonth]);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const target = event.target;
+      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || (target instanceof HTMLElement && (
+        target.isContentEditable
+        || target.closest("input, textarea, select, [role='slider'], [role='combobox'], [role='listbox'], [role='option'], [role='dialog']")
+      ))) { return; }
+
+      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        event.preventDefault();
+        event.stopPropagation();
+        const offset = event.key === "ArrowLeft" ? -1 : 1;
+        setSelectedMonth(currentMonth => ((currentMonth - 1 + offset + 12) % 12) + 1);
+      }
+      else if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+        event.preventDefault();
+        event.stopPropagation();
+        const offset = event.key === "ArrowUp" ? -1 : 1;
+        setLayerId((currentLayerId) => {
+          const currentIndex = climateLayers.findIndex(layer => layer.id === currentLayerId);
+          const nextIndex = (currentIndex + offset + climateLayers.length) % climateLayers.length;
+          return climateLayers[nextIndex].id;
+        });
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown, { capture: true });
+    return () => window.removeEventListener("keydown", handleKeyDown, { capture: true });
+  }, []);
 
   useEffect(() => {
     if (!mapContainerRef.current) { return; }
@@ -231,17 +397,14 @@ export function App() {
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
 
     map.on("load", () => {
-      customizeBasemap(map);
-      addTerrainRelief(map);
+      customizeBasemap(map, systemThemeRef.current);
+      addTerrainRelief(map, systemThemeRef.current);
       setMapReady(true);
     });
     map.on("sourcedata", (event) => {
       if (!activeSourceIdRef.current || event.sourceId !== activeSourceIdRef.current || event.sourceDataType !== "content") { return; }
       const nextLayerId = activeLayerIdRef.current;
       if (!nextLayerId || !map.getLayer(nextLayerId)) { return; }
-      setStatus(`${layerRef.current.shortLabel} · ${months[monthRef.current - 1]}`);
-      setStatusReady(true);
-
       if (visibleLayerIdRef.current === nextLayerId) { return; }
       const previousLayerId = visibleLayerIdRef.current;
       const previousSourceId = visibleSourceIdRef.current;
@@ -265,30 +428,33 @@ export function App() {
     });
     map.on("error", (event) => {
       console.error(event.error);
-      setStatus("Une ressource cartographique n’a pas chargé");
-      setStatusReady(false);
     });
-    const readPlace = (lng: number, lat: number) => {
+    const readPlace = (lng: number, lat: number, request = ++placeRequestRef.current) => {
       lastPlaceCoordinatesRef.current = [lng, lat];
       const month = monthRef.current;
-      setPlace({ title: `${lat.toFixed(3)}°, ${lng.toFixed(3)}°`, values: {} });
-      const request = ++placeRequestRef.current;
+      setPlaceLoading(true);
       void Promise.all(climateLayers.map(async layer => [
         layer.id,
         await readClimateValue(layer.id, month, lng, lat),
       ] as const)).then((entries) => {
         if (request !== placeRequestRef.current) { return; }
-        setPlace({ title: `${lat.toFixed(3)}°, ${lng.toFixed(3)}°`, values: Object.fromEntries(entries) });
-      }).catch((error: unknown) => console.error("Lecture de la valeur climatique impossible", error));
+        setPlace({ coordinatesTitle: `${lat.toFixed(3)}°, ${lng.toFixed(3)}°`, values: Object.fromEntries(entries) });
+        setPlaceLoading(false);
+      }).catch((error: unknown) => {
+        if (request === placeRequestRef.current) { setPlaceLoading(false); }
+        console.error("Lecture de la valeur climatique impossible", error);
+      });
     };
     placeReaderRef.current = readPlace;
     const schedulePlaceRead = (lng: number, lat: number) => {
       pendingHoverRef.current = [lng, lat];
+      const request = ++placeRequestRef.current;
+      setPlaceLoading(true);
       if (hoverTimerRef.current) { clearTimeout(hoverTimerRef.current); }
       hoverTimerRef.current = setTimeout(() => {
         hoverTimerRef.current = undefined;
         const coordinates = pendingHoverRef.current;
-        if (coordinates) { readPlace(...coordinates); }
+        if (coordinates) { readPlace(...coordinates, request); }
       }, 160);
     };
     map.on("mousemove", (event) => {
@@ -318,8 +484,8 @@ export function App() {
   useEffect(() => {
     const map = mapRef.current;
     if (!mapReady || !map) { return; }
-    const sourceId = `${CLIMATE_SOURCE}-${selectedLayer.id}-${String(selectedMonth).padStart(2, "0")}`;
-    const layerId = `${CLIMATE_LAYER}-${selectedLayer.id}-${String(selectedMonth).padStart(2, "0")}`;
+    const sourceId = `${CLIMATE_SOURCE}-${selectedClimateLayer.id}-${String(selectedMonth).padStart(2, "0")}`;
+    const layerId = `${CLIMATE_LAYER}-${selectedClimateLayer.id}-${String(selectedMonth).padStart(2, "0")}`;
     const previousPendingSourceId = activeSourceIdRef.current;
     const previousPendingLayerId = activeLayerIdRef.current;
 
@@ -333,10 +499,10 @@ export function App() {
     activeLayerIdRef.current = layerId;
     map.addSource(sourceId, {
       type: "raster",
-      url: climateArchiveUrl(selectedLayer.id, selectedMonth),
+      url: climateArchiveUrl(selectedClimateLayer.id, selectedMonth),
       tileSize: 256,
-      maxzoom: selectedLayer.maxZoom,
-      attribution: selectedLayer.source,
+      maxzoom: selectedClimateLayer.maxZoom,
+      attribution: selectedClimateLayer.source,
     });
     map.addLayer({
       id: layerId,
@@ -349,17 +515,15 @@ export function App() {
         "raster-resampling": "linear",
       },
     }, map.getLayer(RELIEF_LAYER) ? RELIEF_LAYER : firstOverlayLayer(map.getStyle()));
-    setStatus(`Chargement · ${selectedLayer.shortLabel} · ${months[selectedMonth - 1]}`);
-    setStatusReady(false);
-    preloadAdjacentMonths(selectedLayer, selectedMonth);
-  }, [mapReady, selectedLayer, selectedMonth]);
+    preloadAdjacentMonths(selectedClimateLayer, selectedMonth);
+  }, [mapReady, selectedClimateLayer, selectedMonth]);
 
   useEffect(() => {
     const map = mapRef.current;
     const visibleLayerId = visibleLayerIdRef.current;
     if (visibleLayerId && map?.getLayer(visibleLayerId)) { map.setPaintProperty(visibleLayerId, "raster-opacity", opacity); }
-    persistState(selectedLayer, selectedMonth, opacity, map);
-  }, [opacity, selectedLayer, selectedMonth]);
+    persistState(selectedClimateLayer, selectedMonth, opacity, map);
+  }, [opacity, selectedClimateLayer, selectedMonth]);
 
   function selectMonth(month: number): void {
     setSelectedMonth(((month - 1 + 12) % 12) + 1);
@@ -369,58 +533,63 @@ export function App() {
     setLayerId(nextLayerId);
   }
 
+  function selectLanguage(nextLanguage: string): void {
+    const supportedLanguage = supportedLanguages.find(candidate => candidate === nextLanguage);
+    if (supportedLanguage) { setLanguage(supportedLanguage); }
+  }
+
   return (
     <main className="shell">
-      <div ref={mapContainerRef} id="map" aria-label="Carte climatique interactive" />
+      <div ref={mapContainerRef} id="map" aria-label={copy.ui.climateMap} />
 
-      <header className="brand-card glass">
+      <header className="brand-card">
         <div className="brand-mark" aria-hidden="true"><span /></div>
-        <div>
+        <div className="brand-copy">
           <p className="eyebrow">Normales 1991–2020</p>
           <h1>Better Weather Place</h1>
         </div>
       </header>
 
-      <Card className="control-card glass gap-0 py-0" aria-label="Choix de la donnée climatique">
-        <Label htmlFor="variable">Afficher</Label>
-        <Select value={selectedLayer.id} onValueChange={selectLayer}>
-          <SelectTrigger id="variable" className="variable-trigger">
-            <SelectValue />
+      <div className="language-selector">
+        <Select value={language} onValueChange={selectLanguage}>
+          <SelectTrigger className="language-trigger" aria-label={copy.ui.language}>
+            <SelectValue>{language.toUpperCase()}</SelectValue>
           </SelectTrigger>
-          <SelectContent position="popper" align="start">
-            {climateLayers.map(layer => <SelectItem key={layer.id} value={layer.id}>{layer.label}</SelectItem>)}
-            <SelectItem value="rainy-days" disabled>Jours de pluie — téléchargement en cours</SelectItem>
+          <SelectContent position="popper" align="end">
+            {supportedLanguages.map(candidate => (
+              <SelectItem key={candidate} value={candidate} lang={candidate}>{languageNames[candidate]}</SelectItem>
+            ))}
           </SelectContent>
         </Select>
-        <div className="current-summary">
-          <strong>{selectedLayer.label}</strong>
-          <div className="current-meta-row">
-            <span>{isComfortScore ? `${selectedLayer.resolution} · Score composite` : `${selectedLayer.resolution} · ${selectedLayer.source}`}</span>
-          </div>
-        </div>
-        <Label className="opacity-row" htmlFor="opacity">
-          <span>Intensité</span>
-          <output>
-            {Math.round(opacity * 100)}
-            {" "}
-            %
-          </output>
-        </Label>
-        <Slider id="opacity" min={25} max={100} value={[Math.round(opacity * 100)]} onValueChange={([value]) => setOpacity(value / 100)} aria-label="Intensité de la couche climatique" />
-        <div className="about-section">
-          <Separator />
-          <Button className="about-button" variant="ghost" type="button" aria-label="À propos de Better Weather Place" aria-haspopup="dialog" onClick={() => setAboutOpen(true)}>
-            <span className="about-button-icon" aria-hidden="true"><InfoIcon /></span>
-            <span className="about-button-copy">
-              <strong>En savoir plus</strong>
-              <small>Méthode, sources et score météo</small>
-            </span>
-            <ArrowRightIcon className="about-button-arrow" aria-hidden="true" />
-          </Button>
-        </div>
-      </Card>
+      </div>
 
-      <Card className="legend-card glass gap-0 py-0" aria-label="Légende">
+      <div className="layer-selector glass" aria-label={copy.ui.climateDataChoice}>
+        <div className="layer-selector-sizer" aria-hidden="true">
+          {[...localizedLayers.map(layer => layer.label), copy.ui.rainyDays].map(label => <span key={label}>{label}</span>)}
+        </div>
+        <Select value={selectedLayer.id} onValueChange={selectLayer}>
+          <SelectTrigger id="variable" className="variable-trigger" aria-label={`${copy.ui.display} : ${selectedLayer.label}`}>
+            <span className="layer-select-value">
+              <span className="layer-icon" aria-hidden="true"><ClimateLayerIcon layerId={selectedLayer.id} /></span>
+              <span>{selectedLayer.label}</span>
+            </span>
+          </SelectTrigger>
+          <SelectContent className="layer-select-content" position="popper" align="start">
+            {localizedLayers.map(layer => (
+              <SelectItem key={layer.id} value={layer.id} className="layer-select-item">
+                <span className="layer-icon" aria-hidden="true"><ClimateLayerIcon layerId={layer.id} /></span>
+                <span>{layer.label}</span>
+              </SelectItem>
+            ))}
+            <SelectItem value="rainy-days" className="layer-select-item" disabled>
+              <span className="layer-icon" aria-hidden="true"><ClimateLayerIcon layerId="rainy-days" /></span>
+              <span>{copy.ui.rainyDays}</span>
+            </SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <Card className="legend-card glass gap-0 py-0" aria-label={copy.ui.legend}>
         <div id="legend-unit">{selectedLayer.unit}</div>
         <div className="legend-scale">
           <div className="legend-gradient" style={{ background: gradientFor(selectedLayer) }} />
@@ -428,12 +597,17 @@ export function App() {
         </div>
       </Card>
 
-      <Card className="place-card glass visible gap-0 py-0" aria-label="Données climatiques du point survolé">
-        <p className="eyebrow">{Object.keys(place.values).length ? months[selectedMonth - 1] : "Données au survol"}</p>
-        <h2>{place.title}</h2>
-        <p className="place-hint">{place.title === "Explorer la carte" ? "Survolez la carte pour comparer les indicateurs météo de ce lieu." : Object.keys(place.values).length ? "Normales mensuelles 1991–2020" : "Lecture des données…"}</p>
+      <Card className="place-card glass visible gap-0 py-0" aria-label={copy.ui.hoveredPointData}>
+        {placeLoading && (
+          <span className="place-loader" role="status" aria-label={copy.ui.updatingData}>
+            <span aria-hidden="true" />
+          </span>
+        )}
+        <p className="eyebrow">{Object.keys(place.values).length ? copy.months[selectedMonth - 1] : copy.ui.hoverData}</p>
+        <h2>{place.coordinatesTitle ?? copy.ui.exploreMap}</h2>
+        <p className="place-hint">{!place.coordinatesTitle ? copy.ui.hoverHint : Object.keys(place.values).length ? copy.ui.monthlyNormals : copy.ui.readingData}</p>
         <dl className="place-metrics">
-          {climateLayers.map((layer) => {
+          {localizedLayers.map((layer) => {
             const value = place.values[layer.id];
             return (
               <div key={layer.id} className={layer.id === selectedLayer.id ? "active" : ""}>
@@ -442,10 +616,10 @@ export function App() {
                   {value === undefined
                     ? "—"
                     : value === null
-                      ? "N/D"
+                      ? copy.ui.unavailable
                       : (
                           <>
-                            {value.toLocaleString("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}
+                            {value.toLocaleString(copy.locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 })}
                             <small>{layer.unit}</small>
                           </>
                         )}
@@ -454,49 +628,67 @@ export function App() {
             );
           })}
         </dl>
-        <p className="prototype-note">La donnée affichée sur la carte est mise en évidence.</p>
+        <Button className="place-about-button" variant="ghost" type="button" aria-label={copy.ui.aboutLabel} aria-haspopup="dialog" onClick={() => setAboutOpen(true)}>
+          <span className="about-button-icon" aria-hidden="true"><InfoIcon /></span>
+          <span className="about-button-copy">
+            <strong>{copy.ui.learnMore}</strong>
+            <small>{copy.ui.methodSourcesScore}</small>
+          </span>
+          <ArrowRightIcon className="about-button-arrow" aria-hidden="true" />
+        </Button>
       </Card>
 
-      <nav className="month-dock glass" aria-label="Choix du mois">
-        <Button type="button" variant="ghost" size="icon" className="month-arrow" aria-label="Mois précédent" onClick={() => selectMonth(selectedMonth - 1)}><ChevronLeftIcon /></Button>
+      <nav className="month-dock glass" aria-label={copy.ui.monthChoice}>
+        <Button type="button" variant="ghost" size="icon" className="month-arrow" aria-label={copy.ui.previousMonth} onPointerUp={event => event.currentTarget.blur()} onClick={() => selectMonth(selectedMonth - 1)}><ChevronLeftIcon /></Button>
         <div className="months">
-          {months.map((label, index) => {
+          {copy.months.map((label, index) => {
             const month = index + 1;
-            return <Button key={label} type="button" variant="ghost" className={month === selectedMonth ? "active" : ""} aria-current={month === selectedMonth ? "date" : undefined} onClick={() => selectMonth(month)}>{label}</Button>;
+            return <Button key={label} type="button" variant="ghost" className={month === selectedMonth ? "active" : ""} aria-current={month === selectedMonth ? "date" : undefined} onPointerUp={event => event.currentTarget.blur()} onClick={() => selectMonth(month)}>{label}</Button>;
           })}
         </div>
-        <Button type="button" variant="ghost" size="icon" className="month-arrow" aria-label="Mois suivant" onClick={() => selectMonth(selectedMonth + 1)}><ChevronRightIcon /></Button>
+        <Button type="button" variant="ghost" size="icon" className="month-arrow" aria-label={copy.ui.nextMonth} onPointerUp={event => event.currentTarget.blur()} onClick={() => selectMonth(selectedMonth + 1)}><ChevronRightIcon /></Button>
       </nav>
 
-      <div className={`status-chip${statusReady ? " ready" : ""}`}>{status}</div>
+      <nav className="mobile-month-selector glass" aria-label={copy.ui.monthChoice}>
+        <Select value={String(selectedMonth)} onValueChange={value => selectMonth(Number(value))}>
+          <SelectTrigger className="mobile-month-trigger" aria-label={copy.ui.monthChoice}>
+            <SelectValue>{copy.months[selectedMonth - 1]}</SelectValue>
+          </SelectTrigger>
+          <SelectContent position="popper" align="center">
+            {copy.months.map((label, index) => <SelectItem key={label} value={String(index + 1)}>{label}</SelectItem>)}
+          </SelectContent>
+        </Select>
+      </nav>
 
-      <Button className="attribution-button glass" variant="outline" size="icon" type="button" aria-label="Sources et attributions de la carte" aria-haspopup="dialog" onClick={() => setAttributionOpen(true)}>
+      <Button className="attribution-button glass" variant="outline" size="icon" type="button" aria-label={copy.ui.mapSourcesLabel} aria-haspopup="dialog" onClick={() => setAttributionOpen(true)}>
         <InfoIcon />
       </Button>
 
       <Dialog open={attributionOpen} onOpenChange={setAttributionOpen}>
         <DialogContent className="attribution-dialog glass" showCloseButton={false}>
           <DialogClose asChild>
-            <Button className="dialog-close" variant="ghost" size="icon-sm" aria-label="Fermer les sources et attributions"><XIcon /></Button>
+            <Button className="dialog-close" variant="ghost" size="icon-sm" aria-label={copy.ui.closeSources}><XIcon /></Button>
           </DialogClose>
           <DialogHeader>
-            <p className="eyebrow">Carte et données</p>
-            <DialogTitle id="attribution-title">Sources et attributions</DialogTitle>
-            <DialogDescription className="sr-only">Origine des données climatiques, géographiques et cartographiques.</DialogDescription>
+            <p className="eyebrow">{copy.ui.mapAndData}</p>
+            <DialogTitle id="attribution-title">{copy.ui.sourcesAndAttributions}</DialogTitle>
+            <DialogDescription className="sr-only">{copy.ui.sourcesDescription}</DialogDescription>
           </DialogHeader>
           <dl>
             <div>
-              <dt>Données climatiques</dt>
+              <dt>{copy.ui.climateData}</dt>
               <dd>
-                <a href="https://chelsa-climate.org/" target="_blank" rel="noreferrer">CHELSA-monthly V2.1</a>
+                <a href="https://www.chelsa-climate.org/datasets/chelsa_monthly" target="_blank" rel="noreferrer">CHELSA-monthly V2.1</a>
+                {" (CC0 1.0)"}
                 {" "}
                 ·
                 {" "}
                 <a href="https://doi.org/10.5676/EUM_SAF_CM/SARAH/V003" target="_blank" rel="noreferrer">SARAH-3</a>
+                {" — modified data © EUMETSAT, CC BY 4.0"}
               </dd>
             </div>
             <div>
-              <dt>Fond de carte</dt>
+              <dt>{copy.ui.baseMap}</dt>
               <dd>
                 <a href="https://openfreemap.org/" target="_blank" rel="noreferrer">OpenFreeMap</a>
                 {" "}
@@ -506,12 +698,25 @@ export function App() {
               </dd>
             </div>
             <div>
-              <dt>Données géographiques</dt>
-              <dd><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© contributeurs OpenStreetMap</a></dd>
+              <dt>{copy.ui.geographicData}</dt>
+              <dd><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">{copy.ui.osmContributors}</a></dd>
             </div>
             <div>
-              <dt>Relief</dt>
-              <dd><a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noreferrer">Mapzen Terrain Tiles sur AWS</a></dd>
+              <dt>{copy.ui.terrain}</dt>
+              <dd>
+                <a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noreferrer">{copy.ui.terrainProvider}</a>
+                {" · "}
+                <a href="https://github.com/tilezen/joerd/blob/master/docs/attribution.md" target="_blank" rel="noreferrer">source attributions</a>
+              </dd>
+            </div>
+            <div>
+              <dt>Land/water mask</dt>
+              <dd>
+                produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved.
+                {" The organisations in charge of the Copernicus programme by law or by delegation do not incur any liability for any use of the Copernicus WorldDEM-30. "}
+                {" "}
+                <a href="https://documentation.dataspace.copernicus.eu/APIs/SentinelHub/Data/DEM/resources/license/License-COPDEM-30.pdf" target="_blank" rel="noreferrer">Licence</a>
+              </dd>
             </div>
           </dl>
         </DialogContent>
@@ -520,62 +725,67 @@ export function App() {
       <Dialog open={aboutOpen} onOpenChange={setAboutOpen}>
         <DialogContent className="about-dialog glass" showCloseButton={false}>
           <DialogClose asChild>
-            <Button className="dialog-close" variant="ghost" size="icon-sm" aria-label="Fermer la fenêtre À propos"><XIcon /></Button>
+            <Button className="dialog-close" variant="ghost" size="icon-sm" aria-label={copy.ui.closeAbout}><XIcon /></Button>
           </DialogClose>
           <DialogHeader>
-            <DialogTitle id="about-title">Trouver le meilleur compromis météo</DialogTitle>
+            <DialogTitle id="about-title">{copy.ui.aboutTitle}</DialogTitle>
             <DialogDescription className="project-purpose">
-              Better Weather Place est une
-              <a href={GITHUB_URL} target="_blank" rel="noreferrer">carte open source</a>
+              {copy.ui.aboutBeforeLink}
               {" "}
-              qui permet de visualiser, mois par mois, les régions où il fait bon vivre selon différents critères climatiques.
+              <a href={GITHUB_URL} target="_blank" rel="noreferrer">{copy.ui.openSourceMap}</a>
+              {" "}
+              {copy.ui.aboutAfterLink}
             </DialogDescription>
           </DialogHeader>
-          <h3 id="sources-title">Scoring</h3>
-          <p>Le score météo mensuel va de 0 à 100. Il combine quatre critères avec une moyenne géométrique : un très mauvais résultat ne peut donc pas être entièrement compensé par les autres.</p>
-          <div className="score-grid" aria-label="Composition du score météo">
+          <h3 id="scoring-title">{copy.ui.scoring}</h3>
+          <p>{copy.ui.scoringDescription}</p>
+          <div className="score-grid" aria-label={copy.ui.scoreComposition}>
             <div>
               <strong>35 %</strong>
-              <span>Jour</span>
-              <small>idéal entre 22 et 27 °C</small>
+              <span>{copy.ui.day}</span>
+              <small>{copy.ui.dayIdeal}</small>
             </div>
             <div>
               <strong>25 %</strong>
-              <span>Nuit</span>
-              <small>idéale entre 12 et 18 °C</small>
+              <span>{copy.ui.night}</span>
+              <small>{copy.ui.nightIdeal}</small>
             </div>
             <div>
               <strong>25 %</strong>
-              <span>Soleil</span>
-              <small>idéal entre 6 et 9 h/jour</small>
+              <span>{copy.ui.sun}</span>
+              <small>{copy.ui.sunIdeal}</small>
             </div>
             <div>
               <strong>15 %</strong>
-              <span>Pluie</span>
-              <small>faible cumul favorisé</small>
+              <span>{copy.ui.rain}</span>
+              <small>{copy.ui.rainIdeal}</small>
             </div>
           </div>
-          <p className="about-detail">Les écarts sont pénalisés progressivement des deux côtés, avec une pénalité supplémentaire lorsque forte chaleur et fort soleil se cumulent. Ce score est un repère de confort général, pas une prévision ni un conseil médical.</p>
+          <p className="about-detail">{copy.ui.scoreDetail}</p>
           <section className="sources-block" aria-labelledby="sources-title">
-            <h3 id="sources-title">Données et méthode</h3>
+            <h3 id="sources-title">{copy.ui.dataAndMethod}</h3>
             <ul>
               <li>
-                <a href="https://chelsa-climate.org/" target="_blank" rel="noreferrer">CHELSA-monthly V2.1</a>
+                <a href="https://www.chelsa-climate.org/datasets/chelsa_monthly" target="_blank" rel="noreferrer">CHELSA-monthly V2.1</a>
                 {" "}
-                — températures et précipitations, environ 1 km.
+                —
+                {" "}
+                {copy.ui.temperatureSourceDetail}
               </li>
               <li>
                 <a href="https://doi.org/10.5676/EUM_SAF_CM/SARAH/V003" target="_blank" rel="noreferrer">SARAH-3</a>
                 {" "}
-                — durée d’ensoleillement, environ 5 km et jusqu’à 65° N.
+                —
+                {" "}
+                {copy.ui.sunshineSourceDetail}
               </li>
-              <li>Normales climatiques mensuelles 1991–2020 ; résolution du score : environ 5 km.</li>
+              <li>{copy.ui.normalsDetail}</li>
             </ul>
           </section>
           <Button asChild variant="ghost" className="github-link">
             <a href={GITHUB_URL} target="_blank" rel="noreferrer">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.87c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.35 1.09 2.92.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.57 9.57 0 0 1 12 6.82c.85 0 1.71.11 2.51.34 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.77c0 .27.18.58.69.48A10 10 0 0 0 12 2Z" /></svg>
-              Ouvrir GitHub
+              {copy.ui.openGithub}
             </a>
           </Button>
         </DialogContent>
