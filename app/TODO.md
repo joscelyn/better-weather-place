@@ -1,0 +1,1 @@
+- Add score layout that combine every layers
