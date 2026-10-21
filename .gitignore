@@ -13,6 +13,9 @@ app/node_modules/
 app/dist/
 app/public/data/1991-2020
 
+# Paquet local prêt à téléverser vers le stockage objet
+/data/
+
 # Identifiants locaux — ne jamais versionner
 .cdsapirc
 .env

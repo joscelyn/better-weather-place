@@ -43,7 +43,7 @@ const LAYER_FADE_DURATION = 220;
 const BASEMAP_STYLE = "https://tiles.openfreemap.org/styles/positron";
 const STORAGE_KEY = "better-weather-place:map-state:v1";
 const LANGUAGE_STORAGE_KEY = "better-weather-place:language:v1";
-const GITHUB_URL = import.meta.env.VITE_GITHUB_URL || "https://github.com";
+const GITHUB_URL = "https://github.com/joscelyn/better-weather-place/tree/main";
 
 type SavedState = {
   layerId: string;

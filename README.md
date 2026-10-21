@@ -4,6 +4,8 @@ Better Weather Place is an interactive climate map for finding places with comfo
 
 The project currently covers Europe and the Mediterranean basin. It uses 1991–2020 monthly climate normals rather than forecasts, so the map describes the typical climate of a place—not the weather expected on a particular day.
 
+[https://better-weather-place.joscelyn-gainie.workers.dev/](https://better-weather-place.joscelyn-gainie.workers.dev/)
+
 ## What the map shows
 
 The public interface provides six monthly layers:

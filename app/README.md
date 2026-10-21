@@ -81,12 +81,6 @@ Copy `.env.example` when a local override is needed:
 cp .env.example .env.local
 ```
 
-`VITE_GITHUB_URL` controls the repository link displayed in the About dialog:
-
-```dotenv
-VITE_GITHUB_URL=https://github.com/owner/better-weather-place
-```
-
 If it is omitted, the link falls back to the GitHub home page.
 
 ## Production build
