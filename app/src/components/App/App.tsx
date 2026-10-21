@@ -1,10 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, InfoIcon, XIcon } from "lucide-react";
-import * as maplibregl from "maplibre-gl";
-import type { Map as MapLibreMap, StyleSpecification } from "maplibre-gl";
-import { Protocol } from "pmtiles";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Button } from "@/components/Button";
+import { Card } from "@/components/Card";
 import {
   Dialog,
   DialogClose,
@@ -12,13 +7,19 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
-import { Slider } from "@/components/ui/slider";
-import { climateArchiveUrl, climateLayers, months, type ClimateLayer } from "./climate";
-import { readClimateValue } from "./climate-values";
+} from "@/components/Dialog";
+import { Label } from "@/components/Label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/Select";
+import { Separator } from "@/components/Separator";
+import { Slider } from "@/components/Slider";
+import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, InfoIcon, XIcon } from "lucide-react";
+import type { Map as MapLibreMap, StyleSpecification } from "maplibre-gl";
+import * as maplibregl from "maplibre-gl";
+import { Protocol } from "pmtiles";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type { ClimateLayer } from "@/types/climate";
+import { climateArchiveUrl, climateLayers, months } from "@/utils/climate";
+import { readClimateValue } from "@/utils/climateValues";
 
 const CLIMATE_LAYER = "climate-layer";
 const CLIMATE_SOURCE = "climate-source";
@@ -56,8 +57,8 @@ maplibregl.addProtocol("pmtiles", protocol.tile);
 function loadState(): SavedState {
   try {
     const candidate = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "null") as Partial<SavedState> | null;
-    if (!candidate) return defaultState;
-    const layerId = climateLayers.some((layer) => layer.id === candidate.layerId)
+    if (!candidate) { return defaultState; }
+    const layerId = climateLayers.some(layer => layer.id === candidate.layerId)
       ? candidate.layerId!
       : defaultState.layerId;
     const month = Number.isInteger(candidate.month) && candidate.month! >= 1 && candidate.month! <= 12
@@ -68,14 +69,15 @@ function loadState(): SavedState {
       : defaultState.opacity;
     const center = Array.isArray(candidate.center)
       && candidate.center.length === 2
-      && candidate.center.every((coordinate) => typeof coordinate === "number" && Number.isFinite(coordinate))
+      && candidate.center.every(coordinate => typeof coordinate === "number" && Number.isFinite(coordinate))
       ? candidate.center as [number, number]
       : defaultState.center;
     const zoom = typeof candidate.zoom === "number" && candidate.zoom >= 2.4 && candidate.zoom <= 10
       ? candidate.zoom
       : defaultState.zoom;
     return { layerId, month, opacity, center, zoom };
-  } catch {
+  }
+  catch {
     return defaultState;
   }
 }
@@ -91,13 +93,14 @@ function persistState(layer: ClimateLayer, month: number, opacity: number, map?:
   };
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  } catch {
+  }
+  catch {
     // La carte reste utilisable lorsque le stockage local est désactivé.
   }
 }
 
 function firstOverlayLayer(style: StyleSpecification): string | undefined {
-  return style.layers?.find((layer) => layer.type === "line" || layer.type === "symbol")?.id;
+  return style.layers?.find(layer => layer.type === "line" || layer.type === "symbol")?.id;
 }
 
 function customizeBasemap(map: MapLibreMap): void {
@@ -114,7 +117,7 @@ function customizeBasemap(map: MapLibreMap): void {
     const isRoad = layer.type === "line"
       && (/^(tunnel|highway|bridge)[_-]/.test(layer.id) || layer.id === "road_pier")
       && !layer.id.includes("railway");
-    if (!isRoad) continue;
+    if (!isRoad) { continue; }
     const isCasing = layer.id.includes("casing");
     map.setPaintProperty(layer.id, "line-color", isCasing ? "#777d79" : "#eceeea");
     map.setPaintProperty(layer.id, "line-opacity", layer.id === "highway_path" ? 0.08 : isCasing ? 0.1 : 0.2);
@@ -122,7 +125,7 @@ function customizeBasemap(map: MapLibreMap): void {
 }
 
 function addTerrainRelief(map: MapLibreMap): void {
-  if (map.getSource(TERRAIN_SOURCE)) return;
+  if (map.getSource(TERRAIN_SOURCE)) { return; }
   const overlayLayer = firstOverlayLayer(map.getStyle());
   map.addSource(TERRAIN_SOURCE, {
     type: "raster-dem",
@@ -144,7 +147,7 @@ function addTerrainRelief(map: MapLibreMap): void {
       "hillshade-accent-color": "rgba(96, 101, 98, 0.16)",
     },
   }, overlayLayer);
-  if (overlayLayer && map.getLayer("water")) map.moveLayer("water", overlayLayer);
+  if (overlayLayer && map.getLayer("water")) { map.moveLayer("water", overlayLayer); }
 }
 
 function gradientFor(layer: ClimateLayer): string {
@@ -165,7 +168,7 @@ function preloadAdjacentMonths(layer: ClimateLayer, month: number): void {
 }
 
 export function App() {
-  const initialState = useMemo(loadState, []);
+  const initialState = useMemo(() => loadState(), []);
   const [layerId, setLayerId] = useState(initialState.layerId);
   const [selectedMonth, setSelectedMonth] = useState(initialState.month);
   const [opacity, setOpacity] = useState(initialState.opacity);
@@ -195,7 +198,7 @@ export function App() {
   const lastPlaceCoordinatesRef = useRef<[number, number] | undefined>(undefined);
   const placeReaderRef = useRef<((lng: number, lat: number) => void) | undefined>(undefined);
 
-  const selectedLayer = climateLayers.find((layer) => layer.id === layerId) ?? climateLayers[0];
+  const selectedLayer = climateLayers.find(layer => layer.id === layerId) ?? climateLayers[0];
   const isComfortScore = selectedLayer.id === "comfort";
   const legendIndexes = [
     selectedLayer.stops.length - 1,
@@ -205,12 +208,14 @@ export function App() {
     0,
   ];
 
-  layerRef.current = selectedLayer;
-  monthRef.current = selectedMonth;
-  opacityRef.current = opacity;
+  useEffect(() => {
+    layerRef.current = selectedLayer;
+    monthRef.current = selectedMonth;
+    opacityRef.current = opacity;
+  }, [opacity, selectedLayer, selectedMonth]);
 
   useEffect(() => {
-    if (!mapContainerRef.current) return;
+    if (!mapContainerRef.current) { return; }
     const map = new maplibregl.Map({
       container: mapContainerRef.current,
       style: BASEMAP_STYLE,
@@ -221,6 +226,7 @@ export function App() {
       maxBounds: [[-31, 20], [51, 75]],
       attributionControl: false,
     });
+    const fadeTimers = fadeTimersRef.current;
     mapRef.current = map;
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
 
@@ -230,13 +236,13 @@ export function App() {
       setMapReady(true);
     });
     map.on("sourcedata", (event) => {
-      if (!activeSourceIdRef.current || event.sourceId !== activeSourceIdRef.current || event.sourceDataType !== "content") return;
+      if (!activeSourceIdRef.current || event.sourceId !== activeSourceIdRef.current || event.sourceDataType !== "content") { return; }
       const nextLayerId = activeLayerIdRef.current;
-      if (!nextLayerId || !map.getLayer(nextLayerId)) return;
+      if (!nextLayerId || !map.getLayer(nextLayerId)) { return; }
       setStatus(`${layerRef.current.shortLabel} · ${months[monthRef.current - 1]}`);
       setStatusReady(true);
 
-      if (visibleLayerIdRef.current === nextLayerId) return;
+      if (visibleLayerIdRef.current === nextLayerId) { return; }
       const previousLayerId = visibleLayerIdRef.current;
       const previousSourceId = visibleSourceIdRef.current;
       map.setPaintProperty(nextLayerId, "raster-opacity-transition", { duration: LAYER_FADE_DURATION, delay: 0 });
@@ -250,11 +256,11 @@ export function App() {
       }
       if (previousLayerId || previousSourceId) {
         const timer = window.setTimeout(() => {
-          fadeTimersRef.current.delete(timer);
-          if (previousLayerId && map.getLayer(previousLayerId)) map.removeLayer(previousLayerId);
-          if (previousSourceId && map.getSource(previousSourceId)) map.removeSource(previousSourceId);
+          fadeTimers.delete(timer);
+          if (previousLayerId && map.getLayer(previousLayerId)) { map.removeLayer(previousLayerId); }
+          if (previousSourceId && map.getSource(previousSourceId)) { map.removeSource(previousSourceId); }
         }, LAYER_FADE_DURATION + 40);
-        fadeTimersRef.current.add(timer);
+        fadeTimers.add(timer);
       }
     });
     map.on("error", (event) => {
@@ -267,37 +273,37 @@ export function App() {
       const month = monthRef.current;
       setPlace({ title: `${lat.toFixed(3)}°, ${lng.toFixed(3)}°`, values: {} });
       const request = ++placeRequestRef.current;
-      void Promise.all(climateLayers.map(async (layer) => [
+      void Promise.all(climateLayers.map(async layer => [
         layer.id,
         await readClimateValue(layer.id, month, lng, lat),
       ] as const)).then((entries) => {
-        if (request !== placeRequestRef.current) return;
+        if (request !== placeRequestRef.current) { return; }
         setPlace({ title: `${lat.toFixed(3)}°, ${lng.toFixed(3)}°`, values: Object.fromEntries(entries) });
       }).catch((error: unknown) => console.error("Lecture de la valeur climatique impossible", error));
     };
     placeReaderRef.current = readPlace;
     const schedulePlaceRead = (lng: number, lat: number) => {
       pendingHoverRef.current = [lng, lat];
-      if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
+      if (hoverTimerRef.current) { clearTimeout(hoverTimerRef.current); }
       hoverTimerRef.current = setTimeout(() => {
         hoverTimerRef.current = undefined;
         const coordinates = pendingHoverRef.current;
-        if (coordinates) readPlace(...coordinates);
+        if (coordinates) { readPlace(...coordinates); }
       }, 160);
     };
     map.on("mousemove", (event) => {
       schedulePlaceRead(event.lngLat.lng, event.lngLat.lat);
     });
     map.on("click", (event) => {
-      if (window.matchMedia("(hover: hover)").matches) return;
+      if (window.matchMedia("(hover: hover)").matches) { return; }
       readPlace(event.lngLat.lng, event.lngLat.lat);
     });
     map.on("moveend", () => persistState(layerRef.current, monthRef.current, opacityRef.current, map));
 
     return () => {
-      if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
-      for (const timer of fadeTimersRef.current) window.clearTimeout(timer);
-      fadeTimersRef.current.clear();
+      if (hoverTimerRef.current) { clearTimeout(hoverTimerRef.current); }
+      for (const timer of fadeTimers) { window.clearTimeout(timer); }
+      fadeTimers.clear();
       placeReaderRef.current = undefined;
       map.remove();
       mapRef.current = undefined;
@@ -306,12 +312,12 @@ export function App() {
 
   useEffect(() => {
     const coordinates = lastPlaceCoordinatesRef.current;
-    if (coordinates) placeReaderRef.current?.(...coordinates);
+    if (coordinates) { placeReaderRef.current?.(...coordinates); }
   }, [selectedMonth]);
 
   useEffect(() => {
     const map = mapRef.current;
-    if (!mapReady || !map) return;
+    if (!mapReady || !map) { return; }
     const sourceId = `${CLIMATE_SOURCE}-${selectedLayer.id}-${String(selectedMonth).padStart(2, "0")}`;
     const layerId = `${CLIMATE_LAYER}-${selectedLayer.id}-${String(selectedMonth).padStart(2, "0")}`;
     const previousPendingSourceId = activeSourceIdRef.current;
@@ -351,7 +357,7 @@ export function App() {
   useEffect(() => {
     const map = mapRef.current;
     const visibleLayerId = visibleLayerIdRef.current;
-    if (visibleLayerId && map?.getLayer(visibleLayerId)) map.setPaintProperty(visibleLayerId, "raster-opacity", opacity);
+    if (visibleLayerId && map?.getLayer(visibleLayerId)) { map.setPaintProperty(visibleLayerId, "raster-opacity", opacity); }
     persistState(selectedLayer, selectedMonth, opacity, map);
   }, [opacity, selectedLayer, selectedMonth]);
 
@@ -369,7 +375,10 @@ export function App() {
 
       <header className="brand-card glass">
         <div className="brand-mark" aria-hidden="true"><span /></div>
-        <div><p className="eyebrow">Normales 1991–2020</p><h1>Better Weather Place</h1></div>
+        <div>
+          <p className="eyebrow">Normales 1991–2020</p>
+          <h1>Better Weather Place</h1>
+        </div>
       </header>
 
       <Card className="control-card glass gap-0 py-0" aria-label="Choix de la donnée climatique">
@@ -379,7 +388,7 @@ export function App() {
             <SelectValue />
           </SelectTrigger>
           <SelectContent position="popper" align="start">
-            {climateLayers.map((layer) => <SelectItem key={layer.id} value={layer.id}>{layer.label}</SelectItem>)}
+            {climateLayers.map(layer => <SelectItem key={layer.id} value={layer.id}>{layer.label}</SelectItem>)}
             <SelectItem value="rainy-days" disabled>Jours de pluie — téléchargement en cours</SelectItem>
           </SelectContent>
         </Select>
@@ -389,7 +398,14 @@ export function App() {
             <span>{isComfortScore ? `${selectedLayer.resolution} · Score composite` : `${selectedLayer.resolution} · ${selectedLayer.source}`}</span>
           </div>
         </div>
-        <Label className="opacity-row" htmlFor="opacity"><span>Intensité</span><output>{Math.round(opacity * 100)} %</output></Label>
+        <Label className="opacity-row" htmlFor="opacity">
+          <span>Intensité</span>
+          <output>
+            {Math.round(opacity * 100)}
+            {" "}
+            %
+          </output>
+        </Label>
         <Slider id="opacity" min={25} max={100} value={[Math.round(opacity * 100)]} onValueChange={([value]) => setOpacity(value / 100)} aria-label="Intensité de la couche climatique" />
         <div className="about-section">
           <Separator />
@@ -422,7 +438,18 @@ export function App() {
             return (
               <div key={layer.id} className={layer.id === selectedLayer.id ? "active" : ""}>
                 <dt>{layer.shortLabel}</dt>
-                <dd>{value === undefined ? "—" : value === null ? "N/D" : <>{value.toLocaleString("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}<small>{layer.unit}</small></>}</dd>
+                <dd>
+                  {value === undefined
+                    ? "—"
+                    : value === null
+                      ? "N/D"
+                      : (
+                          <>
+                            {value.toLocaleString("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}
+                            <small>{layer.unit}</small>
+                          </>
+                        )}
+                </dd>
               </div>
             );
           })}
@@ -458,10 +485,34 @@ export function App() {
             <DialogDescription className="sr-only">Origine des données climatiques, géographiques et cartographiques.</DialogDescription>
           </DialogHeader>
           <dl>
-            <div><dt>Données climatiques</dt><dd><a href="https://chelsa-climate.org/" target="_blank" rel="noreferrer">CHELSA-monthly V2.1</a> · <a href="https://doi.org/10.5676/EUM_SAF_CM/SARAH/V003" target="_blank" rel="noreferrer">SARAH-3</a></dd></div>
-            <div><dt>Fond de carte</dt><dd><a href="https://openfreemap.org/" target="_blank" rel="noreferrer">OpenFreeMap</a> · <a href="https://www.openmaptiles.org/" target="_blank" rel="noreferrer">© OpenMapTiles</a></dd></div>
-            <div><dt>Données géographiques</dt><dd><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© contributeurs OpenStreetMap</a></dd></div>
-            <div><dt>Relief</dt><dd><a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noreferrer">Mapzen Terrain Tiles sur AWS</a></dd></div>
+            <div>
+              <dt>Données climatiques</dt>
+              <dd>
+                <a href="https://chelsa-climate.org/" target="_blank" rel="noreferrer">CHELSA-monthly V2.1</a>
+                {" "}
+                ·
+                {" "}
+                <a href="https://doi.org/10.5676/EUM_SAF_CM/SARAH/V003" target="_blank" rel="noreferrer">SARAH-3</a>
+              </dd>
+            </div>
+            <div>
+              <dt>Fond de carte</dt>
+              <dd>
+                <a href="https://openfreemap.org/" target="_blank" rel="noreferrer">OpenFreeMap</a>
+                {" "}
+                ·
+                {" "}
+                <a href="https://www.openmaptiles.org/" target="_blank" rel="noreferrer">© OpenMapTiles</a>
+              </dd>
+            </div>
+            <div>
+              <dt>Données géographiques</dt>
+              <dd><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© contributeurs OpenStreetMap</a></dd>
+            </div>
+            <div>
+              <dt>Relief</dt>
+              <dd><a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noreferrer">Mapzen Terrain Tiles sur AWS</a></dd>
+            </div>
           </dl>
         </DialogContent>
       </Dialog>
@@ -472,23 +523,52 @@ export function App() {
             <Button className="dialog-close" variant="ghost" size="icon-sm" aria-label="Fermer la fenêtre À propos"><XIcon /></Button>
           </DialogClose>
           <DialogHeader>
-            <p className="eyebrow">À propos</p>
             <DialogTitle id="about-title">Trouver le meilleur compromis météo</DialogTitle>
-            <DialogDescription className="project-purpose">Better Weather Place est une <a href={GITHUB_URL} target="_blank" rel="noreferrer">carte open source</a> qui permet de visualiser, mois par mois, les régions où il fait bon vivre selon différents critères climatiques.</DialogDescription>
+            <DialogDescription className="project-purpose">
+              Better Weather Place est une
+              <a href={GITHUB_URL} target="_blank" rel="noreferrer">carte open source</a>
+              {" "}
+              qui permet de visualiser, mois par mois, les régions où il fait bon vivre selon différents critères climatiques.
+            </DialogDescription>
           </DialogHeader>
+          <h3 id="sources-title">Scoring</h3>
           <p>Le score météo mensuel va de 0 à 100. Il combine quatre critères avec une moyenne géométrique : un très mauvais résultat ne peut donc pas être entièrement compensé par les autres.</p>
           <div className="score-grid" aria-label="Composition du score météo">
-            <div><strong>35 %</strong><span>Jour</span><small>idéal entre 22 et 27 °C</small></div>
-            <div><strong>25 %</strong><span>Nuit</span><small>idéale entre 12 et 18 °C</small></div>
-            <div><strong>25 %</strong><span>Soleil</span><small>idéal entre 6 et 9 h/jour</small></div>
-            <div><strong>15 %</strong><span>Pluie</span><small>faible cumul favorisé</small></div>
+            <div>
+              <strong>35 %</strong>
+              <span>Jour</span>
+              <small>idéal entre 22 et 27 °C</small>
+            </div>
+            <div>
+              <strong>25 %</strong>
+              <span>Nuit</span>
+              <small>idéale entre 12 et 18 °C</small>
+            </div>
+            <div>
+              <strong>25 %</strong>
+              <span>Soleil</span>
+              <small>idéal entre 6 et 9 h/jour</small>
+            </div>
+            <div>
+              <strong>15 %</strong>
+              <span>Pluie</span>
+              <small>faible cumul favorisé</small>
+            </div>
           </div>
           <p className="about-detail">Les écarts sont pénalisés progressivement des deux côtés, avec une pénalité supplémentaire lorsque forte chaleur et fort soleil se cumulent. Ce score est un repère de confort général, pas une prévision ni un conseil médical.</p>
           <section className="sources-block" aria-labelledby="sources-title">
             <h3 id="sources-title">Données et méthode</h3>
             <ul>
-              <li><a href="https://chelsa-climate.org/" target="_blank" rel="noreferrer">CHELSA-monthly V2.1</a> — températures et précipitations, environ 1 km.</li>
-              <li><a href="https://doi.org/10.5676/EUM_SAF_CM/SARAH/V003" target="_blank" rel="noreferrer">SARAH-3</a> — durée d’ensoleillement, environ 5 km et jusqu’à 65° N.</li>
+              <li>
+                <a href="https://chelsa-climate.org/" target="_blank" rel="noreferrer">CHELSA-monthly V2.1</a>
+                {" "}
+                — températures et précipitations, environ 1 km.
+              </li>
+              <li>
+                <a href="https://doi.org/10.5676/EUM_SAF_CM/SARAH/V003" target="_blank" rel="noreferrer">SARAH-3</a>
+                {" "}
+                — durée d’ensoleillement, environ 5 km et jusqu’à 65° N.
+              </li>
               <li>Normales climatiques mensuelles 1991–2020 ; résolution du score : environ 5 km.</li>
             </ul>
           </section>

@@ -10,6 +10,7 @@ ln -s ../../../work/tiles/1991-2020 app/public/data/1991-2020
 ln -s ../../derived/1991-2020-masked work/tiles/1991-2020/raw
 cd app
 npm install
+npm run lint
 npm run dev
 ```
 

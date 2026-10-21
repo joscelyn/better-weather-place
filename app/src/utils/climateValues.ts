@@ -39,7 +39,7 @@ export async function readClimateValue(
 ): Promise<number | null> {
   const { image, bounds, nodata } = await loadRaster(layerId, month);
   const [west, south, east, north] = bounds;
-  if (longitude < west || longitude > east || latitude < south || latitude > north) return null;
+  if (longitude < west || longitude > east || latitude < south || latitude > north) { return null; }
 
   const x = Math.min(
     image.getWidth() - 1,
@@ -51,6 +51,6 @@ export async function readClimateValue(
   );
   const rasters = await image.readRasters({ window: [x, y, x + 1, y + 1], samples: [0] });
   const rawValue = Number(rasters[0][0]);
-  if (!Number.isFinite(rawValue) || (nodata !== null && rawValue === nodata)) return null;
+  if (!Number.isFinite(rawValue) || (nodata !== null && rawValue === nodata)) { return null; }
   return rawValue * VALUE_SCALE;
 }
