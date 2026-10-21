@@ -32,6 +32,7 @@ import {
 } from "lucide-react";
 import type { Map as MapLibreMap, StyleSpecification } from "maplibre-gl";
 import * as maplibregl from "maplibre-gl";
+import maplibreWorkerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?url";
 import { Protocol } from "pmtiles";
 import { useEffect, useMemo, useRef, useState } from "react";
 
@@ -66,6 +67,7 @@ const defaultState: SavedState = {
   zoom: 3.25,
 };
 
+maplibregl.setWorkerUrl(maplibreWorkerUrl);
 const protocol = new Protocol();
 maplibregl.addProtocol("pmtiles", protocol.tile);
 
