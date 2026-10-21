@@ -84,12 +84,12 @@ button, select, input { font: inherit; }
   right: 22px;
 }
 .language-trigger {
-  width: 48px;
-  height: 27px;
-  padding: 0 4px 0 6px;
+  width: 60px;
+  height: 32px;
+  padding: 0 7px 0 9px;
   gap: 2px;
   border: 1px solid var(--glass-border);
-  border-radius: 10px;
+  border-radius: 13px;
   color: #284a3e;
   background: var(--glass-background);
   box-shadow: var(--glass-shadow);
@@ -411,7 +411,7 @@ h1 { margin: 0; font-size: 16px; line-height: 1.1; letter-spacing: -.025em; }
   .brand-copy { overflow: hidden; }
   .brand-copy h1 { overflow: hidden; font-size: 14px; text-overflow: ellipsis; }
   .language-selector { top: 12px; right: 14px; }
-  .language-trigger { width: 48px; height: 27px; }
+  .language-trigger { width: 60px; height: 32px; }
   .layer-selector { top: 62px; left: 20px; max-width: calc(100vw - 40px); min-width: 0; transform: none; }
   .variable-trigger { height: 36px; }
   .place-about-button { padding: 7px; }
