@@ -11,10 +11,15 @@
   "dependencies": {
     "geotiff": "^3.0.5",
     "maplibre-gl": "^6.15.0",
-    "pmtiles": "^4.3.0"
+    "pmtiles": "^4.3.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^5.2.0",
     "tailwindcss": "^4.3.3",
     "typescript": "^5.9.3",
     "vite": "^7.1.12"

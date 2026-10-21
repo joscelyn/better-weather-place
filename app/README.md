@@ -1,6 +1,6 @@
-# Maquette locale
+# Application React locale
 
-La maquette affiche les PMTiles produits localement. Aucune donnée lourde n’est copiée dans Git.
+L’application React, construite avec Vite, affiche les PMTiles produits localement. Aucune donnée lourde n’est copiée dans Git.
 
 Depuis la racine du projet :
 
