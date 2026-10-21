@@ -228,8 +228,8 @@ h1 { margin: 0; font-size: 16px; line-height: 1.1; letter-spacing: -.025em; }
   z-index: 4;
   right: 20px;
   bottom: 91px;
-  width: 290px;
-  padding: 17px;
+  width: 310px;
+  padding: 16px;
   border-radius: 21px;
   opacity: 0;
   transform: translateX(18px);
@@ -237,13 +237,16 @@ h1 { margin: 0; font-size: 16px; line-height: 1.1; letter-spacing: -.025em; }
   transition: opacity .2s ease, transform .2s ease;
 }
 .place-card.visible { opacity: 1; transform: none; pointer-events: auto; }
-.place-card h2 { margin: 4px 0 6px; font-size: 20px; }
-.place-card > p:not(.eyebrow) { margin: 0; color: #52675f; font-size: 12px; line-height: 1.45; }
-.place-card dl { margin: 13px 0 10px; }
-.place-card dl div { display: flex; justify-content: space-between; gap: 15px; padding: 6px 0; border-top: 1px solid rgba(62, 91, 79, .1); font-size: 11px; }
-.place-card dt { color: #718078; }
-.place-card dd { margin: 0; font-weight: 700; text-align: right; }
-.prototype-note { padding-top: 8px; border-top: 1px solid rgba(62, 91, 79, .1); font-size: 10px !important; }
+.place-card h2 { margin: 3px 0 3px; font-size: 18px; font-variant-numeric: tabular-nums; }
+.place-hint { margin: 0; color: #687a72; font-size: 10px; line-height: 1.4; }
+.place-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; margin: 12px 0 9px; }
+.place-metrics div { min-width: 0; padding: 8px 9px; border: 1px solid rgba(62, 91, 79, .09); border-radius: 11px; background: rgba(255, 255, 255, .48); }
+.place-metrics div.active { border-color: rgba(35, 109, 84, .34); background: rgba(106, 165, 137, .14); box-shadow: inset 0 0 0 1px rgba(35, 109, 84, .06); }
+.place-metrics dt { overflow: hidden; color: #718078; font-size: 9px; font-weight: 680; text-overflow: ellipsis; white-space: nowrap; }
+.place-metrics dd { display: flex; align-items: baseline; gap: 4px; margin: 2px 0 0; color: #263c33; font-size: 15px; font-weight: 780; font-variant-numeric: tabular-nums; }
+.place-metrics div.active dd { color: #185b45; }
+.place-metrics dd small { overflow: hidden; color: #718078; font-size: 8px; font-weight: 650; text-overflow: ellipsis; white-space: nowrap; }
+.prototype-note { margin: 0; padding-top: 8px; border-top: 1px solid rgba(62, 91, 79, .1); color: #718078; font-size: 9px; line-height: 1.35; }
 
 .status-chip {
   position: absolute;
