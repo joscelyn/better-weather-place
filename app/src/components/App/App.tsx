@@ -142,29 +142,29 @@ function customizeBasemap(map: MapLibreMap, theme: SystemTheme): void {
       continue;
     }
     if (layer.type === "background") {
-      map.setPaintProperty(layer.id, "background-color", isDark ? "#17212c" : "#e9efe9");
+      map.setPaintProperty(layer.id, "background-color", isDark ? "#192324" : "#e9efe9");
       continue;
     }
     if (layer.id === "water" && layer.type === "fill") {
-      map.setPaintProperty(layer.id, "fill-color", isDark ? "#1f3b4c" : "#9fcbdc");
+      map.setPaintProperty(layer.id, "fill-color", isDark ? "#233b46" : "#9fcbdc");
       map.setPaintProperty(layer.id, "fill-opacity", 1);
       continue;
     }
     if (layer.type === "fill" && /building/i.test(layer.id)) {
-      map.setPaintProperty(layer.id, "fill-color", isDark ? "#2b333f" : "#dfe5df");
+      map.setPaintProperty(layer.id, "fill-color", isDark ? "#2d3636" : "#dfe5df");
       map.setPaintProperty(layer.id, "fill-opacity", isDark ? 0.72 : 0.64);
       continue;
     }
     if (layer.type === "fill" && layer.id === "landuse_residential") {
-      map.setPaintProperty(layer.id, "fill-color", isDark ? "#24323d" : "#eaeae6");
+      map.setPaintProperty(layer.id, "fill-color", isDark ? "#273535" : "#eaeae6");
       continue;
     }
     if (layer.type === "fill" && /^(aeroway-area|road_area_pier)$/.test(layer.id)) {
-      map.setPaintProperty(layer.id, "fill-color", isDark ? "#303d48" : "#f2f3f0");
+      map.setPaintProperty(layer.id, "fill-color", isDark ? "#323d3d" : "#f2f3f0");
       continue;
     }
     if (layer.type === "fill" && /(park|wood|grass|landcover)/i.test(layer.id)) {
-      map.setPaintProperty(layer.id, "fill-color", isDark ? "#22343d" : "#dce9dd");
+      map.setPaintProperty(layer.id, "fill-color", isDark ? "#253a33" : "#dce9dd");
       map.setPaintProperty(layer.id, "fill-opacity", isDark ? 0.72 : 0.62);
       continue;
     }
@@ -174,19 +174,19 @@ function customizeBasemap(map: MapLibreMap, theme: SystemTheme): void {
     if (isRoad) {
       const isCasing = layer.id.includes("casing");
       map.setPaintProperty(layer.id, "line-color", isDark
-        ? (isCasing ? "#151b22" : "#596875")
+        ? (isCasing ? "#171d1d" : "#5f6c68")
         : (isCasing ? "#777d79" : "#eceeea"));
       map.setPaintProperty(layer.id, "line-opacity", layer.id === "highway_path" ? 0.08 : isCasing ? 0.14 : 0.24);
       continue;
     }
     if (layer.type === "line" && /(boundary|waterway)/i.test(layer.id)) {
-      map.setPaintProperty(layer.id, "line-color", isDark ? "#667986" : "#8ea099");
+      map.setPaintProperty(layer.id, "line-color", isDark ? "#687872" : "#8ea099");
       map.setPaintProperty(layer.id, "line-opacity", isDark ? 0.46 : 0.4);
       continue;
     }
     if (layer.type === "symbol" && layer.layout?.["text-field"]) {
-      map.setPaintProperty(layer.id, "text-color", isDark ? "#d0d9e1" : "#53605b");
-      map.setPaintProperty(layer.id, "text-halo-color", isDark ? "#15202b" : "#f3f6f2");
+      map.setPaintProperty(layer.id, "text-color", isDark ? "#d2dad7" : "#53605b");
+      map.setPaintProperty(layer.id, "text-halo-color", isDark ? "#172120" : "#f3f6f2");
       map.setPaintProperty(layer.id, "text-halo-width", 1);
     }
   }
@@ -195,9 +195,9 @@ function customizeBasemap(map: MapLibreMap, theme: SystemTheme): void {
 function applyTerrainTheme(map: MapLibreMap, theme: SystemTheme): void {
   if (!map.getLayer(RELIEF_LAYER)) { return; }
   const isDark = theme === "dark";
-  map.setPaintProperty(RELIEF_LAYER, "hillshade-shadow-color", isDark ? "rgba(4, 8, 15, 0.68)" : "rgba(42, 46, 44, 0.3)");
-  map.setPaintProperty(RELIEF_LAYER, "hillshade-highlight-color", isDark ? "rgba(158, 180, 199, 0.18)" : "rgba(255, 255, 255, 0.36)");
-  map.setPaintProperty(RELIEF_LAYER, "hillshade-accent-color", isDark ? "rgba(67, 89, 108, 0.3)" : "rgba(96, 101, 98, 0.16)");
+  map.setPaintProperty(RELIEF_LAYER, "hillshade-shadow-color", isDark ? "rgba(4, 10, 9, 0.68)" : "rgba(42, 46, 44, 0.3)");
+  map.setPaintProperty(RELIEF_LAYER, "hillshade-highlight-color", isDark ? "rgba(162, 181, 174, 0.18)" : "rgba(255, 255, 255, 0.36)");
+  map.setPaintProperty(RELIEF_LAYER, "hillshade-accent-color", isDark ? "rgba(70, 91, 84, 0.3)" : "rgba(96, 101, 98, 0.16)");
 }
 
 function addTerrainRelief(map: MapLibreMap, theme: SystemTheme): void {
@@ -312,7 +312,7 @@ export function App() {
     applySystemTheme(systemTheme);
     document.querySelector("meta[name=\"theme-color\"]")?.setAttribute(
       "content",
-      systemTheme === "dark" ? "#0f1822" : "#e9f2ec",
+      systemTheme === "dark" ? "#111a1b" : "#e9f2ec",
     );
     const map = mapRef.current;
     if (mapReady && map) {
