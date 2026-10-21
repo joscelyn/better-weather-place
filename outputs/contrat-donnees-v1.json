@@ -1,5 +1,6 @@
 {
-  "schema_version": "0.1-draft",
+  "schema_version": "0.2-draft",
+  "data_version": "2026-10-21.1",
   "reference_period": {
     "start_year": 1991,
     "end_year": 2020,
@@ -26,8 +27,9 @@
     "canaries_enabled_in_v1": false
   },
   "asset_contract": {
+    "available_layer_ids": ["comfort", "tavg", "tmax", "tmin", "precipitation", "sunshine"],
     "display_template": "data/1991-2020/{layer_id}/{month}.pmtiles",
-    "value_template": "data/1991-2020/{layer_id}/{month}.tif",
+    "value_template": "data/1991-2020/raw/{layer_id}/{month}.tif",
     "display_format": "PMTiles v3 raster WebP",
     "value_format": "Cloud Optimized GeoTIFF",
     "display_projection": "EPSG:3857",
@@ -50,6 +52,52 @@
       "note": "Relief resolution does not change the native resolution of climate layers."
     },
     "http_requirements": ["HTTPS", "Range requests", "CORS when cross-origin"]
+  },
+  "source_catalog": {
+    "chelsa_monthly_v2_1": {
+      "name": "CHELSA-monthly V2.1",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "source_url": "https://www.chelsa-climate.org/datasets/chelsa_monthly",
+      "citation": "Karger, D. N., Brun, P., Zilker, F. (2025). CHELSA-monthly climate data at high resolution. EnviDat. https://doi.org/10.16904/envidat.686"
+    },
+    "sarah_3": {
+      "name": "CM SAF SARAH-3",
+      "license": "CC-BY-4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://doi.org/10.5676/EUM_SAF_CM/SARAH/V003",
+      "attribution": "Contains modified CM SAF SARAH-3 data, © EUMETSAT, licensed under CC BY 4.0.",
+      "citation": "Pfeifroth, U. et al. (2023). Surface Radiation Data Set - Heliosat (SARAH) - Edition 3. https://doi.org/10.5676/EUM_SAF_CM/SARAH/V003"
+    },
+    "cerra_land": {
+      "name": "Copernicus Climate Change Service CERRA-Land",
+      "license": "CC-BY-4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://cds.climate.copernicus.eu/datasets/reanalysis-cerra-land",
+      "attribution": "Contains modified Copernicus Climate Change Service information (CERRA-Land).",
+      "citation": "Copernicus Climate Change Service (C3S), CERRA-Land regional reanalysis. https://doi.org/10.24381/cds.a7f3cd0b"
+    },
+    "copernicus_dem_glo_30": {
+      "name": "Copernicus DEM GLO-30",
+      "license": "Copernicus WorldDEM-30 licence",
+      "license_url": "https://documentation.dataspace.copernicus.eu/APIs/SentinelHub/Data/DEM/resources/license/License-COPDEM-30.pdf",
+      "source_url": "https://documentation.dataspace.copernicus.eu/APIs/SentinelHub/Data/DEM.html",
+      "attribution": "produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved",
+      "liability_notice": "The organisations in charge of the Copernicus programme by law or by delegation do not incur any liability for any use of the Copernicus WorldDEM-30."
+    },
+    "openfreemap": {
+      "name": "OpenFreeMap / OpenMapTiles / OpenStreetMap",
+      "license": "OpenFreeMap MIT; OpenStreetMap ODbL-1.0",
+      "source_url": "https://openfreemap.org/",
+      "attribution": "OpenFreeMap © OpenMapTiles Data from OpenStreetMap"
+    },
+    "mapzen_terrain": {
+      "name": "Mapzen Terrain Tiles on AWS",
+      "license": "Source-specific licences and attribution requirements",
+      "license_url": "https://github.com/tilezen/joerd/blob/master/docs/attribution.md",
+      "source_url": "https://registry.opendata.aws/terrain-tiles/",
+      "attribution": "Mapzen Terrain Tiles; see the linked source-specific attribution list."
+    }
   },
   "rounding": {
     "mode": "half-away-from-zero",

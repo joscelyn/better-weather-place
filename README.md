@@ -8,7 +8,7 @@ L’étape 1 de sélection et de validation des sources gratuites est terminée 
 
 L’architecture proposée pour l’étape 2 est documentée dans `outputs/plan-etape-2-architecture.md`. Elle privilégie une carte sans API applicative, avec MapLibre, des archives raster PMTiles pour l’affichage et des COG pour les valeurs au clic. Le choix de l’hébergement est reporté : les mêmes fichiers devront fonctionner sur un stockage objet ou sur un VPS. Le lot témoin de tuiles est terminé et la production des grilles mensuelles est en cours.
 
-Le contrat de travail des couches est défini dans `outputs/contrat-donnees-v1.json` et expliqué dans `outputs/contrat-donnees-v1.md` : unités, arrondis, formats, palettes provisoires, résolutions et avertissements côtiers, topographiques et nordiques.
+Le contrat canonique des couches est défini dans `outputs/contrat-donnees-v1.json` et expliqué dans `outputs/contrat-donnees-v1.md` : disponibilité, unités, arrondis, formats, palettes, résolutions, chemins des fichiers, licences et avertissements. L’application et la chaîne PMTiles lisent directement ce manifeste afin d’éviter les configurations divergentes.
 
 Le lot témoin 2B est terminé sur janvier et juillet entre le Maroc et les Alpes. Les cinq archives PMTiles et deux COG sont dans `outputs/pilot-etape-2b/`, avec le rapport `outputs/pilot-etape-2b-rapport.md`. Le relief séparé est retenu pour la maquette : sa qualité est proche du relief intégré et son coût fixe est amorti après environ huit couches.
 

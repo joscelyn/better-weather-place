@@ -8,6 +8,12 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "@climate-contract": path.resolve(__dirname, "../outputs/contrat-donnees-v1.json"),
+    },
+  },
+  server: {
+    fs: {
+      allow: [path.resolve(__dirname, "..")],
     },
   },
   optimizeDeps: {

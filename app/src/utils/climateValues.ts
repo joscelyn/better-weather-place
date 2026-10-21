@@ -1,4 +1,5 @@
 import { fromUrl, type GeoTIFFImage } from "geotiff";
+import { climateValueScale, climateValueUrl } from "@/utils/climate";
 
 type ClimateRaster = {
   image: GeoTIFFImage;
@@ -7,15 +8,8 @@ type ClimateRaster = {
 };
 
 const rasterCache = new Map<string, Promise<ClimateRaster>>();
-const VALUE_SCALE = 0.1;
-
-function climateCogUrl(layerId: string, month: number): string {
-  const relative = `/data/1991-2020/raw/${layerId}/${String(month).padStart(2, "0")}.tif`;
-  return new URL(relative, window.location.href).href;
-}
-
 async function loadRaster(layerId: string, month: number): Promise<ClimateRaster> {
-  const url = climateCogUrl(layerId, month);
+  const url = climateValueUrl(layerId, month);
   let pending = rasterCache.get(url);
   if (!pending) {
     pending = fromUrl(url).then(async (tiff) => {
@@ -52,5 +46,5 @@ export async function readClimateValue(
   const rasters = await image.readRasters({ window: [x, y, x + 1, y + 1], samples: [0] });
   const rawValue = Number(rasters[0][0]);
   if (!Number.isFinite(rawValue) || (nodata !== null && rawValue === nodata)) { return null; }
-  return rawValue * VALUE_SCALE;
+  return rawValue * climateValueScale(layerId);
 }

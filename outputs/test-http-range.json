@@ -1,0 +1,50 @@
+[
+  {
+    "format": "PMTiles",
+    "portion": "début",
+    "url": "http://127.0.0.1:5173/data/1991-2020/tavg/01.pmtiles",
+    "requested_range": "bytes=0-63",
+    "status": 206,
+    "content_range": "bytes 0-63/1392162",
+    "accept_ranges": "bytes",
+    "bytes_received": 64,
+    "matches_local_file": true,
+    "valid": true
+  },
+  {
+    "format": "PMTiles",
+    "portion": "milieu",
+    "url": "http://127.0.0.1:5173/data/1991-2020/tavg/01.pmtiles",
+    "requested_range": "bytes=696081-696144",
+    "status": 206,
+    "content_range": "bytes 696081-696144/1392162",
+    "accept_ranges": "bytes",
+    "bytes_received": 64,
+    "matches_local_file": true,
+    "valid": true
+  },
+  {
+    "format": "COG",
+    "portion": "début",
+    "url": "http://127.0.0.1:5173/data/1991-2020/raw/tavg/01.tif",
+    "requested_range": "bytes=0-63",
+    "status": 206,
+    "content_range": "bytes 0-63/11712356",
+    "accept_ranges": "bytes",
+    "bytes_received": 64,
+    "matches_local_file": true,
+    "valid": true
+  },
+  {
+    "format": "COG",
+    "portion": "milieu",
+    "url": "http://127.0.0.1:5173/data/1991-2020/raw/tavg/01.tif",
+    "requested_range": "bytes=5856178-5856241",
+    "status": 206,
+    "content_range": "bytes 5856178-5856241/11712356",
+    "accept_ranges": "bytes",
+    "bytes_received": 64,
+    "matches_local_file": true,
+    "valid": true
+  }
+]

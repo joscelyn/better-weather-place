@@ -1,9 +1,11 @@
-# Contrat des données cartographiques — version 0.1
+# Contrat des données cartographiques — version 0.2
 
 Date : 19 octobre 2026  
-Statut : contrat de travail pour le lot témoin, sans code d’application
+Statut : manifeste canonique partagé par la production et l’application
 
 Le fichier `contrat-donnees-v1.json` constitue le manifeste lisible par une future chaîne de production et par l’application. Cette note explique les décisions qui ne doivent pas dépendre de la technologie d’hébergement.
+
+Depuis la version 0.2, l’application importe ce manifeste à la compilation. Les couches disponibles, palettes, unités, résolutions, zooms, facteurs d’échelle, chemins PMTiles/COG et version de cache ne sont donc plus recopiés dans le code TypeScript. La chaîne PMTiles lit également la liste des couches et les paramètres WebP dans ce même fichier. Les traductions d’interface restent volontairement séparées : elles ne modifient pas le contrat numérique.
 
 ## Principes
 

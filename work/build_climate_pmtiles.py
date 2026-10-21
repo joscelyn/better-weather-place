@@ -28,7 +28,6 @@ CONTRACT_PATH = ROOT / "outputs/contrat-donnees-v1.json"
 DEFAULT_SOURCE = ROOT / "work/derived/1991-2020-masked"
 DEFAULT_OUTPUT = ROOT / "work/tiles/1991-2020"
 DEFAULT_INVENTORY = ROOT / "outputs/inventaire-pmtiles-production.csv"
-AVAILABLE_LAYERS = ("comfort", "tavg", "tmax", "tmin", "precipitation", "sunshine")
 TILE_SIZE = 256
 MIN_ZOOM = 3
 WEBP_QUALITY = 85
@@ -327,25 +326,29 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--source", type=Path, default=DEFAULT_SOURCE)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--inventory", type=Path, default=DEFAULT_INVENTORY)
-    parser.add_argument("--layers", type=parse_csv, default=list(AVAILABLE_LAYERS))
+    parser.add_argument("--layers", type=parse_csv)
     parser.add_argument("--months", type=parse_months, default=list(range(1, 13)))
     parser.add_argument("--min-zoom", type=int, default=MIN_ZOOM)
-    parser.add_argument("--quality", type=int, default=WEBP_QUALITY)
-    parser.add_argument("--method", type=int, default=WEBP_METHOD)
+    parser.add_argument("--quality", type=int)
+    parser.add_argument("--method", type=int)
     parser.add_argument("--force", action="store_true")
     return parser
 
 
 def main() -> int:
     args = build_parser().parse_args()
-    unknown = sorted(set(args.layers) - set(AVAILABLE_LAYERS))
+    contract, layer_contracts = load_contract()
+    available_layers = contract["asset_contract"]["available_layer_ids"]
+    selected_layers = args.layers or available_layers
+    quality = args.quality if args.quality is not None else contract["asset_contract"].get("display_webp_quality", WEBP_QUALITY)
+    method = args.method if args.method is not None else contract["asset_contract"].get("display_webp_method", WEBP_METHOD)
+    unknown = sorted(set(selected_layers) - set(available_layers))
     if unknown:
         raise SystemExit(f"Couches inconnues : {', '.join(unknown)}")
-    if args.min_zoom < 0 or not 1 <= args.quality <= 100 or not 0 <= args.method <= 6:
+    if args.min_zoom < 0 or not 1 <= quality <= 100 or not 0 <= method <= 6:
         raise SystemExit("Zoom ou qualité WebP invalide")
 
-    _, layer_contracts = load_contract()
-    jobs = [(layer_id, month) for layer_id in args.layers for month in args.months]
+    jobs = [(layer_id, month) for layer_id in selected_layers for month in args.months]
     failures = 0
     for index, (layer_id, month) in enumerate(jobs, start=1):
         layer = layer_contracts[layer_id]
@@ -358,7 +361,7 @@ def main() -> int:
         try:
             status, metadata = build_one(
                 source, output, layer, layer_contracts, month,
-                args.min_zoom, args.quality, args.method, args.force,
+                args.min_zoom, quality, method, args.force,
             )
             print(
                 f"[{index}/{len(jobs)}] {layer_id}/{month:02d} {status} — "
