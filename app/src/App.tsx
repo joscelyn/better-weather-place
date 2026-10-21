@@ -24,6 +24,7 @@ const CLIMATE_LAYER = "climate-layer";
 const CLIMATE_SOURCE = "climate-source";
 const TERRAIN_SOURCE = "terrain-dem";
 const RELIEF_LAYER = "terrain-hillshade";
+const LAYER_FADE_DURATION = 220;
 const BASEMAP_STYLE = "https://tiles.openfreemap.org/styles/positron";
 const STORAGE_KEY = "better-weather-place:map-state:v1";
 const GITHUB_URL = import.meta.env.VITE_GITHUB_URL || "https://github.com";
@@ -181,12 +182,18 @@ export function App() {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MapLibreMap | undefined>(undefined);
   const activeSourceIdRef = useRef<string | undefined>(undefined);
+  const activeLayerIdRef = useRef<string | undefined>(undefined);
+  const visibleSourceIdRef = useRef<string | undefined>(undefined);
+  const visibleLayerIdRef = useRef<string | undefined>(undefined);
+  const fadeTimersRef = useRef<Set<number>>(new Set());
   const layerRef = useRef<ClimateLayer>(climateLayers[0]);
   const monthRef = useRef(selectedMonth);
   const opacityRef = useRef(opacity);
   const placeRequestRef = useRef(0);
   const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const pendingHoverRef = useRef<[number, number] | undefined>(undefined);
+  const lastPlaceCoordinatesRef = useRef<[number, number] | undefined>(undefined);
+  const placeReaderRef = useRef<((lng: number, lat: number) => void) | undefined>(undefined);
 
   const selectedLayer = climateLayers.find((layer) => layer.id === layerId) ?? climateLayers[0];
   const isComfortScore = selectedLayer.id === "comfort";
@@ -223,9 +230,32 @@ export function App() {
       setMapReady(true);
     });
     map.on("sourcedata", (event) => {
-      if (!activeSourceIdRef.current || event.sourceId !== activeSourceIdRef.current) return;
+      if (!activeSourceIdRef.current || event.sourceId !== activeSourceIdRef.current || event.sourceDataType !== "content") return;
+      const nextLayerId = activeLayerIdRef.current;
+      if (!nextLayerId || !map.getLayer(nextLayerId)) return;
       setStatus(`${layerRef.current.shortLabel} · ${months[monthRef.current - 1]}`);
       setStatusReady(true);
+
+      if (visibleLayerIdRef.current === nextLayerId) return;
+      const previousLayerId = visibleLayerIdRef.current;
+      const previousSourceId = visibleSourceIdRef.current;
+      map.setPaintProperty(nextLayerId, "raster-opacity-transition", { duration: LAYER_FADE_DURATION, delay: 0 });
+      map.setPaintProperty(nextLayerId, "raster-opacity", opacityRef.current);
+      visibleLayerIdRef.current = nextLayerId;
+      visibleSourceIdRef.current = event.sourceId;
+
+      if (previousLayerId && map.getLayer(previousLayerId)) {
+        map.setPaintProperty(previousLayerId, "raster-opacity-transition", { duration: LAYER_FADE_DURATION, delay: 0 });
+        map.setPaintProperty(previousLayerId, "raster-opacity", 0);
+      }
+      if (previousLayerId || previousSourceId) {
+        const timer = window.setTimeout(() => {
+          fadeTimersRef.current.delete(timer);
+          if (previousLayerId && map.getLayer(previousLayerId)) map.removeLayer(previousLayerId);
+          if (previousSourceId && map.getSource(previousSourceId)) map.removeSource(previousSourceId);
+        }, LAYER_FADE_DURATION + 40);
+        fadeTimersRef.current.add(timer);
+      }
     });
     map.on("error", (event) => {
       console.error(event.error);
@@ -233,6 +263,7 @@ export function App() {
       setStatusReady(false);
     });
     const readPlace = (lng: number, lat: number) => {
+      lastPlaceCoordinatesRef.current = [lng, lat];
       const month = monthRef.current;
       setPlace({ title: `${lat.toFixed(3)}°, ${lng.toFixed(3)}°`, values: {} });
       const request = ++placeRequestRef.current;
@@ -244,14 +275,15 @@ export function App() {
         setPlace({ title: `${lat.toFixed(3)}°, ${lng.toFixed(3)}°`, values: Object.fromEntries(entries) });
       }).catch((error: unknown) => console.error("Lecture de la valeur climatique impossible", error));
     };
+    placeReaderRef.current = readPlace;
     const schedulePlaceRead = (lng: number, lat: number) => {
       pendingHoverRef.current = [lng, lat];
-      if (hoverTimerRef.current) return;
+      if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
       hoverTimerRef.current = setTimeout(() => {
         hoverTimerRef.current = undefined;
         const coordinates = pendingHoverRef.current;
         if (coordinates) readPlace(...coordinates);
-      }, 120);
+      }, 160);
     };
     map.on("mousemove", (event) => {
       schedulePlaceRead(event.lngLat.lng, event.lngLat.lat);
@@ -264,19 +296,35 @@ export function App() {
 
     return () => {
       if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
+      for (const timer of fadeTimersRef.current) window.clearTimeout(timer);
+      fadeTimersRef.current.clear();
+      placeReaderRef.current = undefined;
       map.remove();
       mapRef.current = undefined;
     };
   }, [initialState]);
 
   useEffect(() => {
+    const coordinates = lastPlaceCoordinatesRef.current;
+    if (coordinates) placeReaderRef.current?.(...coordinates);
+  }, [selectedMonth]);
+
+  useEffect(() => {
     const map = mapRef.current;
     if (!mapReady || !map) return;
     const sourceId = `${CLIMATE_SOURCE}-${selectedLayer.id}-${String(selectedMonth).padStart(2, "0")}`;
-    const previousSourceId = activeSourceIdRef.current;
+    const layerId = `${CLIMATE_LAYER}-${selectedLayer.id}-${String(selectedMonth).padStart(2, "0")}`;
+    const previousPendingSourceId = activeSourceIdRef.current;
+    const previousPendingLayerId = activeLayerIdRef.current;
+
+    if (previousPendingLayerId && previousPendingLayerId !== visibleLayerIdRef.current && map.getLayer(previousPendingLayerId)) {
+      map.removeLayer(previousPendingLayerId);
+    }
+    if (previousPendingSourceId && previousPendingSourceId !== visibleSourceIdRef.current && map.getSource(previousPendingSourceId)) {
+      map.removeSource(previousPendingSourceId);
+    }
     activeSourceIdRef.current = sourceId;
-    if (map.getLayer(CLIMATE_LAYER)) map.removeLayer(CLIMATE_LAYER);
-    if (previousSourceId && map.getSource(previousSourceId)) map.removeSource(previousSourceId);
+    activeLayerIdRef.current = layerId;
     map.addSource(sourceId, {
       type: "raster",
       url: climateArchiveUrl(selectedLayer.id, selectedMonth),
@@ -285,11 +333,12 @@ export function App() {
       attribution: selectedLayer.source,
     });
     map.addLayer({
-      id: CLIMATE_LAYER,
+      id: layerId,
       type: "raster",
       source: sourceId,
       paint: {
-        "raster-opacity": opacityRef.current,
+        "raster-opacity": 0,
+        "raster-opacity-transition": { duration: LAYER_FADE_DURATION, delay: 0 },
         "raster-fade-duration": 180,
         "raster-resampling": "linear",
       },
@@ -301,7 +350,8 @@ export function App() {
 
   useEffect(() => {
     const map = mapRef.current;
-    if (map?.getLayer(CLIMATE_LAYER)) map.setPaintProperty(CLIMATE_LAYER, "raster-opacity", opacity);
+    const visibleLayerId = visibleLayerIdRef.current;
+    if (visibleLayerId && map?.getLayer(visibleLayerId)) map.setPaintProperty(visibleLayerId, "raster-opacity", opacity);
     persistState(selectedLayer, selectedMonth, opacity, map);
   }, [opacity, selectedLayer, selectedMonth]);
 
@@ -362,7 +412,7 @@ export function App() {
         </div>
       </Card>
 
-      <Card className="place-card glass visible gap-0 py-0" aria-live="polite">
+      <Card className="place-card glass visible gap-0 py-0" aria-label="Données climatiques du point survolé">
         <p className="eyebrow">{Object.keys(place.values).length ? months[selectedMonth - 1] : "Données au survol"}</p>
         <h2>{place.title}</h2>
         <p className="place-hint">{place.title === "Explorer la carte" ? "Survolez la carte pour comparer les indicateurs météo de ce lieu." : Object.keys(place.values).length ? "Normales mensuelles 1991–2020" : "Lecture des données…"}</p>
