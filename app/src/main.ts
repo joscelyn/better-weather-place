@@ -10,8 +10,9 @@ const CLIMATE_SOURCE = "climate-source";
 const CLIMATE_LAYER = "climate-layer";
 const TERRAIN_SOURCE = "terrain-dem";
 const RELIEF_LAYER = "terrain-hillshade";
-const BASEMAP_STYLE = "https://tiles.openfreemap.org/styles/bright";
+const BASEMAP_STYLE = "https://tiles.openfreemap.org/styles/positron";
 const STORAGE_KEY = "better-weather-place:map-state:v1";
+const GITHUB_URL = import.meta.env.VITE_GITHUB_URL || "https://github.com";
 
 type SavedState = {
   layerId: string;
@@ -22,7 +23,7 @@ type SavedState = {
 };
 
 const defaultState: SavedState = {
-  layerId: "tavg",
+  layerId: "comfort",
   month: 1,
   opacity: 0.76,
   center: [9, 46],
@@ -80,6 +81,10 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
       </div>
     </header>
 
+    <button id="about-button" class="about-button glass" type="button" aria-label="À propos de Better Weather Place" aria-haspopup="dialog" aria-controls="about-dialog">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6M12 7.5v.1"></path></svg>
+    </button>
+
     <section class="control-card glass" aria-label="Choix de la donnée climatique">
       <label for="variable">Afficher</label>
       <div class="select-wrap">
@@ -88,7 +93,10 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
       </div>
       <div class="current-summary">
         <strong id="current-label"></strong>
-        <span id="current-meta"></span>
+        <div class="current-meta-row">
+          <span id="current-meta"></span>
+          <button id="score-more" type="button" hidden>En savoir plus</button>
+        </div>
       </div>
       <label class="opacity-row" for="opacity">
         <span>Intensité</span><output id="opacity-value">76 %</output>
@@ -128,6 +136,49 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     </nav>
 
     <div id="status" class="status-chip">Chargement de la carte…</div>
+
+    <button id="attribution-button" class="attribution-button glass" type="button" aria-label="Sources et attributions de la carte" aria-haspopup="dialog" aria-controls="attribution-dialog">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6M12 7.5v.1"></path></svg>
+    </button>
+
+    <dialog id="attribution-dialog" class="attribution-dialog glass" aria-labelledby="attribution-title">
+      <button id="close-attribution" class="dialog-close" type="button" aria-label="Fermer les sources et attributions">×</button>
+      <p class="eyebrow">Carte et données</p>
+      <h2 id="attribution-title">Sources et attributions</h2>
+      <dl>
+        <div><dt>Données climatiques</dt><dd><a href="https://chelsa-climate.org/" target="_blank" rel="noreferrer">CHELSA-monthly V2.1</a> · <a href="https://doi.org/10.5676/EUM_SAF_CM/SARAH/V003" target="_blank" rel="noreferrer">SARAH-3</a></dd></div>
+        <div><dt>Fond de carte</dt><dd><a href="https://openfreemap.org/" target="_blank" rel="noreferrer">OpenFreeMap</a> · <a href="https://www.openmaptiles.org/" target="_blank" rel="noreferrer">© OpenMapTiles</a></dd></div>
+        <div><dt>Données géographiques</dt><dd><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© contributeurs OpenStreetMap</a></dd></div>
+        <div><dt>Relief</dt><dd><a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noreferrer">Mapzen Terrain Tiles sur AWS</a></dd></div>
+      </dl>
+    </dialog>
+
+    <dialog id="about-dialog" class="about-dialog glass" aria-labelledby="about-title">
+      <button id="close-about" class="dialog-close" type="button" aria-label="Fermer la fenêtre À propos">×</button>
+      <p class="eyebrow">À propos</p>
+      <h2 id="about-title">Trouver le meilleur compromis météo</h2>
+      <p class="project-purpose">Better Weather Place est une <a href="${GITHUB_URL}" target="_blank" rel="noreferrer">carte open source</a> qui permet de visualiser, mois par mois, les régions où il fait bon vivre selon différents critères climatiques.</p>
+      <p>Le score météo mensuel va de 0 à 100. Il combine quatre critères avec une moyenne géométrique : un très mauvais résultat ne peut donc pas être entièrement compensé par les autres.</p>
+      <div class="score-grid" aria-label="Composition du score météo">
+        <div><strong>35 %</strong><span>Jour</span><small>idéal entre 22 et 27 °C</small></div>
+        <div><strong>25 %</strong><span>Nuit</span><small>idéale entre 12 et 18 °C</small></div>
+        <div><strong>25 %</strong><span>Soleil</span><small>idéal entre 6 et 9 h/jour</small></div>
+        <div><strong>15 %</strong><span>Pluie</span><small>faible cumul favorisé</small></div>
+      </div>
+      <p class="about-detail">Les écarts sont pénalisés progressivement des deux côtés, avec une pénalité supplémentaire lorsque forte chaleur et fort soleil se cumulent. Ce score est un repère de confort général, pas une prévision ni un conseil médical.</p>
+      <section class="sources-block" aria-labelledby="sources-title">
+        <h3 id="sources-title">Données et méthode</h3>
+        <ul>
+          <li><a href="https://chelsa-climate.org/" target="_blank" rel="noreferrer">CHELSA-monthly V2.1</a> — températures et précipitations, environ 1 km.</li>
+          <li><a href="https://doi.org/10.5676/EUM_SAF_CM/SARAH/V003" target="_blank" rel="noreferrer">SARAH-3</a> — durée d’ensoleillement, environ 5 km et jusqu’à 65° N.</li>
+          <li>Normales climatiques mensuelles 1991–2020 ; résolution du score : environ 5 km.</li>
+        </ul>
+      </section>
+      <a class="github-link" href="${GITHUB_URL}" target="_blank" rel="noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.87c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.35 1.09 2.92.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.57 9.57 0 0 1 12 6.82c.85 0 1.71.11 2.51.34 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.77c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"></path></svg>
+        Ouvrir GitHub
+      </a>
+    </dialog>
   </main>
 `;
 
@@ -216,18 +267,25 @@ function customizeBasemap(): void {
       map.setLayoutProperty(layer.id, "visibility", "none");
       continue;
     }
+    if (layer.id === "water" && layer.type === "fill") {
+      map.setPaintProperty(layer.id, "fill-color", "#9fcbdc");
+      map.setPaintProperty(layer.id, "fill-opacity", 1);
+      continue;
+    }
     const isRoad = layer.type === "line"
-      && (/^(tunnel|highway|bridge)-/.test(layer.id) || layer.id === "road_pier")
+      && (/^(tunnel|highway|bridge)[_-]/.test(layer.id) || layer.id === "road_pier")
       && !layer.id.includes("railway");
     if (!isRoad) continue;
     const isCasing = layer.id.includes("casing");
     map.setPaintProperty(layer.id, "line-color", isCasing ? "#777d79" : "#eceeea");
-    map.setPaintProperty(layer.id, "line-opacity", isCasing ? 0.46 : 0.72);
+    const roadOpacity = layer.id === "highway_path" ? 0.18 : isCasing ? 0.2 : 0.36;
+    map.setPaintProperty(layer.id, "line-opacity", roadOpacity);
   }
 }
 
 function addTerrainRelief(): void {
   if (map.getSource(TERRAIN_SOURCE)) return;
+  const overlayLayer = firstOverlayLayer(map.getStyle());
   map.addSource(TERRAIN_SOURCE, {
     type: "raster-dem",
     tiles: ["https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"],
@@ -242,15 +300,17 @@ function addTerrainRelief(): void {
       type: "hillshade",
       source: TERRAIN_SOURCE,
       paint: {
-        "hillshade-exaggeration": 0.34,
+        "hillshade-exaggeration": 0.24,
         "hillshade-illumination-direction": 315,
-        "hillshade-shadow-color": "rgba(35, 44, 40, 0.48)",
-        "hillshade-highlight-color": "rgba(255, 255, 248, 0.44)",
-        "hillshade-accent-color": "rgba(84, 96, 89, 0.22)",
+        "hillshade-shadow-color": "rgba(42, 46, 44, 0.3)",
+        "hillshade-highlight-color": "rgba(255, 255, 255, 0.36)",
+        "hillshade-accent-color": "rgba(96, 101, 98, 0.16)",
       },
     },
-    firstOverlayLayer(map.getStyle()),
+    overlayLayer,
   );
+  // Le remplissage de l’eau repasse au-dessus du relief pour conserver une mer bleue et unie.
+  if (overlayLayer && map.getLayer("water")) map.moveLayer("water", overlayLayer);
 }
 
 function addClimateLayer(): void {
@@ -309,7 +369,11 @@ function renderControls(): void {
   opacityInput.value = String(Math.round(opacity * 100));
   document.querySelector<HTMLOutputElement>("#opacity-value")!.value = `${Math.round(opacity * 100)} %`;
   document.querySelector<HTMLDivElement>("#current-label")!.textContent = selectedLayer.label;
-  document.querySelector<HTMLSpanElement>("#current-meta")!.textContent = `${selectedLayer.resolution} · ${selectedLayer.source}`;
+  const isComfortScore = selectedLayer.id === "comfort";
+  document.querySelector<HTMLSpanElement>("#current-meta")!.textContent = isComfortScore
+    ? `${selectedLayer.resolution} · Score composite`
+    : `${selectedLayer.resolution} · ${selectedLayer.source}`;
+  document.querySelector<HTMLButtonElement>("#score-more")!.hidden = !isComfortScore;
   document.querySelector<HTMLElement>("#place-source")!.textContent = selectedLayer.source;
   document.querySelector<HTMLElement>("#place-resolution")!.textContent = selectedLayer.resolution;
   monthsElement.querySelectorAll("button").forEach((button) => {
@@ -354,6 +418,19 @@ document.querySelector<HTMLInputElement>("#opacity")!.addEventListener("input", 
 document.querySelector<HTMLButtonElement>("#previous-month")!.addEventListener("click", () => selectMonth(selectedMonth - 1));
 document.querySelector<HTMLButtonElement>("#next-month")!.addEventListener("click", () => selectMonth(selectedMonth + 1));
 document.querySelector<HTMLButtonElement>("#close-place")!.addEventListener("click", () => placeCard.classList.remove("visible"));
+const aboutDialog = document.querySelector<HTMLDialogElement>("#about-dialog")!;
+document.querySelector<HTMLButtonElement>("#about-button")!.addEventListener("click", () => aboutDialog.showModal());
+document.querySelector<HTMLButtonElement>("#score-more")!.addEventListener("click", () => aboutDialog.showModal());
+document.querySelector<HTMLButtonElement>("#close-about")!.addEventListener("click", () => aboutDialog.close());
+aboutDialog.addEventListener("click", (event) => {
+  if (event.target === aboutDialog) aboutDialog.close();
+});
+const attributionDialog = document.querySelector<HTMLDialogElement>("#attribution-dialog")!;
+document.querySelector<HTMLButtonElement>("#attribution-button")!.addEventListener("click", () => attributionDialog.showModal());
+document.querySelector<HTMLButtonElement>("#close-attribution")!.addEventListener("click", () => attributionDialog.close());
+attributionDialog.addEventListener("click", (event) => {
+  if (event.target === attributionDialog) attributionDialog.close();
+});
 
 map = new maplibregl.Map({
   container: "map",
@@ -366,7 +443,6 @@ map = new maplibregl.Map({
   attributionControl: false,
 });
 map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
-map.addControl(new maplibregl.AttributionControl({ compact: true }), "bottom-right");
 map.on("load", () => {
   mapReady = true;
   customizeBasemap();

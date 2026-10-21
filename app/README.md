@@ -14,3 +14,12 @@ npm run dev
 ```
 
 Les liens symboliques sont ignorés par Git. Les PMTiles servent l’affichage, tandis que les COG sous `raw/` permettent la lecture exacte du pixel au survol avec des requêtes HTTP partielles. Ces URL pourront plus tard pointer vers un stockage objet ou le VPS sans modifier leur format.
+
+Le score météo composite se régénère à partir des quatre couches sources, puis se transforme en PMTiles avec :
+
+```bash
+work/.venv/bin/python work/build_comfort_score.py
+work/.venv/bin/python work/build_climate_pmtiles.py --layers comfort
+```
+
+L’URL du dépôt affichée dans la fenêtre À propos peut être définie au build avec `VITE_GITHUB_URL`. Sans cette variable, le bouton ouvre la page d’accueil de GitHub.

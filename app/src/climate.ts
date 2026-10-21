@@ -27,6 +27,26 @@ const temperatureStops = [
 
 export const climateLayers: readonly ClimateLayer[] = [
 	{
+		id: 'comfort',
+		label: 'Score météo',
+		shortLabel: 'Score météo',
+		unit: '/100',
+		source: 'Score composite CHELSA + SARAH-3',
+		resolution: 'environ 5 km',
+		maxZoom: 5,
+		stops: [
+			[0, '#7f1d1d'],
+			[20, '#c2412d'],
+			[35, '#e97b3c'],
+			[50, '#f1c75b'],
+			[65, '#c4d96b'],
+			[75, '#78bd78'],
+			[85, '#2e8b68'],
+			[95, '#12614d'],
+			[100, '#083b32'],
+		],
+	},
+	{
 		id: 'tavg',
 		label: 'Température moyenne',
 		shortLabel: 'Température',
@@ -38,8 +58,8 @@ export const climateLayers: readonly ClimateLayer[] = [
 	},
 	{
 		id: 'tmax',
-		label: 'Moyenne des maximales',
-		shortLabel: 'Maximales',
+		label: 'Température de jour',
+		shortLabel: 'Jour',
 		unit: '°C',
 		source: 'CHELSA-monthly V2.1',
 		resolution: 'environ 1 km',
@@ -48,8 +68,8 @@ export const climateLayers: readonly ClimateLayer[] = [
 	},
 	{
 		id: 'tmin',
-		label: 'Moyenne des minimales',
-		shortLabel: 'Minimales',
+		label: 'Température de nuit',
+		shortLabel: 'Nuit',
 		unit: '°C',
 		source: 'CHELSA-monthly V2.1',
 		resolution: 'environ 1 km',

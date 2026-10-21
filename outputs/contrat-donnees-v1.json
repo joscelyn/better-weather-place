@@ -84,6 +84,39 @@
   },
   "layers": [
     {
+      "id": "comfort",
+      "label_fr": "Score météo",
+      "short_label_fr": "Score météo",
+      "unit": "/100",
+      "click_decimals": 1,
+      "source": "Score composite CHELSA-monthly V2.1 + SARAH-3",
+      "source_variable": "derived comfort-v1",
+      "native_resolution": "0.05 degree, environ 5 km",
+      "native_max_zoom": 5,
+      "storage": {
+        "dtype": "uint16",
+        "scale_factor": 0.1,
+        "nodata": 65535
+      },
+      "palette": {
+        "status": "designed-for-composite-score",
+        "type": "sequential",
+        "stops": [
+          [0, "#7f1d1d"],
+          [20, "#c2412d"],
+          [35, "#e97b3c"],
+          [50, "#f1c75b"],
+          [65, "#c4d96b"],
+          [75, "#78bd78"],
+          [85, "#2e8b68"],
+          [95, "#12614d"],
+          [100, "#083b32"]
+        ]
+      },
+      "base_confidence": "derived",
+      "known_limit_fr": "Score de confort général limité à la couverture SARAH-3, jusqu’à 65° N."
+    },
+    {
       "id": "tavg",
       "label_fr": "Température moyenne",
       "short_label_fr": "Moyenne",
