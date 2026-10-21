@@ -81,7 +81,8 @@ Copy `.env.example` when a local override is needed:
 cp .env.example .env.local
 ```
 
-If it is omitted, the link falls back to the GitHub home page.
+- `VITE_GITHUB_URL` defines the repository link. If it is omitted, the link falls back to the GitHub home page.
+- `VITE_DATA_BASE_URL` defines the public origin of the climate data, with the `data/` directory directly below it. If it is omitted, the application loads `/data/` from its own origin.
 
 ## Production build
 

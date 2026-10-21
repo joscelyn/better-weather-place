@@ -56,10 +56,24 @@ export const climateLayers: readonly ClimateLayer[] = contract.asset_contract.av
 
 export const months = contract.months.map(month => month.label_fr);
 
+function dataBaseUrl(): URL {
+  const configuredBaseUrl = import.meta.env.VITE_DATA_BASE_URL?.trim();
+
+  if (!configuredBaseUrl) {
+    return new URL("/", window.location.href);
+  }
+
+  const normalizedBaseUrl = configuredBaseUrl.endsWith("/")
+    ? configuredBaseUrl
+    : `${configuredBaseUrl}/`;
+
+  return new URL(normalizedBaseUrl);
+}
+
 function assetUrl(template: string, layerId: string, month: number): URL {
   const monthId = String(month).padStart(2, "0");
-  const relative = `/${template.replace("{layer_id}", layerId).replace("{month}", monthId)}`;
-  const url = new URL(relative, window.location.href);
+  const relative = template.replace("{layer_id}", layerId).replace("{month}", monthId);
+  const url = new URL(relative, dataBaseUrl());
   url.searchParams.set("v", contract.data_version);
   return url;
 }
