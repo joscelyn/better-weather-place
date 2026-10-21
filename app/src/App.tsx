@@ -26,14 +26,6 @@ type Place = {
   copy: string;
 };
 
-type Hover = {
-  visible: boolean;
-  x: number;
-  y: number;
-  value: string;
-  context: string;
-};
-
 const defaultState: SavedState = {
   layerId: "comfort",
   month: 1,
@@ -109,7 +101,7 @@ function customizeBasemap(map: MapLibreMap): void {
     if (!isRoad) continue;
     const isCasing = layer.id.includes("casing");
     map.setPaintProperty(layer.id, "line-color", isCasing ? "#777d79" : "#eceeea");
-    map.setPaintProperty(layer.id, "line-opacity", layer.id === "highway_path" ? 0.18 : isCasing ? 0.2 : 0.36);
+    map.setPaintProperty(layer.id, "line-opacity", layer.id === "highway_path" ? 0.08 : isCasing ? 0.1 : 0.2);
   }
 }
 
@@ -164,8 +156,10 @@ export function App() {
   const [mapReady, setMapReady] = useState(false);
   const [status, setStatus] = useState("Chargement de la carte…");
   const [statusReady, setStatusReady] = useState(false);
-  const [place, setPlace] = useState<Place | null>(null);
-  const [hover, setHover] = useState<Hover>({ visible: false, x: 12, y: 12, value: "—", context: "" });
+  const [place, setPlace] = useState<Place>({
+    title: "Explorer la carte",
+    copy: "Clique sur une zone pour afficher ses coordonnées et la valeur climatique.",
+  });
 
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MapLibreMap | undefined>(undefined);
@@ -173,8 +167,6 @@ export function App() {
   const layerRef = useRef<ClimateLayer>(climateLayers[0]);
   const monthRef = useRef(selectedMonth);
   const opacityRef = useRef(opacity);
-  const hoverTimerRef = useRef<number | undefined>(undefined);
-  const hoverRequestRef = useRef(0);
   const placeRequestRef = useRef(0);
   const aboutDialogRef = useRef<HTMLDialogElement>(null);
   const attributionDialogRef = useRef<HTMLDialogElement>(null);
@@ -237,36 +229,9 @@ export function App() {
         setPlace({ title: `${lat.toFixed(3)}°, ${lng.toFixed(3)}°`, copy });
       }).catch((error: unknown) => console.error("Lecture de la valeur climatique impossible", error));
     });
-    map.on("mousemove", (event) => {
-      const layer = layerRef.current;
-      const month = monthRef.current;
-      const x = Math.max(12, Math.min(event.point.x + 16, window.innerWidth - 188));
-      const y = Math.max(12, Math.min(event.point.y + 16, window.innerHeight - 76));
-      setHover({ visible: true, x, y, value: "Lecture…", context: `${layer.shortLabel} · ${months[month - 1]}` });
-      window.clearTimeout(hoverTimerRef.current);
-      const request = ++hoverRequestRef.current;
-      hoverTimerRef.current = window.setTimeout(() => {
-        void readClimateValue(layer.id, month, event.lngLat.lng, event.lngLat.lat).then((value) => {
-          if (request !== hoverRequestRef.current) return;
-          setHover({
-            visible: true,
-            x,
-            y,
-            value: value === null ? "Pas de donnée" : `${value.toLocaleString("fr-FR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} ${layer.unit}`,
-            context: `${layer.shortLabel} · ${months[month - 1]}`,
-          });
-        }).catch((error: unknown) => console.error("Lecture de la valeur climatique impossible", error));
-      }, 90);
-    });
-    map.getCanvas().addEventListener("mouseleave", () => {
-      window.clearTimeout(hoverTimerRef.current);
-      hoverRequestRef.current += 1;
-      setHover((current) => ({ ...current, visible: false }));
-    });
     map.on("moveend", () => persistState(layerRef.current, monthRef.current, opacityRef.current, map));
 
     return () => {
-      window.clearTimeout(hoverTimerRef.current);
       map.remove();
       mapRef.current = undefined;
     };
@@ -309,14 +274,10 @@ export function App() {
   }, [opacity, selectedLayer, selectedMonth]);
 
   function selectMonth(month: number): void {
-    hoverRequestRef.current += 1;
-    setHover((current) => ({ ...current, visible: false }));
     setSelectedMonth(((month - 1 + 12) % 12) + 1);
   }
 
   function selectLayer(nextLayerId: string): void {
-    hoverRequestRef.current += 1;
-    setHover((current) => ({ ...current, visible: false }));
     setLayerId(nextLayerId);
   }
 
@@ -329,10 +290,6 @@ export function App() {
         <div><p className="eyebrow">Normales 1991–2020</p><h1>Better Weather Place</h1></div>
       </header>
 
-      <button className="about-button glass" type="button" aria-label="À propos de Better Weather Place" aria-haspopup="dialog" onClick={() => aboutDialogRef.current?.showModal()}>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 11v6M12 7.5v.1" /></svg>
-      </button>
-
       <section className="control-card glass" aria-label="Choix de la donnée climatique">
         <label htmlFor="variable">Afficher</label>
         <div className="select-wrap">
@@ -340,17 +297,26 @@ export function App() {
             {climateLayers.map((layer) => <option key={layer.id} value={layer.id}>{layer.label}</option>)}
             <option disabled>Jours de pluie — téléchargement en cours</option>
           </select>
-          <span aria-hidden="true">⌄</span>
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7.5 5 5 5-5" /></svg>
         </div>
         <div className="current-summary">
           <strong>{selectedLayer.label}</strong>
           <div className="current-meta-row">
             <span>{isComfortScore ? `${selectedLayer.resolution} · Score composite` : `${selectedLayer.resolution} · ${selectedLayer.source}`}</span>
-            {isComfortScore && <button type="button" onClick={() => aboutDialogRef.current?.showModal()}>En savoir plus</button>}
           </div>
         </div>
         <label className="opacity-row" htmlFor="opacity"><span>Intensité</span><output>{Math.round(opacity * 100)} %</output></label>
         <input id="opacity" type="range" min="25" max="100" value={Math.round(opacity * 100)} onChange={(event) => setOpacity(Number(event.target.value) / 100)} />
+        <div className="about-section">
+          <button className="about-button" type="button" aria-label="À propos de Better Weather Place" aria-haspopup="dialog" onClick={() => aboutDialogRef.current?.showModal()}>
+            <span className="about-button-icon" aria-hidden="true">i</span>
+            <span className="about-button-copy">
+              <strong>En savoir plus</strong>
+              <small>Méthode, sources et score météo</small>
+            </span>
+            <span className="about-button-arrow" aria-hidden="true">→</span>
+          </button>
+        </div>
       </section>
 
       <aside className="legend-card glass" aria-label="Légende">
@@ -361,15 +327,10 @@ export function App() {
         </div>
       </aside>
 
-      <div className={`hover-card glass${hover.visible ? " visible" : ""}`} role="status" aria-live="polite" style={{ left: hover.x, top: hover.y }}>
-        <strong>{hover.value}</strong><span>{hover.context}</span>
-      </div>
-
-      <section className={`place-card glass${place ? " visible" : ""}`} aria-live="polite">
-        <button type="button" aria-label="Fermer" onClick={() => setPlace(null)}>×</button>
+      <section className="place-card glass visible" aria-live="polite">
         <p className="eyebrow">Point sélectionné</p>
-        <h2>{place?.title ?? "Explorer la carte"}</h2>
-        <p>{place?.copy ?? "Clique sur une zone pour conserver ses coordonnées et le contexte de la donnée."}</p>
+        <h2>{place.title}</h2>
+        <p>{place.copy}</p>
         <dl>
           <div><dt>Source</dt><dd>{selectedLayer.source}</dd></div>
           <div><dt>Résolution</dt><dd>{selectedLayer.resolution}</dd></div>
