@@ -1,30 +1,104 @@
-# Application React locale
+# Better Weather Place frontend
 
-L’application React, construite avec Vite, affiche les PMTiles produits localement. Aucune donnée lourde n’est copiée dans Git.
+This directory contains the React frontend for Better Weather Place. For the project overview, climate sources, scientific limitations, and data-processing pipeline, see the [main README](../README.md).
 
-Depuis la racine du projet :
+## Stack
+
+- React 19 and TypeScript
+- Vite
+- MapLibre GL JS
+- PMTiles raster overlays
+- GeoTIFF.js for numerical COG reads
+- Tailwind CSS and shadcn-style components
+
+The frontend is static and does not require a dedicated application backend. PMTiles provide the rendered climate map, while Cloud Optimized GeoTIFFs provide numerical values on hover through HTTP range requests.
+
+## Install and run
+
+```bash
+npm install
+npm run dev
+```
+
+Vite prints the local development URL, normally `http://127.0.0.1:5173/`.
+
+Available commands:
+
+```bash
+npm run dev       # start the development server
+npm run lint      # run ESLint
+npm run lint:fix  # apply safe ESLint fixes
+npm run build     # type-check and create a production build
+npm run preview   # serve the production build locally
+```
+
+## Local climate data
+
+Generated climate files are too large for Git. The application expects this public URL layout:
+
+```text
+/data/1991-2020/{layer}/{month}.pmtiles
+/data/1991-2020/raw/{layer}/{month}.tif
+```
+
+When the pipeline outputs exist under `work/`, create the local links from the repository root:
 
 ```bash
 mkdir -p app/public/data
 ln -s ../../../work/tiles/1991-2020 app/public/data/1991-2020
 ln -s ../../derived/1991-2020-masked work/tiles/1991-2020/raw
-cd app
-npm install
-npm run lint
-npm run dev
 ```
 
-Les liens symboliques sont ignorés par Git. Les PMTiles servent l’affichage, tandis que les COG sous `raw/` permettent la lecture exacte du pixel au survol avec des requêtes HTTP partielles. Ces URL pourront plus tard pointer vers un stockage objet ou le VPS sans modifier leur format.
+Both links are ignored by Git. The same URL contract can later be hosted from a VPS or object storage, provided that the server supports HTTPS, byte-range requests, and CORS when files are served from another origin.
 
-## Thème d’affichage
+## Canonical data contract
 
-L’interface suit automatiquement le thème clair ou sombre configuré sur l’appareil via `prefers-color-scheme`. Un changement de préférence pendant que l’application est ouverte est appliqué immédiatement à l’interface, aux contrôles et au fond de carte, sans modifier les palettes des données climatiques.
+The frontend imports [`../outputs/contrat-donnees-v1.json`](../outputs/contrat-donnees-v1.json) at build time. This manifest defines:
 
-Le score météo composite se régénère à partir des quatre couches sources, puis se transforme en PMTiles avec :
+- the layers currently available in the interface;
+- units and storage scale factors;
+- color palettes;
+- native resolutions and maximum zoom levels;
+- PMTiles and COG URL templates;
+- the asset version used for cache invalidation.
+
+Do not duplicate these values in React components. Interface translations remain in `src/utils/i18n.ts` because presentation copy is separate from the numerical data contract.
+
+## Runtime behavior
+
+- MapLibre renders the OpenFreeMap basemap and the selected PMTiles raster overlay.
+- Adjacent months are prefetched to make month changes feel immediate.
+- GeoTIFF.js reads only the required COG ranges when climate values are requested.
+- Layer, month, map center, zoom, opacity, and language preferences are stored in `localStorage`.
+- The interface follows the device light or dark theme.
+- Source and licence information is available from the attribution popup.
+
+## Environment variables
+
+Copy `.env.example` when a local override is needed:
 
 ```bash
-work/.venv/bin/python work/build_comfort_score.py
-work/.venv/bin/python work/build_climate_pmtiles.py --layers comfort
+cp .env.example .env.local
 ```
 
-L’URL du dépôt affichée dans la fenêtre À propos peut être définie au build avec `VITE_GITHUB_URL`. Sans cette variable, le bouton ouvre la page d’accueil de GitHub.
+`VITE_GITHUB_URL` controls the repository link displayed in the About dialog:
+
+```dotenv
+VITE_GITHUB_URL=https://github.com/owner/better-weather-place
+```
+
+If it is omitted, the link falls back to the GitHub home page.
+
+## Production build
+
+```bash
+npm run lint
+npm run build
+```
+
+The generated static application is written to `dist/`. Climate files are not copied into the build automatically; deploy them under the URL layout described above and verify byte-range support with:
+
+```bash
+../work/.venv/bin/python ../work/validation/test_http_range.py \
+  --base-url https://your-domain.example/
+```

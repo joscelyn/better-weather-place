@@ -1,57 +1,174 @@
 # Better Weather Place
 
-Projet de carte climatique mensuelle pour l’Europe, le bassin méditerranéen et les Canaries.
+Better Weather Place is an interactive climate map for finding places with comfortable weather throughout the year. It is designed with slow travel and van life in mind: choose a month, compare climate indicators, and explore how conditions change between coasts, plains, valleys, and mountain ranges.
 
-## État actuel
+The project currently covers Europe and the Mediterranean basin. It uses 1991–2020 monthly climate normals rather than forecasts, so the map describes the typical climate of a place—not the weather expected on a particular day.
 
-L’étape 1 de sélection et de validation des sources gratuites est terminée pour les températures, précipitations, jours de pluie, heures d’ensoleillement et altitude, avec une attention particulière au relief et aux côtes. Une application React/Vite est maintenant disponible dans `app/` : elle affiche les couches climatiques mensuelles sur une carte MapLibre, lit les valeurs exactes au survol ou au toucher, propose plusieurs langues et adapte automatiquement son thème clair ou sombre aux préférences de l’appareil.
+## What the map shows
 
-L’architecture proposée pour l’étape 2 est documentée dans `outputs/plan-etape-2-architecture.md`. Elle privilégie une carte sans API applicative, avec MapLibre, des archives raster PMTiles pour l’affichage et des COG pour les valeurs au clic. Le choix de l’hébergement est reporté : les mêmes fichiers devront fonctionner sur un stockage objet ou sur un VPS. Le lot témoin de tuiles est terminé et la production des grilles mensuelles est en cours.
+The public interface provides six monthly layers:
 
-Le contrat canonique des couches est défini dans `outputs/contrat-donnees-v1.json` et expliqué dans `outputs/contrat-donnees-v1.md` : disponibilité, unités, arrondis, formats, palettes, résolutions, chemins des fichiers, licences et avertissements. L’application et la chaîne PMTiles lisent directement ce manifeste afin d’éviter les configurations divergentes.
+| Layer | Meaning | Approximate source resolution |
+|---|---|---:|
+| Weather score | Composite indicator combining daytime temperature, nighttime temperature, sunshine, and rainfall | 5 km |
+| Average temperature | Mean near-surface air temperature | 1 km |
+| Daytime temperature | Mean daily maximum temperature | 1 km |
+| Nighttime temperature | Mean daily minimum temperature | 1 km |
+| Monthly precipitation | Mean total precipitation for the selected month | 1 km |
+| Sunshine duration | Mean monthly sunshine duration | 5 km |
 
-Le lot témoin 2B est terminé sur janvier et juillet entre le Maroc et les Alpes. Les cinq archives PMTiles et deux COG sont dans `outputs/pilot-etape-2b/`, avec le rapport `outputs/pilot-etape-2b-rapport.md`. Le relief séparé est retenu pour la maquette : sa qualité est proche du relief intégré et son coût fixe est amorti après environ huit couches.
+Hovering over the map reads the underlying numerical rasters and displays all available indicators for that location. The selected layer, month, map position, zoom level, and language are saved in the browser.
 
-Le pilote complémentaire de relief détaillé est également terminé sur les Alpes, les Pyrénées et le Haut Atlas. Le profil retenu utilise environ 1 km aux zooms 3–7 et environ 90 m aux zooms 8–10. Les résultats, dont une archive témoin de 6,37 Mio, sont décrits dans `outputs/pilot-relief-haute-resolution-rapport.md`. Les Canaries restent volontairement hors du périmètre prioritaire.
+Rainy-day frequency is being prepared from CERRA-Land but is not yet available in the public layer list. The Canary Islands are also outside the current priority area.
 
-Les 36 normales mensuelles 1991–2020 des températures moyenne, maximale et minimale sont calculées sur le domaine complet. Leurs valeurs terrestres vont respectivement de −30,7 à 40,5 °C, de −26,9 à 46,5 °C et de −35,2 à 31,8 °C. Pour mieux distinguer les écarts utiles à l’écran, la palette commune est volontairement resserrée à −20–40 °C ; les valeurs au-delà utilisent les couleurs terminales tandis que les COG conservent la valeur exacte.
+## How it works
 
-Les douze normales de précipitations sont également calculées sur le domaine complet. Les rares pics au-dessus de 400 mm/mois représentent au plus 0,201 % des pixels WBM valides et prennent la couleur terminale sans perdre leur valeur numérique. Le contrôle détaillé est documenté dans `outputs/rapport-audit-grilles-production.md`.
+Better Weather Place does not require an application API for ordinary map use.
 
-La palette des jours de pluie a été contrôlée sur 906 normales mensuelles CERRA-Land, GHCN et WMO. Le maximum observé est 21,67 jours/mois ; une borne terminale à 31 jours a été ajoutée pour respecter le maximum physique sans toucher aux couleurs 0–25. Voir `outputs/rapport-palette-jours-pluie.md`.
+1. Source datasets are downloaded and reduced to twelve monthly normals for 1991–2020.
+2. The rasters are converted to Cloud Optimized GeoTIFFs (COGs), aligned, and masked using the Copernicus DEM land/water mask.
+3. Each climate layer is rendered into a compact raster PMTiles archive for fast map display.
+4. MapLibre loads only the PMTiles ranges needed for the visible map.
+5. When the pointer moves over a location, the browser reads the corresponding COG byte ranges to obtain the numerical values.
 
-Les douze normales SARAH-3 d’ensoleillement sont produites et contrôlées au sud de 65° N. Le maximum terrestre atteint 404,4 h en juillet, mais seuls 0,103 % des pixels dépassent 400 h ; l’échelle 0–400 h est conservée. Le complément CERRA au nord de 65° N reste à produire.
+This separation keeps navigation responsive without deriving climate values from compressed map colors:
 
-Les 60 COG actuellement disponibles ont passé le contrôle complet de structure et d’intégrité SHA-256. Les 2 138 tuiles du masque WBM, soit environ 141 Mio, sont téléchargées et transformées en fractions terrestres alignées sur CHELSA, SARAH-3 et CERRA. Les 60 copies climatiques publiables sont masquées et leurs 60 archives PMTiles WebP sont générées : environ 76 Mio au total, avec un inventaire dans `outputs/inventaire-pmtiles-production.csv`. Les jours de pluie CERRA-Land sont téléchargés et assemblés progressivement ; les douze COG correspondants seront finalisés lorsque toutes les tuiles seront présentes.
+```text
+Source datasets
+      │
+      ▼
+1991–2020 monthly normals
+      │
+      ▼
+Masked and optimized COGs ─────► numerical values on hover
+      │
+      ▼
+Raster PMTiles ────────────────► fast map rendering
+```
 
-Période de référence : **1991–2020**. Une vue récente **1996–2025** sera étudiée séparément.
+The canonical definition of every layer lives in [`outputs/contrat-donnees-v1.json`](outputs/contrat-donnees-v1.json). The frontend and the PMTiles builder both read this manifest for layer availability, units, palettes, resolutions, zoom levels, storage scales, asset paths, and cache versions.
 
-## Sources candidates
+## Data sources
 
-- CHELSA Monthly V2.1 pour les températures et les précipitations mensuelles ;
-- CERRA et CERRA-Land pour la référence régionale, les jours de pluie et le complément nord ;
-- SARAH-3 pour la durée d’ensoleillement jusqu’à 65° N ;
-- Copernicus DEM GLO-30 pour le relief et l’altitude.
-- NOAA GHCN-Daily comme contrôle indépendant par stations.
-- normales WMO/NCEI 1991–2020 comme contrôle indépendant de l’ensoleillement nordique ainsi que des températures, précipitations et jours de pluie au Maroc.
+### Climate data
 
-Le traitement SARAH-3 est terminé : les 360 sommes mensuelles 1991–2020 de la commande CM SAF ont été contrôlées et transformées par `work/build_sarah_normals.py` en douze COG d’ensoleillement. Voir `outputs/guide-production-normales-sarah3.md`.
+- [CHELSA-monthly V2.1](https://www.chelsa-climate.org/datasets/chelsa_monthly) provides monthly temperature and precipitation at approximately 1 km resolution. The dataset is released under CC0 1.0.
+- [CM SAF SARAH-3](https://doi.org/10.5676/EUM_SAF_CM/SARAH/V003) provides satellite-derived sunshine duration on a 0.05° grid up to 65° N. CM SAF products are licensed by EUMETSAT under CC BY 4.0.
+- [CERRA-Land](https://cds.climate.copernicus.eu/datasets/reanalysis-cerra-land) is used for the rainy-day pipeline and validation. It is distributed through the Copernicus Climate Data Store under a CC BY licence.
 
-## Organisation
+### Geographic and map data
 
-- `outputs/` : rapport et résultats lisibles de l’étape 1 ;
-- `app/` : application cartographique React/Vite et instructions de lancement ;
-- `work/validation/` : scripts, données intermédiaires et caches de validation ;
-- `work/.venv/` : environnement Python local non versionné.
+- [Copernicus DEM GLO-30](https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM) supplies the WBM land/water mask used to remove marine pixels.
+- [OpenFreeMap](https://openfreemap.org/), [OpenMapTiles](https://openmaptiles.org/), and [OpenStreetMap](https://www.openstreetmap.org/copyright) provide the vector basemap.
+- [Mapzen Terrain Tiles on AWS](https://registry.opendata.aws/terrain-tiles/) provide the current hillshade layer.
 
-Les identifiants Copernicus restent dans le fichier privé `~/.cdsapirc` et ne sont jamais stockés dans ce dépôt.
+The complete attribution and licensing review is available in [`outputs/audit-licences-attributions.md`](outputs/audit-licences-attributions.md). Source datasets retain their own licences; publishing derived data does not replace those obligations.
 
-Le téléchargement reprenable se lance avec `work/run_overnight.py`. Il contrôle SARAH-3 et CHELSA, poursuit les précipitations quotidiennes CERRA-Land par tuiles terrestres de 0,5° (Canaries exclues), puis assemble automatiquement toutes les nouvelles tuiles reçues. Une réserve d’espace disque empêche le remplissage du volume local.
+## Interpreting the map
 
-Une fois CHELSA complet, `work/build_chelsa_normals.py --strict` produit les 48 COG mensuels 1991–2020 avec contrôle des trente années, conversion des unités, arrondi conforme au contrat et reprise automatique. Le processus est documenté dans `outputs/guide-production-normales-chelsa.md`.
+- These are thirty-year monthly averages, not forecasts and not guarantees for a future trip.
+- A 1 km or 5 km grid cell cannot represent every local microclimate.
+- Mountain valleys, slopes, and summits may have very different conditions inside the same coarse cell.
+- Coastal cells can mix land and water influences, even after the display mask is applied.
+- Sunshine coverage currently stops at 65° N; the planned CERRA complement for northern Europe is not yet part of the published layer.
+- Color scales are optimized for visual comparison. Values outside their terminal colors are preserved in the COG and remain available numerically.
 
-Les archives quotidiennes CERRA-Land sont traitées de façon incrémentale par `work/build_cerra_rainy_days.py`. La chaîne compte les jours avec au moins 1 mm année par année, reprend au niveau de chaque tuile et ne finalise les douze COG qu’une fois le domaine complet disponible. Voir `outputs/guide-production-jours-pluie.md`.
+## Technology
 
-La validation actuelle comprend les douze mois 1991–2020, un contrôle indépendant par stations GHCN-Daily, une comparaison annuelle CHELSA/CERRA-Land sur 14 points terrestres hors Canaries, cinq fenêtres température/relief couvrant Alpes, Pyrénées, Atlas, Tenerife et Tromsø, ainsi qu’un contrôle CERRA/WMO sur dix stations d’ensoleillement au nord de 65° N. Au Maroc, les normales WMO de 25 stations confirment CHELSA pour les températures et précipitations et CERRA-Land pour les jours de pluie ; Ifrane reste une exception liée au relief et Essaouira un cas côtier mixte. Le masque terre/mer retenu est le WBM du Copernicus DEM GLO-30. L’emprise native CERRA, exportée dans `outputs/emprise-cerra-officielle.geojson`, fixe la limite commune des couches hybrides. CERRA peut servir de complément nordique indicatif, mais la correction multiplicative unique a été rejetée ; la correction estivale des Canaries est documentée mais non prioritaire.
+- React 19 and TypeScript
+- Vite
+- MapLibre GL JS
+- PMTiles for compact raster map delivery
+- GeoTIFF.js for client-side COG reads
+- Tailwind CSS and shadcn-style UI components
+- Python, Rasterio, NumPy, Pillow, and PMTiles tooling for data preparation
 
-Attribution requise pour le relief adapté : « produced using Copernicus WorldDEM-30 © DLR e.V. 2010-2014 and © Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved ».
+## Repository structure
+
+```text
+app/                    React frontend
+outputs/                data contract, reports, inventories, and validation results
+work/                   download, processing, tiling, and validation scripts
+work/downloads/         local source downloads; ignored by Git
+work/derived/           generated COGs; ignored by Git
+work/tiles/             generated PMTiles; ignored by Git
+```
+
+Large climate files are intentionally not stored in Git.
+
+## Running the frontend locally
+
+Install a current Node.js LTS release, then:
+
+```bash
+cd app
+npm install
+npm run dev
+```
+
+The basemap loads without locally generated climate files, but the climate overlays and hover values require the expected data tree. If the pipeline outputs already exist under `work/`, create the development links from the repository root:
+
+```bash
+mkdir -p app/public/data
+ln -s ../../../work/tiles/1991-2020 app/public/data/1991-2020
+ln -s ../../derived/1991-2020-masked work/tiles/1991-2020/raw
+```
+
+Then open the URL printed by Vite, normally `http://127.0.0.1:5173/`.
+
+Useful frontend commands:
+
+```bash
+cd app
+npm run lint
+npm run build
+npm run preview
+```
+
+See [`app/README.md`](app/README.md) for frontend-specific details.
+
+## Rebuilding the climate data
+
+The processing scripts use a local Python environment under `work/.venv/`. Raw downloads, generated rasters, and tiles are resumable and excluded from Git because they are large.
+
+The main stages are:
+
+```text
+download source data
+  → build monthly normals
+  → build the WBM land mask
+  → apply the mask to climate COGs
+  → build the composite weather score
+  → render PMTiles archives
+  → validate COGs, PMTiles, and HTTP range delivery
+```
+
+Start with these documents:
+
+- [`outputs/guide-telechargement-nocturne.md`](outputs/guide-telechargement-nocturne.md)
+- [`outputs/guide-production-normales-chelsa.md`](outputs/guide-production-normales-chelsa.md)
+- [`outputs/guide-production-normales-sarah3.md`](outputs/guide-production-normales-sarah3.md)
+- [`outputs/guide-production-masque-wbm.md`](outputs/guide-production-masque-wbm.md)
+- [`outputs/plan-etape-2-architecture.md`](outputs/plan-etape-2-architecture.md)
+
+Some source services require free personal accounts and acceptance of their data terms. Credentials must remain in local configuration files such as `~/.cdsapirc` and must never be committed.
+
+## Validation
+
+The repository includes reproducible checks for source comparisons, mountain and coastal behavior, palette coverage, COG integrity, PMTiles rendering, and HTTP byte-range delivery.
+
+Recent delivery checks include:
+
+- [`outputs/comparaison-pixels-pmtiles-cog.md`](outputs/comparaison-pixels-pmtiles-cog.md): 51/51 sampled pixels consistent between COG-derived colors and PMTiles;
+- [`outputs/rapport-http-range.md`](outputs/rapport-http-range.md): successful partial reads for both PMTiles and COG files;
+- [`outputs/rapport-audit-grilles-production.md`](outputs/rapport-audit-grilles-production.md): production-grid and mask audit.
+
+## Project status
+
+The interactive map, six core layers, multilingual interface, local preference storage, hover inspection, hybrid basemap, and the main 1991–2020 data pipeline are operational.
+
+Work still in progress includes the complete rainy-day layer, northern sunshine coverage above 65° N, altitude in the hover panel, final production hosting, and further performance optimization.
+
+## Software licence
+
+A repository-wide software licence has not yet been added. Until one is provided, the source code is publicly visible but no general reuse licence is granted. Dataset and basemap licences are documented separately in the attribution audit.
